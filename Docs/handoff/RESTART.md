@@ -1,10 +1,11 @@
 # Resume after restarting Codex
 
-The functional commit `670b352156c0cdd044e9f211577741c1d0f7dfcc` was pushed
-to `tahoe/fix/synic-eom-cpu-affinity`. Subsequent source and CI corrections are
-committed and pushed through `0756f1d`; documentation/export work remains local.
-Read CODEX_HANDOFF.md for current build conclusions. Do not reset or clean the
-working tree. Targeted Git/network escalation works again after restart.
+The functional candidate with compile follow-ups is `0756f1d`, successfully built
+and observed at a live normal Tahoe login screen on test copies. Read
+TAHOE_BOOT_RESULT.md and UNATTENDED.md for exact inputs and limitations, then
+inspect actual Git status/history. Do not reset/clean the working tree or the
+ignored directory containing attached VM disk images. Automatic approval review
+works in the current session; existing target-VM authorization is documented.
 
 A fresh maintainer export and a local restart snapshot were created under
 `evidence/packages/` before restart. The restart snapshot includes tracked and
@@ -17,8 +18,14 @@ From a new PowerShell terminal:
 
 ```powershell
 Set-Location 'C:\DATA\VM\REPO\MacHyperVSupport-TAHOE\SOURCE'
-codex --sandbox workspace-write --ask-for-approval on-request resume --last
+codex.cmd resume --last --approve-for-me
 ```
+
+Do not combine --approve-for-me with -a/--ask-for-approval: the installed CLI
+rejects that combination. The .cmd entrypoint avoids the host's unsigned .ps1
+execution-policy problem without changing the policy. Automatic review is active
+in the current session and is not unrestricted approval of every possible action.
+Read UNATTENDED.md and TAHOE_BOOT_RESULT.md for the latest running-copy state.
 
 If the resumed session retains the old managed permissions, do not change
 Windows ACLs or disable protections. Inspect `/status` and the active permission
@@ -31,10 +38,12 @@ CODEX_HANDOFF.md und Docs/handoff/RESTART.md sowie die dort verlinkten Berichte.
 Erhalte alle uncommitted Änderungen und vorhandenen Backups. Prüfe Branch,
 Git-Status und den neuesten Actions-Lauf aus CODEX_HANDOFF.md. Halte
 Quellcode, CI und Dokumentation in getrennten Commits und führe den Build-Zyklus fort.
-Keine VM-, VHDX- oder Backup-Änderungen ohne meine ausdrückliche Freigabe.
-Melde einen Blocker sofort und sage klar, ob du angehalten hast.
+Ausschliesslich die autorisierte Test-VM srv-maos-devs11 bearbeiten; vorhandene
+Backups erhalten. Keine Loeschung/Formatierung oder andere VM bearbeiten.
+Lies UNATTENDED.md und TAHOE_BOOT_RESULT.md zuerst. Keine Rueckfragen oder
+Aufforderung zu weiter; bei laufender Installation warten. Serial-Logging
+pruefen. Nicht auf Originalplatten zurueckschreiben. Blocker sofort dokumentieren.
 ```
 
-Approval mode permits targeted requests; it does not grant every operation
-automatically. Persist only appropriately scoped command rules when offered.
+Automatic review can still reject actions; do not bypass security boundaries.
 Do not stage existing `.bak` files or generated package archives.

@@ -1,9 +1,11 @@
 # SynIC EOM CPU locality: candidate correction
 
-Status on 2026-10-24: candidate passes Debug/Release builds and analyses; first
-instrumented VM boot passes enumeration through APFS root. Stable runtime fix
-unconfirmed. The user subsequently authorized autonomous target-VM tests with
-serial capture. The test uses a separate EFI copy; original EFI is preserved.
+Status on 2026-10-24 17:22 UTC: candidate passes Debug/Release builds and analyses;
+an isolated copy reaches a live normal Tahoe login screen with all 14 channels
+and 24 matching-CPU EOM writes. Source is 0756f1d, build 40090495930. The successful
+boot profile adds -nobsdmgroot and removes -hvstormsgdbg; it does not prove original
+upgrade/migration completion or clean Release stability. Original system/EFI and
+backups are preserved. See TAHOE_BOOT_RESULT.md for exact inputs and evidence.
 
 ## Baseline and attribution
 

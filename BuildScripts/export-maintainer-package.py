@@ -20,6 +20,7 @@ SOURCE_PATHS = [
 WORKFLOW = '.github/workflows/main.yml'
 PROVENANCE = 'BuildScripts/record-provenance.sh'
 DOCS = [
+    'Docs/handoff/TAHOE_BOOT_RESULT.md',
     'CODEX_HANDOFF.md', 'PATCH_PLAN.md', 'REPRODUCE.md',
     'Docs/handoff/SYNIC_EOM_REPORT.md',
     'evidence/OBSERVATIONS.md', 'evidence/RESULTS_LOG.md',
@@ -34,7 +35,9 @@ DOCS = [
     'evidence/ci/boot-02-recovery-assessment.json',
     'evidence/ci/boot-03-0756f1d.json',
     'evidence/ci/boot-04-nobsdmgroot-observation.json',
+    'evidence/ci/boot-05-tahoe-login.json',
     'evidence/ci/run-40093339256-verified.json',
+    'evidence/ci/run-40101047189-verified.json',
 ]
 
 
@@ -172,7 +175,7 @@ def main():
         curated = curated.replace('srv-maos-devs11', '<test-vm>')
         target.write_bytes(curated.encode('utf-8'))
     (package / 'README.txt').write_text(
-        'EXPERIMENTAL SOURCE PACKAGE. NO CONFIRMED RUNTIME FIX.\n'
+        'EXPERIMENTAL SOURCE PACKAGE. RELEASE STABILITY NOT ESTABLISHED.\n'
         'Apply numbered patches in order to base ' + BASE + '.\n'
         '0003 is relative to diagnostic baseline ' + DEBUG_BASE + '.\n'
         'Source/CI working-tree differences, if any, are recorded in manifest.json.\n'
@@ -194,7 +197,7 @@ def main():
         'candidate_run_conclusion': args.build_conclusion,
         'tested_build_inputs_match_export': tested_inputs_match,
         'clean_patch_build_status': 'NOT ESTABLISHED BY THIS INSTRUMENTED BUILD',
-        'vm_test': 'See included runtime evidence; normal Tahoe login and release acceptance are not established',
+        'vm_test': 'See included runtime evidence: clone-only normal login screen observed; personal account login, original migration completion and release acceptance are not established',
         'normalized_source_sha256': hashes,
         'files_sha256': {
             path.relative_to(package).as_posix(): digest(path.read_bytes())

@@ -1,5 +1,15 @@
 # Tahoe SynIC development handoff
 
+CURRENT RESULT (2026-10-24 17:22 UTC): the VM has reached a live normal Tahoe
+password login screen on isolated system/EFI copies, using the 0756f1d binary.
+All 14 channels and 24 matching-CPU EOM writes observed. Read
+[TAHOE_BOOT_RESULT.md](Docs/handoff/TAHOE_BOOT_RESULT.md) and
+[UNATTENDED.md](Docs/handoff/UNATTENDED.md) FIRST; they supersede older operational
+status below. Original system is detached/preserved. Active disks are ignored
+local test files: never delete/move them or clean that directory while attached.
+Personal account login, original migration completion and release stability
+remain unverified. No password prompt to the absent user is required.
+
 Read [the technical report](Docs/handoff/SYNIC_EOM_REPORT.md),
 [observations](evidence/OBSERVATIONS.md), [results](evidence/RESULTS_LOG.md),
 [patch plan](PATCH_PLAN.md), and [reproduction procedure](REPRODUCE.md).

@@ -1,6 +1,6 @@
 {
   "observed_utc": "2026-10-24T16:59:24.148451+00:00",
-  "status": "IN PROGRESS",
+  "status": "INTERRUPTED ON TEST COPIES; GUI NOT CONFIRMED",
   "source": "0756f1d75601f0c24bce98ae4adf8c83ce6e3307",
   "build_run": 40090495930,
   "monterey_sha256": "38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9",
@@ -41,5 +41,10 @@
   "raw_prefix_bytes": 10498629,
   "raw_prefix_sha256": "2520c32378f2aeacd3d3f413c104ba842f3bfe3027bd49846a83f38f3c4bea49",
   "raw_log_published": false,
-  "limitation": "Original migration completion not established; this clone-only diagnostic is not production acceptance"
+  "limitation": "Original migration completion not established; this clone-only diagnostic is not production acceptance",
+  "final_stop_utc": "2026-10-24T17:15:09Z",
+  "stop_method": "user-authorized hard stop after graceful shutdown failed: hvshutdownd absent",
+  "final_raw_log_bytes": 37702368,
+  "final_raw_log_sha256": "bab00c5a09836e2f3a406847e3e492a5c542e7123767ba544e20d6af352552b2",
+  "original_system_unchanged": true
 }

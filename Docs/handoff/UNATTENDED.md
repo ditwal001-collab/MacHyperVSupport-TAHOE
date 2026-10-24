@@ -1,5 +1,73 @@
 # Current state before unattended continuation
 
+## 2026-10-24 17:22 UTC: CONFIRMED LIVE NORMAL TAHOE LOGIN SCREEN
+
+Successful copy-only boot using EFI.no-storage-packets.vhdx + System.test.vhdx.
+Normal password login screen independently viewed at 17:19:29 UTC and 17:22:06;
+clock advanced 10:19 -> 10:22. No Recovery controls. Darwin 25.6.0; System version
+previously read as 26.7.1 / 25G241. Personal account login / runtime sw_vers NOT run.
+All 14 channels, 24 fully parseable EOM writes, ZERO CPU mismatches, no captured
+panic/root wait or BaseSystem pivot. PID 46464 verified alive at final checks.
+Same 0756f1d/run40090495930 binary; config hash 32be11f9...e39caf8f (full hash below).
+Read TAHOE_BOOT_RESULT.md and evidence/ci/boot-05-tahoe-login.json for provenance.
+Keep the VM running at its login screen; do not request the absent user's password.
+Do not promote the bypass profile to the original system: migration completion
+and clean Release stability are NOT established. Original system/EFI/backups
+remain preserved. Active ignored test disks MUST NOT be moved/deleted/cleaned.
+Graphics-hypothesis binary remains UNINSTALLED; live GUI refresh works without it.
+PrintWindow VMConnect capture produced a garbled client image while the separate
+Hyper-V thumbnail showed a valid live login GUI; neither capture path alone is
+a sufficient basis to diagnose graphics failure from an anomalous image.
+
+## 2026-10-24 17:18 UTC: low-packet comparison RUNNING (current state)
+
+After >20 minutes without confirmed GUI, graceful shutdown was unavailable
+(missing hvshutdownd). The user-authorized copy-only diagnostic run was therefore
+HARD STOPPED at 17:15:09 UTC, with explicit guards proving only the two test copies
+were attached and the hash-verified cold original was detached. No forced stop
+of the original disk, other VM, deletion or formatting occurred. The prior full
+raw capture is preserved; this interruption is not an OS crash or a successful boot.
+
+New EFI copy EFI.no-storage-packets.vhdx was exclusively copied/hash-verified
+from the prior EFI, mounted only detached/Off, and changed ONLY by removing
+`-hvstormsgdbg`. Serial, SynIC diagnostics, -nobsdmgroot and the same 0756f1d Debug
+binary are retained. Other plist values compare equal. New config SHA256:
+`32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f`.
+Host unmounted before attachment. VM now runs this new EFI at SCSI 0:0 and the
+same System.test.vhdx at SCSI 0:1. All earlier EFI variants remain preserved.
+Receiver PID 46464 checked before start; inspect newest reconnect log for path.
+See copy-only-hard-stop.json, quiet-efi-context.json, quiet-config-change.json,
+quiet-boot-plan.json locally. Original system remains detached and unchanged.
+The working system copy has already booted and may replay its journal; cold-copy
+CF92... describes initial equality before first use, not its current file hash.
+Timing is confounded by warmed caches/state and journal replay: a faster boot
+alone cannot prove packet logging was the only original installer problem.
+
+## 2026-10-24 17:12 UTC: normal-mode attempt still RUNNING; graceful shutdown unavailable
+
+Same copy-only boot remains active. It reached normal launchd early-boot completion,
+mounted Data/Cryptexes and started coreservicesd plus additional system services.
+No confirmed GUI/login, BaseSystem pivot, migration-mode marker, panic or root wait.
+Dense storage traffic persists (246575 of 249442 lines at one checkpoint), with
+15-second APFS iterator limits, long transaction/flush times and kernelmanagerd
+registry-busy timeouts. Logging overhead is a plausible contributor, not proven
+as the sole cause. Source confirms -hvstormsgdbg enables the RAW packet IOLog flood;
+removing just this argument would retain controller/SynIC diagnostics.
+
+Host Stop-VM was attempted ONLY as graceful guest shutdown, without Force/TurnOff.
+It FAILED 0x80004005. Serial explicitly states HyperVShutdown::checkShutdown():
+"Unable to request shutdown (shutdown daemon is not running)". Host rechecked
+Running state and both test-copy attachments. No forced stop/reset occurred.
+Do not assume an integration-service status of OK proves hvshutdownd is running.
+The lower-packet-verbosity comparison is NOT started. Continue observing current
+boot or use a genuinely available guest shutdown path before another disk change.
+
+Existing VMConnect window can now be read directly via a scoped local helper,
+evidence/local-tests/capture-target-vmconnect.py. It captures only windows whose
+title contains the authorized VM. At 17:03 the real window still showed the early
+kernel console, matching WMI; stale display cannot currently be blamed on WMI alone.
+These private images include host window titles and MUST remain excluded from Git.
+
 ## 2026-10-24 16:51 UTC: isolated copy boot RUNNING (current state)
 
 Full system copy passed SHA256 equality:

@@ -56,6 +56,39 @@ start remain observed facts; installed Tahoe volume state is still unknown.
 
 ## Additional verified observations
 
+2026-10-24 17:19:29 and 17:22:06 UTC: CONFIRMED normal Tahoe login GUI on the
+isolated system/EFI copies, with clock advancing between independent console
+captures. Darwin 25.6.0; version previously read from the same System snapshot
+as 26.7.1 / 25G241. Personal account login and runtime sw_vers not performed.
+Source `0756f1d`, run `40090495930`, Debug Monterey SHA256
+`38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9`.
+EFI config SHA256 `32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f`.
+All 14 channels, 24/24 parseable EOM writes matching CPU 0, zero raw storage
+packet lines and no captured panic/root wait/BaseSystem pivot. Serial receiver
+alive. Evidence: ci/boot-05-tahoe-login.json and private image/raw prefix hashes.
+
+This follows deliberate hard stop of the prior copy-only boot at 17:15:09,
+after >20 minutes without GUI and a failed graceful shutdown (daemon absent).
+That interrupted capture is preserved and explicitly marked NOT a successful
+boot. Another exclusive EFI copy removed only -hvstormsgdbg while retaining
+serial/SynIC diagnostics and -nobsdmgroot. Same system working copy was reused,
+so caches, state and possible journal replay confound timing comparisons.
+Original cold system and earlier EFI variants remain unchanged/detached. No
+claim of original upgrade completion, clean Release validation or stable release.
+Graphics-hypothesis binary remains uninstalled; login clock refresh works without it.
+
+2026-10-24 17:12 UTC: the copy-only normal-mode boot continues; early boot
+completed and coreservicesd/additional services started. GUI/login not proved.
+Observed APFS long-transaction/15-second-iterator messages and kernelmanagerd
+busy timeouts. At one prefix checkpoint 246575/249442 lines were storage packet
+prints. Logging overhead is a hypothesis; no comparison boot was performed.
+Attempted graceful Stop-VM (no Force/TurnOff) FAILED 0x80004005. Serial explicitly
+identifies missing shutdown daemon; the target remains Running on the two copies.
+Original disks remain detached. No forced lifecycle action, packet-verbosity
+change or graphics binary change occurred. See local graceful-shutdown-request.json
+and current raw capture. Direct target VMConnect capture at 17:03 showed early
+kernel console too; WMI alone is not established as the stale-image cause.
+
 2026-10-24 16:51 UTC: isolated copy-only normal-boot experiment started after
 graceful shutdown and matching cold System/EFI copy hashes. Original system disk
 and prior EFI are detached/preserved. Same source `0756f1d`, run `40090495930`,
@@ -109,13 +142,16 @@ under the existing vm-test directory. Latest handoff: Docs/handoff/UNATTENDED.md
 
 - Wrong-CPU EOM may leave CPU 0's queued offers undelivered and cause storage
   enumeration to stall. Correlation in the supplied excerpts is not causality.
-- Binding followed by a scheduler switch should correct CPU locality. It needs
-  compilation, symbol/export checks and runtime validation on the target OS.
+- Binding plus scheduler switch is supported by source inspection, successful
+  compilation/import checks and the captured CPU-local writes. Broader CPU
+  topology, repeated boots and clean Release runtime behavior remain unverified.
 
 ## Confirmed fixes
 
-The first instrumented candidate boot confirms CPU-local EOM for its 21
-observed writes and successful enumeration through APFS root. This is a
-single-run observation, not a confirmed stable Tahoe boot fix or release
-acceptance. Full installer/login completion, repeated boots and a clean release
-comparison remain pending.
+Compiler/API follow-up is confirmed by successful Debug/Release builds and
+analysis. The specific wrong-CPU EOM sequence is corrected in recorded calls,
+including target 0 / entry CPU 4 / pending 1 followed by actual CPU 0 in boot 1.
+The latest login-screen boot adds 24 matching-CPU writes and all 14 channels.
+This establishes observed CPU-local behavior and a normal GUI start on a copy,
+not a stable release or original migration-completion claim. Repeated and clean
+Release runtime tests and a personal user-session/version check remain pending.
