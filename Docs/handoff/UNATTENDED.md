@@ -1,5 +1,36 @@
 # Current state before unattended continuation
 
+## 2026-10-24 16:51 UTC: isolated copy boot RUNNING (current state)
+
+Full system copy passed SHA256 equality:
+`CF92F837363108774D5E507966625A472C0FD315282F1B18B04074C6E81DE9B1`.
+Original system VHDX is DETACHED and unchanged since graceful shutdown.
+VM now uses BOTH new copies from
+`evidence/local-tests/system-boot-selection-20261024T164253Z/`:
+EFI.boot-selection.vhdx at SCSI 0:0, System.test.vhdx at SCSI 0:1.
+Do not move/delete either while attached. Previous EFI test image and original
+host EFI remain detached/preserved. New EFI was separately copied/hash-verified,
+then host-mounted only while VM Off and detached. Original config bytes backed
+up exclusively. Only boot-args gained `-nobsdmgroot`; semantic plist comparison
+confirms all other values equal. Kext hash remains 38bf5d6d...f4ffec9.
+New config SHA256: `b8384af04dad0aabb71048d9b0f35242e6f3bd413d096cfa5bf74b568e53bff1`.
+The new EFI was host-unmounted before attachment; target UEFI FirstBootDevice
+was set to this verified EFI, avoiding its previous Network-first priority.
+This boot-selection change is separate from the SynIC patch/runtime comparison.
+
+Serial receiver PID 46464 automatically reconnected. New capture:
+serial-reconnect-02/serial-20261024T165127Z-221c41db.log in the original test dir.
+Darwin 25.6.0 boot and CPU-local EOM writes observed; later root/login outcome
+PENDING. WMI thumbnail still showed OpenCore menu while serial already showed
+kernel/device boot: remember thumbnails can be stale. Do not send blind keys.
+
+XNU bsd_init.c confirms `-nobsdmgroot` overrides `-bsdmgroot` in
+bsdmgroot_bootable(). This is an isolated attempt to bypass BaseSystem pivot,
+not proof of completed installation or a proposed production migration fix.
+Source: https://github.com/apple-oss-distributions/xnu/blob/main/bsd/kern/bsd_init.c
+Private cold-copy, EFI/config/attachment/boot provenance is in context.json,
+efi-context.json, config-change.json, attached-copies.json and boot-plan.json.
+
 ## 2026-10-24 16:43 UTC: VM OFF, cold system copy IN PROGRESS
 
 Guest `shutdown -h now` completed from idle Recovery; host confirmed Off.

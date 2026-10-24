@@ -98,4 +98,4 @@ HyperVController::sendSynICEOM(): TAHOE-SYNIC: targetCPU=0 currentCPU=6 pending=
 HyperVController::sendSynICEOM(): TAHOE-SYNIC: targetCPU=0 currentCPU=6 pending=0
 HyperVController::sendSynICEOM(): TAHOE-SYNIC: targetCPU=0 currentCPU=0 pending=0
 HyperVController::sendSynICEOM(): TAHOE-SYNIC: targetCPU=0 currentCPU=0 pending=0
-APFS root device resolved; IOService path omitted.
+Recovery BaseSystem disk-image root resolved; installed APFS system root NOT established.

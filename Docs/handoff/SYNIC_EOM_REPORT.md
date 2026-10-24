@@ -257,3 +257,27 @@ investigation; no reinstall or destructive Recovery operation was performed.
 The second root-device path is IOHDIX/BaseSystem (disk-image/RAM-backed), not
 the installed system's APFS root. Earlier generic root-device detection must
 not be interpreted as successful startup of the installed Tahoe volume.
+
+## Third capture and separate installer investigation
+
+The third capture uses the same 0756f1d binary/configuration, Darwin 25.6.0.
+All 14 channels enumerate and 23 EOM writes have matching target/actual CPU 0;
+no panic or root-wait marker is present. The kernel first accesses the APFS
+System snapshot, then authenticates and pivots into Recovery/BaseSystem.dmg.
+Userspace explicitly detects migration mode and starts templateMigrator.
+This is a Tahoe installer/migration boot, not installed-system login. See
+evidence/ci/boot-03-0756f1d.json for the immutable raw-log digest and counters.
+
+OSInstaller triggers reboot at 15:19:09. The subsequent responsive console is
+Darwin 24.4.0 Sequoia Recovery. The selected Preboot CoreServices Boot.plist
+contains `-bsdmgroot`; the SystemConfiguration plist has empty Kernel Flags.
+NVRAM does not contain that argument, recovery-boot-mode or efi-boot-next.
+This explains BaseSystem selection but does not establish why migration did
+not complete. Error-string searches and the one-hour interval do not prove a
+timeout cause. Bypassing migration on the original disk is not a validated fix.
+
+An authorized isolated follow-up therefore preserves the original system disk
+while preparing a hash-verified full copy after graceful guest shutdown. It is
+a separate boot-selection/installer experiment and must not be counted as a
+SynIC source comparison or installation success. Current operational status
+and safety guards are in UNATTENDED.md and the local experiment context.

@@ -32,6 +32,8 @@ DOCS = [
     'evidence/ci/boot-02-0756f1d.json',
     'evidence/ci/boot-02-0756f1d-sanitized.txt',
     'evidence/ci/boot-02-recovery-assessment.json',
+    'evidence/ci/boot-03-0756f1d.json',
+    'evidence/ci/run-40093339256-verified.json',
 ]
 
 
@@ -191,7 +193,7 @@ def main():
         'candidate_run_conclusion': args.build_conclusion,
         'tested_build_inputs_match_export': tested_inputs_match,
         'clean_patch_build_status': 'NOT ESTABLISHED BY THIS INSTRUMENTED BUILD',
-        'vm_test': 'NOT RUN',
+        'vm_test': 'See included runtime evidence; normal Tahoe login and release acceptance are not established',
         'normalized_source_sha256': hashes,
         'files_sha256': {
             path.relative_to(package).as_posix(): digest(path.read_bytes())
