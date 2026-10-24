@@ -68,10 +68,22 @@ limit is 32x32. No arbitrary cursor-size/protocol change has been made.
 Separate branch `fix/tahoe-refresh-pacing`, commit
 `e17098263de44ac71251bcd31caea999e050221e`, changes only the refresh interval
 from 10 to 33 ms (approximately 30 Hz). Run `40124452997` is the comparison build.
-It is not installed or runtime validated at this report checkpoint. SynIC, mouse
-input handling and cursor code remain unchanged. Do not label this a confirmed
-mouse fix before comparison.
+Debug/Release and Clang analyses passed; hashes are independently verified in
+evidence/ci/run-40124452997-verified.json. Another exclusive EFI copy was prepared
+with only its executable changed, preserving the same config and previous image.
+The prior copy-only run was interrupted after Setup Assistant remained in a
+processing pane and regular exit/navigation/lock/quit attempts did not provide
+a graceful exit. That interruption and possible journal/state effects are logged;
+it is not a successful completion of setup.
 
-Active EFI: ignored local `display-refresh-test-20261024-01/EFI.display-refresh.vhdx`
+The new boot at 19:39:24 UTC waits at a native pre-kernel password/unlock screen.
+No new kernel serial output is present; the candidate is staged but not runtime
+validated. Local user entry is required. SynIC, mouse input handling and cursor
+code remain unchanged. Do not label this a confirmed mouse fix before comparison.
+See evidence/ci/display-02-pacing-pending.json. The cursor diagnostic text is not
+present in the inspected Monterey binary; the separately loaded framebuffer
+module's actual binary/version still needs guest inspection.
+
+Active EFI: ignored local `display-pacing-test-20261024-01/EFI.refresh-pacing.vhdx`
 at SCSI 0:0. Same System.test.vhdx remains at SCSI 0:1. Never move/delete these
 attached files. Operational details are in UNATTENDED.md and local context JSON.

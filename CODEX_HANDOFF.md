@@ -1,5 +1,12 @@
 # Tahoe SynIC development handoff
 
+CURRENT BLOCKER (2026-10-24 19:44 UTC): 33-ms pacing candidate e170982/run40124452997
+passed all build/analysis/hash checks and is staged on another EFI copy, but VM
+waits at a local pre-kernel unlock screen. No new kernel output/mouse improvement
+is proved. Local password entry in the VM is necessary; do not request it in chat.
+Read latest UNATTENDED.md and GRAPHICS_REFRESH_REPORT.md. Earlier 3d31e11 restored
+visible input but mouse movement was slow; no stable mouse fix is established.
+
 LATEST (2026-10-24 19:20 UTC): user testing exposed frozen VMConnect output despite
 fresh WMI previews. Separate startergo refresh backport 3d31e11/run40101047189 is
 now installed on another EFI copy and user confirms input working; Setup Assistant

@@ -1,5 +1,44 @@
 # Current state before unattended continuation
 
+## 2026-10-24 19:44 UTC: local pre-kernel unlock required (current blocker)
+
+The 33-ms candidate is installed on new EFI.refresh-pacing.vhdx and the VM is
+RUNNING, but a native macOS pre-kernel password/unlock screen is waiting for
+local user entry. It has a Lake background and Recovery help text; no new kernel
+serial bytes were captured. Do not infer a successful new kernel boot or a mouse
+improvement. Actual FileVault state has not been re-queried, so do not claim its
+configuration changed merely from the appearance of this screen.
+Active EFI:SCSI0:0=evidence/local-tests/display-pacing-test-20261024-01/EFI.refresh-pacing.vhdx.
+Active system:SCSI0:1=existing System.test.vhdx. Original disks remain detached.
+Source e170982/run40124452997 SUCCESS; Debug hash803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888.
+Config unchanged32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Receiver PID46464 preserved. User was informed local unlock is necessary; no
+password requested in chat. Evidence:ci/display-02-pacing-pending.json.
+Once local unlock occurs, verify the new serial capture and actual GUI before
+claiming the pacing comparison ran. Keep the current waiting VM intact.
+
+## 2026-10-24 19:39 UTC: pacing comparison starting
+
+Run40124452997 fully SUCCESS, Debug/Release and analyses. Package and executable
+hashes verified in evidence/ci/run-40124452997-verified.json. Source e17098263de44ac71251bcd31caea999e050221e.
+Only source difference vs 3d31e11: refresh timer10 ->33ms, unchanged SynIC/mouse/cursor.
+Guest remained in a processing Setup Assistant pane with disabled Continue;
+Back/regular quit/lock/quit-dialog attempts did not provide a graceful exit.
+The user-authorized diagnostic was interrupted by hard stop ONLY after confirming
+both disks were working copies and the original cold recovery point was preserved.
+Record is local display-pacing-test-20261024-01/stop-context.json. This is NOT a
+normal shutdown or proof of completed setup; journal replay/state confound tests.
+
+New exclusive EFI copy, hash-verified before editing, edited only detached/Off,
+host-unmounted before attachment:
+evidence/local-tests/display-pacing-test-20261024-01/EFI.refresh-pacing.vhdx at SCSI0:0.
+Same System.test.vhdx remains SCSI0:1. All older EFI variants preserved.
+New Debug executable SHA256:803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888.
+Config unchanged:32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+PID46464 checked before boot. Exact boot UTC in local boot-plan.json.
+Next: inspect newest serial reconnect and actual GUI. Mouse improvement is still
+UNPROVEN; hardware cursor conversion issue remains a distinct unresolved finding.
+
 ## 2026-10-24 19:20 UTC: refresh fix observed; mouse-performance comparison building
 
 User reports input now working after separate graphics refresh binary installed;

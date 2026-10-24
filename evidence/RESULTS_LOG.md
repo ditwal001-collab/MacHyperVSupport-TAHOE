@@ -56,6 +56,18 @@ start remain observed facts; installed Tahoe volume state is still unknown.
 
 ## Additional verified observations
 
+2026-10-24 19:39:24 UTC pacing attempt: source e170982, run40124452997 SUCCESS
+(Debug/Release and Clang). New executable SHA256
+803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888;
+same config32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Only core refresh interval changes10 ->33ms; SynIC/mouse/cursor source unchanged.
+Prepared new exclusive EFI after prior copy-only run was deliberately interrupted
+when Setup Assistant regular exit/navigation attempts did not provide shutdown.
+Original cold system/EFI and all variants remain preserved. Current VM waits
+at a native pre-kernel local unlock screen; new kernel serial file has zero bytes.
+Runtime/pointer improvement UNKNOWN. This is a credential blocker, not a compiler
+failure or a proven pacing regression. Evidence:ci/display-02-pacing-pending.json.
+
 2026-10-24 19:01 UTC scope correction: current direct framebuffer showed 12:01
 and changed masked input; the interactive VMConnect client stayed at 11:57.
 Prior WMI login evidence proved a running framebuffer, not usable client refresh.

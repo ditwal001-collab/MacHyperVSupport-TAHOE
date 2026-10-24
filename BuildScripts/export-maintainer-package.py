@@ -38,6 +38,8 @@ DOCS = [
     'evidence/ci/boot-04-nobsdmgroot-observation.json',
     'evidence/ci/boot-05-tahoe-login.json',
     'evidence/ci/display-01-3d31e11.json',
+    'evidence/ci/display-02-pacing-pending.json',
+    'evidence/ci/run-40124452997-verified.json',
     'evidence/ci/run-40093339256-verified.json',
     'evidence/ci/run-40101047189-verified.json',
 ]
@@ -183,6 +185,8 @@ def main():
         'Source/CI working-tree differences, if any, are recorded in manifest.json.\n'
         'Alternative: apply ONLY synic-functional-clean.patch for the source fix\n'
         'without diagnostics on the same base (CI patches can be added separately).\n'
+        'Graphics reports describe separate branches, not extra changes in this CPU patch series.\n'
+        'Use export-graphics-comparison.py for the optional refresh/pacing patches.\n'
         'Read documentation/REPRODUCE.md and SYNIC_EOM_REPORT.md before building.\n'
         'No raw logs, machine configuration, credentials or Git author metadata included.\n',
         encoding='utf-8')

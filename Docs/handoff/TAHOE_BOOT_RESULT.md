@@ -5,6 +5,8 @@ did not prove a usable VMConnect client. A later client-freeze test and separate
 graphics correction recovered visible input; VMConnect then showed post-login
 Setup Assistant. Slow pointer movement remains under investigation. Read
 GRAPHICS_REFRESH_REPORT.md and the latest UNATTENDED.md before using old status.
+Latest pacing candidate e170982 passed build/hash checks and is staged, but its
+boot waits at a local pre-kernel unlock screen. No mouse improvement is proved.
 
 At 17:19:29 UTC the target VM reached the normal user password login screen.
 A second read-only Hyper-V console capture at 17:22:06 showed the clock advance
@@ -71,11 +73,13 @@ is documented in GRAPHICS_REFRESH_REPORT.md.
 
 ## Preservation and current VM attachments
 
-The VM runs exclusively on files under the ignored local experiment directory
-`evidence/local-tests/system-boot-selection-20261024T164253Z/`:
+After later graphics comparisons the active ignored local attachments are:
 
-- SCSI 0:0: `EFI.no-storage-packets.vhdx`.
-- SCSI 0:1: `System.test.vhdx`.
+- SCSI 0:0: `evidence/local-tests/display-pacing-test-20261024-01/EFI.refresh-pacing.vhdx`.
+- SCSI 0:1: `evidence/local-tests/system-boot-selection-20261024T164253Z/System.test.vhdx`.
+
+The earlier successful-login EFI.no-storage-packets.vhdx remains preserved,
+detached. Current local unlock/runtime-validation status is in UNATTENDED.md.
 
 Never delete/move these while attached; do not run workspace cleanup against
 the ignored test directory. The original system disk is detached; its cold

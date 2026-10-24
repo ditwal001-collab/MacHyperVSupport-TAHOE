@@ -1,0 +1,17 @@
+{
+  "run": 40124452997,
+  "source": "e17098263de44ac71251bcd31caea999e050221e",
+  "configurations": [
+    {
+      "configuration": "Debug",
+      "package_sha256": "85add5e316c4eaf7bb4d511a7b2e594255fb9b2a41a62ce31e6755f4d7e4bb17",
+      "monterey_sha256": "803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888"
+    },
+    {
+      "configuration": "Release",
+      "package_sha256": "0023db42073ec679fff18ec5e5a03c42972fe71d7f433329907fc1bbfe4ea8ef",
+      "monterey_sha256": "7e21215cb13f76dc7ba9a1458070efeb8f6495d12862ba540f5375f3460297e6"
+    }
+  ],
+  "runtime": "NOT TESTED"
+}
