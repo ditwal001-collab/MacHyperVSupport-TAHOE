@@ -7,3 +7,7 @@ xcshareddata
 Lilu.kext
 /MacKernelSDK
 /clang32
+/Lilu-SDK.zip
+/provenance/
+/evidence/packages/
+/evidence/local-tests/

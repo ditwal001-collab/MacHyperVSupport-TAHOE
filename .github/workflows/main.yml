@@ -23,19 +23,34 @@ jobs:
         with:
           repository: acidanthera/MacKernelSDK
           path: MacKernelSDK
+          ref: 3f750085caa17ec3a7880f11c11bf4f48cd6a164
       - name: CI Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/ci-bootstrap.sh) || exit 1
+          src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
+          src=${src//acidanthera\/ocbuild\/master\//acidanthera\/ocbuild\/020b14fa68a9825642e0c0fb643c2963bd679ae3\/}
+          eval "$src" || exit 1
       - name: macOS 10.13 SDK Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
       - name: Lilu Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval "$src" || exit 1
+          /usr/bin/curl -LfsS -o Lilu-SDK.zip https://github.com/acidanthera/Lilu/releases/download/1.7.2/Lilu-1.7.2-DEBUG.zip
+          echo 'e95df95d82e8b151047abf359ecd9c853755c59293e19dfcc3907da8fbd8cf89  Lilu-SDK.zip' | shasum -a 256 -c -
+          unzip -q Lilu-SDK.zip
 
       - run: xcodebuild -jobs 1 -target "Package Universal" -configuration Debug -arch ACID32 -arch x86_64
       - run: xcodebuild -jobs 1 -target "Package Universal" -configuration Release -arch ACID32 -arch x86_64
 
+      - name: Record build provenance
+        if: always()
+        run: bash BuildScripts/record-provenance.sh
+      - name: Upload provenance
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Provenance
+          path: provenance/
       - name: Upload to Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -61,15 +76,21 @@ jobs:
         with:
           repository: acidanthera/MacKernelSDK
           path: MacKernelSDK
+          ref: 3f750085caa17ec3a7880f11c11bf4f48cd6a164
       - name: CI Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/ci-bootstrap.sh) || exit 1
+          src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
+          src=${src//acidanthera\/ocbuild\/master\//acidanthera\/ocbuild\/020b14fa68a9825642e0c0fb643c2963bd679ae3\/}
+          eval "$src" || exit 1
       - name: macOS 10.13 SDK Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
       - name: Lilu Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval "$src" || exit 1
+          /usr/bin/curl -LfsS -o Lilu-SDK.zip https://github.com/acidanthera/Lilu/releases/download/1.7.2/Lilu-1.7.2-DEBUG.zip
+          echo 'e95df95d82e8b151047abf359ecd9c853755c59293e19dfcc3907da8fbd8cf89  Lilu-SDK.zip' | shasum -a 256 -c -
+          unzip -q Lilu-SDK.zip
 
       - run: xcodebuild analyze -quiet -target "Package Universal" -configuration Debug -arch ACID32 -arch x86_64 CLANG_ANALYZER_OUTPUT=plist-html CLANG_ANALYZER_OUTPUT_DIR="$(pwd)/clang-analyze" && [ "$(find clang-analyze -name "*.html")" = "" ]
       - run: xcodebuild clean -quiet -scheme "Package Universal"
@@ -87,19 +108,25 @@ jobs:
         with:
           repository: acidanthera/MacKernelSDK
           path: MacKernelSDK
+          ref: 3f750085caa17ec3a7880f11c11bf4f48cd6a164
       - name: CI Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/ci-bootstrap.sh) || exit 1
+          src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
+          src=${src//acidanthera\/ocbuild\/master\//acidanthera\/ocbuild\/020b14fa68a9825642e0c0fb643c2963bd679ae3\/}
+          eval "$src" || exit 1
       - name: macOS 10.13 SDK Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
       - name: Lilu Bootstrap
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/Lilu/master/Lilu/Scripts/bootstrap.sh) && eval "$src" || exit 1
+          /usr/bin/curl -LfsS -o Lilu-SDK.zip https://github.com/acidanthera/Lilu/releases/download/1.7.2/Lilu-1.7.2-DEBUG.zip
+          echo 'e95df95d82e8b151047abf359ecd9c853755c59293e19dfcc3907da8fbd8cf89  Lilu-SDK.zip' | shasum -a 256 -c -
+          unzip -q Lilu-SDK.zip
 
       - name: Run Coverity
         run: |
-          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/coverity/covstrap.sh) && eval "$src" || exit 1
+          src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/020b14fa68a9825642e0c0fb643c2963bd679ae3/coverity/covstrap.sh) && eval "$src" || exit 1
         env:
           COVERITY_SCAN_TOKEN: ${{ secrets.COVERITY_SCAN_TOKEN }}
           COVERITY_SCAN_EMAIL: ${{ secrets.COVERITY_SCAN_EMAIL }}
