@@ -1,5 +1,14 @@
 # Tahoe SynIC development handoff
 
+IMPORTANT live-log correction: Windows directory listings reported stale zero
+sizes for the open capture. Actual handle-based read confirms current boot data:
+16 matching-CPU EOM writes,7 cursor conversion failures, no panic/root-wait in
+bounded prefix. Use BuildScripts/snapshot-serial-log.py, not Get-ChildItem Length
+as liveness proof. Guest Tahoe26.7.1/25G241 is verified. Cursor installer rolled
+back safely because KDK missing; matching Apple-signed KDK now verified/mounted,
+but local sudo auth expired and sudo -s waits for LOCAL password. No commands
+while password prompt. Read latest UNATTENDED.md; no cursor fix claimed.
+
 LATEST cursor work: candidate c9eb980 on test/tahoe-software-cursor passed
 CI40139181101 Debug/Release and analyses; downloaded binary/ZIP hashes verified
 in evidence/ci/run-40139181101-verified.json. NOT installed or runtime validated.

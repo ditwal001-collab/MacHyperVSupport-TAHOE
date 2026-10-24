@@ -1,5 +1,74 @@
 # Current state before unattended continuation
 
+## Live serial corrected; KDK signature verified; sudo-shell prompt pending
+
+At23:32 UTC actual read handle length325821 despite Get-ChildItem showing0.
+At23:33:58 UTC bounded prefix327363 bytes confirms capture is growing.
+Snapshot helper result local-tests/cursor-media-20261025-03/serial-snapshots/
+serial-prefix-20261024T233358Z-4c9948f3.json and .log, SHA256
+7df624de71f9ba7fd42edb041ca5de1f4bd51925593c1f3d5ef3b3e042877408:
+16 COMPLETE EOM writes all matching CPUs,7 cursor conversion failures,0 panic,
+0 root wait,0 software-cursor activation. Prior empty-log conclusions from
+directory entries are SUPERSEDED; no missing-boot evidence claim is justified.
+Use BuildScripts/snapshot-serial-log.py (reads file handle and preserves bounded
+prefix). Microsoft explains stale directory metadata for open writers:
+https://devblogs.microsoft.com/oldnewthing/20111226-00/?p=8813
+
+KDK pkgutil check completed: signed Apple Software; Software Update -> Apple
+Software Update Certification Authority -> Apple Root CA. Valid future expiry.
+Guest pkg installer -n failed because sudo authentication expired (no install).
+Agent opened sudo -s; currently WAITING AT LOCAL PASSWORD PROMPT. No guest input
+until prompt gone. Once local authentication completes, stable root shell avoids
+repeated sudo expiry WITHOUT changing sudo/security settings. Then install signed
+KDK with installer -pkg "/Volumes/Kernel Debug Kit/KernelDebugKit.pkg" -target /,
+inspect successful result, run bash /Volumes/HVCURSORTEST/Install.command, inspect
+cache result. Close root shell when work complete. Candidate still not active.
+
+Client clarification: earlier conditional Stop-Process did not reliably remove
+old clients (PID49244 was still listed). At23:30 agent explicitly stopped ONLY
+all verified target vmconnect clients and opened one new target window via actual
+host name. Capture now black rather than Connecting; may be client/D3D capture
+limitation. Do not infer guest failure: independent WMI native-size images show
+live desktop/advancing clock/Terminal password prompt. No VM restart.
+
+## Installer rollback and KDK diagnosis, 23:26 UTC
+
+Local sudo authentication succeeded. First Install.command attempt could not
+read stale DVD contents; no module change. Unmount/remount and same-size ISO04
+did not resolve stale device metadata. Removing ONLY own unmounted DVD slot0:2
+and adding ISO03 as fresh DVD0:3 succeeded. Installer hash verified IN GUEST:
+e2e5a6b6026b218aa309caf8532e42f083534f253b1047292d6a361e058e7856.
+Installer then backed up original at /Users/Shared/HVCursorBackup-20261024T231512Z-863,
+verified hashes, briefly installed candidate, but kmutil --update-all FAILED:
+missing KDK25G241. Script restored original bundle and verified original hash.
+NO REBOOT or boot-flag change has occurred. Need review successful cache update
+before any reboot. Installed on-disk/currently loaded module remains original0.9.9.
+
+Private Aux-only probe01 also requires KDK. Probe02 with --allow-missing-kdk
+failed resolving com.apple.iokit.IOGraphicsFamily; it targeted private new
+/Users/Shared/HVCursorAuxProbe-02.kc, NOT active collection. No bypass flags
+for authentication or security were used. Two manually typed probe commands were
+corrupted by fast TypeText input; unknown-option error / cancelled before execution.
+Reliable input now: release modifiers, TypeText ONE CHAR at a time, 20ms spacing,
+Swiss mapping. Inspect long lines before executing; no blind fast typing.
+Known pipe: explicit Option(VK18)+7(VK55) yields |. The prior inferred '~' mapping
+for > is WRONG (produces degree symbol); harmless echo test only printed text,
+no redirection/file created. Do not use it in future.
+
+VMConnect new localhost client is stuck Connecting; independent WMI thumbnails
+show advancing guest clock and responsive Terminal. Only old verified target
+vmconnect PID49244 with no window was stopped. Do not mistake client state for
+guest crash. Use 1920x1080 WMI thumbnail for reliable readable evidence.
+
+Exact KDK available from dortania/KdkSupportPkg release25G241; GitHub API digest
+and downloaded DMG SHA2569045a521c8ae362d4cb2cc54701b03462686e0069518a0b66cfe2028f87dfe9b
+match, size1180192916. Host path local-tests/kdk-25G241-20261025-01/.
+KDK read-only ISO local-tests/KDK-25G241-20261025-01.iso at fresh DVD0:4,
+label HVCURSORKDK, ISO SHA2567535D4948662BCDD37632CD0FC91E4BB344F04731F4C1C97B122400EA7780A54.
+Guest hdiutil attach -readonly completed integrity verification and mounted
+/Volumes/Kernel Debug Kit (disk5s1). pkgutil --check-signature is RUNNING;
+must inspect output before installer. KDK NOT installed yet. Candidate NOT active.
+
 ## Guest now unlocked; local sudo authentication pending (23:04 UTC)
 
 Guest is at desktop; read-only commands verified sw_vers macOS26.7.1 build25G241.

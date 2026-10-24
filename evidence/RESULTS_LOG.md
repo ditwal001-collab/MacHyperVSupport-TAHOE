@@ -1,5 +1,48 @@
 # Results log (append only)
 
+## 2026-10-24 23:33 UTC - live serial evidence recovered without restart
+
+Directory entry size0 was stale. Direct FileStream Length/read gives325821 bytes
+at23:32; new handle-based snapshot helper gives327363 bytes at23:33:58, proving
+growth while directory metadata remained misleading. No receiver restart needed.
+Immutable prefix SHA2567df624de71f9ba7fd42edb041ca5de1f4bd51925593c1f3d5ef3b3e042877408,
+local-tests/cursor-media-20261025-03/serial-snapshots/serial-prefix-20261024T233358Z-4c9948f3.log.
+16 complete EOM writes all target==actual,7 cursor conversion failures,0 panic,
+0 root wait,0 software-cursor activation. This is current e170982/run40124452997
+core803a3d24.../config32be11... with loaded original framebuffer0.9.9, not new
+cursor candidate. Previous no-data claims from directory metadata are superseded.
+Added repeatable read-only snapshot helper; no VM/pipe/config changes.
+
+KDK pkg signature verified signed Apple Software, chain to Apple Root CA.
+Installation did not start: sudo authentication expired. sudo -s now waits for
+local password; no further guest input while pending. All candidate/cache/root
+actions remain pending. Agent replaced only target VMConnect clients; WMI shows
+live desktop even when PrintWindow capture is black. No guest reboot or fix claim.
+
+## 2026-10-24 23:15-23:26 UTC - guarded cursor install rolled back; KDK pending
+
+Source c9eb980/run40139181101 Debug framebuffer310f155f...; existing core/config
+e170982/run40124452997/803a3d24.../32be11... unchanged.
+Successful local sudo auth. Own DVD had stale metadata/read errors on hot media
+replacement; unmounted own slot0:2 removed, fresh DVD0:3 with ISO03 resolved it.
+Guest verified installer e2e5a6b6026b218aa309caf8532e42f083534f253b1047292d6a361e058e7856.
+Original module backed up at /Users/Shared/HVCursorBackup-20261024T231512Z-863,
+hash checked. Candidate file installed briefly; kmutil install --update-all
+failed missing KDK25G241; script restored and hash-verified original0.9.9.
+No reboot or boot-arg change. This is a failed install/cache test, NOT a cursor fix.
+Private Aux-only probe failed KDK requirement; --allow-missing-kdk aux probe
+failed dependency resolution for com.apple.iokit.IOGraphicsFamily. No active
+collection replacement was requested by those probes. Faster manual TypeText
+corrupted two commands; unknown-option error / cancelled; use char-wise pacing.
+WMI thumbnails show responsive guest; re-opened VMConnect client stays Connecting.
+
+Exact KDK downloaded from project release25G241, API SHA256 and file match
+9045a521c8ae362d4cb2cc54701b03462686e0069518a0b66cfe2028f87dfe9b.
+Read-only ISO created7535d4948662bcdd37632cd0fc91e4bb344f04731f4c1c97b122400ea7780a54,
+attached only target DVD0:4. Guest DMG integrity verified and read-only mounted.
+Apple package signature check pending at checkpoint; no KDK install yet.
+Private frames/logs/media retained local; original disks and backups preserved.
+
 ## 2026-10-24 23:02 UTC - in-guest runtime identification confirmed
 
 Read-only guest sw_vers confirms macOS26.7.1, build25G241 on current test copies.
