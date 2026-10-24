@@ -54,7 +54,23 @@ root, not the installed system's APFS root. Earlier shorthand "APFS root" for
 that second boot was incorrect and is superseded. VMBus enumeration and SCSI
 start remain observed facts; installed Tahoe volume state is still unknown.
 
-## Hypotheses
+## Additional verified observations
+
+2026-10-24 16:51 UTC: isolated copy-only normal-boot experiment started after
+graceful shutdown and matching cold System/EFI copy hashes. Original system disk
+and prior EFI are detached/preserved. Same source `0756f1d`, run `40090495930`,
+Monterey executable SHA256 `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9`.
+Only copied EFI boot-args gains `-nobsdmgroot`; all other plist values match.
+New config SHA256 `b8384af04dad0aabb71048d9b0f35242e6f3bd413d096cfa5bf74b568e53bff1`.
+Copied EFI was explicitly prioritized over Network in target firmware.
+By 16:59 UTC: all 14 channels, 20 parseable matching-CPU EOM writes and one
+serial-interleaved unparseable EOM line; APFS snapshot, launchd, Data and Cryptex
+mounts observed. Both -nobsdmgroot and -bsdmgroot are in kernel args, but no
+authenticated BaseSystem pivot/migration marker occurs. Normal-mode boot tasks
+are active. GUI/login remains UNCONFIRMED. At 17:01 UTC init_featureflags has
+completed and systemstats/prng_seedctl tasks are reached. This is progress,
+not installation completion. See ci/boot-04-nobsdmgroot-observation.json for
+an explicitly timestamped prefix-hash checkpoint of the still-growing raw log.
 
 2026-10-24 16:40 UTC: read-only inspection identifies a blessed APFS System
 snapshot and matching boot.efi. Selected Preboot CoreServices Boot.plist contains
@@ -88,6 +104,8 @@ No completed Tahoe login. Installer log ends at reboot; visible efilogin-helper
 archive-limit/missing-sound errors have UNKNOWN causal relevance. No VM lifecycle
 or VHDX change performed. Raw log and timestamped console frames remain local
 under the existing vm-test directory. Latest handoff: Docs/handoff/UNATTENDED.md.
+
+## Hypotheses
 
 - Wrong-CPU EOM may leave CPU 0's queued offers undelivered and cause storage
   enumeration to stall. Correlation in the supplied excerpts is not causality.

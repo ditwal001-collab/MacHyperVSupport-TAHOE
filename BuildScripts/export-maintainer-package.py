@@ -33,6 +33,7 @@ DOCS = [
     'evidence/ci/boot-02-0756f1d-sanitized.txt',
     'evidence/ci/boot-02-recovery-assessment.json',
     'evidence/ci/boot-03-0756f1d.json',
+    'evidence/ci/boot-04-nobsdmgroot-observation.json',
     'evidence/ci/run-40093339256-verified.json',
 ]
 
