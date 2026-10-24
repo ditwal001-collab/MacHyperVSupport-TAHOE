@@ -1,5 +1,34 @@
 # Current state before unattended continuation
 
+## Guest now unlocked; local sudo authentication pending (23:04 UTC)
+
+Guest is at desktop; read-only commands verified sw_vers macOS26.7.1 build25G241.
+Loaded framebuffer fish.goldfish64.MacHyperVFramebuffer0.9.9, UUID
+45B79D4F-3751-32EE-89A1-57CF056D4493. /Library/Extensions binary SHA256
+51c9cd8c78ceb87f3e373882ea25cfe982f68c4a1e89c6d4ff6985b04038c1cf.
+Current SIP is an existing Custom Configuration with Kext Signing disabled;
+no protection settings were changed. sudo -n true requires a password.
+Agent issued sudo -v: Terminal is now WAITING AT LOCAL PASSWORD PROMPT.
+DO NOT inject further commands until prompt is gone: they would become password
+input. Never request or type credentials in chat. This is authentication, not
+an additional authorization request.
+
+DVD now cursor-media-20261025-03/CursorTest.iso (same HVCURSORTEST label), SHA256
+06543889CB20706653766BF6A71D44F9AEC2DEE40E732DA77186A2A01237D81D.
+Adds guarded Install.command: checks guest build + old/new binary SHA, extracts
+candidate, normalizes permissions, makes exclusive /Users/Shared backup and
+verifies it, installs only framebuffer then kmutil install --volume-root / --update-all.
+No automatic reboot/security changes. If cache update fails restores old bundle
+and stops for review; must assess cache state before reboot.
+Candidate still NOT installed. After successful sudo -v in same Terminal:
+sudo -n bash /Volumes/HVCURSORTEST/Install.command
+Use verified Swiss keyboard mapping y/z,Y/Z,/=>&, -=>/, _=>?, *=>#.
+After success capture exact guest backup path and kmutil log, then graceful guest
+shutdown, new Off/detached EFI copy with -hvgfxfbswcursor added, verify config/hash,
+start with active serial and verify loaded0.9.10 + software marker before testing.
+The 0.9.9->0.9.10 component change is an additional comparison variable; no isolated
+release-fix claim. Existing core remains803a3d24..., config32be11... until that step.
+
 ## Current cursor work / local-unlock blocker, 2026-10-25 local
 
 Candidate c9eb980 CI40139181101 SUCCESS: Debug/Release and both Clang analyses.

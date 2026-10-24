@@ -1,5 +1,23 @@
 # Results log (append only)
 
+## 2026-10-24 23:02 UTC - in-guest runtime identification confirmed
+
+Read-only guest sw_vers confirms macOS26.7.1, build25G241 on current test copies.
+Loaded framebuffer fish.goldfish64.MacHyperVFramebuffer0.9.9, UUID
+45B79D4F-3751-32EE-89A1-57CF056D4493. On-disk /Library/Extensions executable
+SHA25651c9cd8c78ceb87f3e373882ea25cfe982f68c4a1e89c6d4ff6985b04038c1cf.
+Private console230251Z records identity/hash; console230221Z records sw_vers.
+Initial manually typed commands had Swiss y/z mismatch and are not evidence of
+missing modules/files; corrected commands succeeded. ISO inspection script itself
+uses correct literal spelling. No guest install yet.
+Existing SIP Custom Configuration queried, no settings changed. sudo -n true
+reports password required; sudo -v now waits for local admin authentication.
+No further guest keyboard commands may be sent while at password prompt.
+Updated read-only DVD03 contains guarded installer + exclusive verified backup;
+SHA25606543889CB20706653766BF6A71D44F9AEC2DEE40E732DA77186A2A01237D81D.
+Current source/build/config unchanged e170982/run40124452997/config32be11...;
+candidate c9eb980/run40139181101 still uninstalled, cursor fix unconfirmed.
+
 ## 2026-10-25 local - cursor comparison build verified; guest access pending
 
 CI40139181101 / source c9eb980daab9598b1af6732217147490dacceb3e SUCCESS
