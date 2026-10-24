@@ -36,6 +36,10 @@ the local test directory's serial/capture-ready.json. It creates unique files
 and waits for reconnection. The first boot passed enumeration and APFS root
 with 21 matching-CPU EOM writes. Installer/login completion remains pending;
 do not interrupt an active upgrade for repeated-boot testing.
+At 12:27 UTC the same boot was still emitting serial storage traffic, with
+about 79 MiB captured, no new boot, and no SynIC/root-wait/panic failure.
+Upgrade completion remains UNKNOWN; do not infer completion from installer UI
+process activity or treat active I/O alone as a progress percentage.
 
 Next: keep capturing serial and observe installer/login progress without
 interrupting an active upgrade; document the outcome, commit documentation
