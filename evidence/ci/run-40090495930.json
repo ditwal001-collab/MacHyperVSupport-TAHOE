@@ -1,0 +1,18 @@
+{
+  "sha": "0756f1d75601f0c24bce98ae4adf8c83ce6e3307",
+  "run": 40090495930,
+  "configurations": {
+    "Debug": {
+      "package_sha256": "5436517308465a134d5c06c4cbe8caaf388b0db5e9e4e2d1cda5564bfaaa2602",
+      "monterey_sha256": "38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9"
+    },
+    "Release": {
+      "package_sha256": "7f08ad06f655d8ae62c4388c48e1d39298ee01ae7078e6d0b9a44f4068d3ee9f",
+      "monterey_sha256": "b67abe5162028218f87a7a04f4edd8f2239adaf283e35ef7dd8fc7221d69a8f5"
+    }
+  },
+  "thread_block_import": true,
+  "fence_runtime_helper_import": false,
+  "build_and_analysis": "success for Debug and Release",
+  "runtime_status": "NOT YET TESTED"
+}

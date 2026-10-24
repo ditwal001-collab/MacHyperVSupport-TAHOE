@@ -1,0 +1,36 @@
+{
+  "observed_utc": "2026-10-24T11:54:06.414273+00:00",
+  "source_sha": "0756f1d75601f0c24bce98ae4adf8c83ce6e3307",
+  "run": 40090495930,
+  "kext_sha256": "38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9",
+  "efi_config_sha256": "430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb",
+  "eom_writes": 21,
+  "wrong_cpu_eom_writes": 0,
+  "channels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "scan_completed": true,
+  "scsi_started": true,
+  "root_resolved": true,
+  "root_waiting": false,
+  "panic": false,
+  "windowserver_seen": false,
+  "raw_capture_hashes_at_observation": {
+    "serial-20261024T115105Z-528d5105.log": "12710b2c4d893525f8c78043b2f87ca3a799611af3cc33d505067b42b8a39aee"
+  },
+  "raw_captures_still_growing": true,
+  "boot_assessment": "FIRST PASS through APFS root; full installer/login outcome pending"
+}
