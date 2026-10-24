@@ -311,6 +311,16 @@ void HyperVController::disableInterrupts() {
 }
 
 void HyperVController::sendSynICEOM(UInt32 cpu) {
+  UInt32 currentCpu = cpu_number();
+  bool pending = _cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending;
+
+  HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
+           cpu, currentCpu, pending ? 1U : 0U);
+  UInt32 currentCpu = cpu_number();
+  bool pending = _cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending;
+
+  HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
+           cpu, currentCpu, pending ? 1U : 0U);
   //
   // Only EOM if there is a pending message.
   //
@@ -348,6 +358,8 @@ void HyperVController::sendSynICEOM(UInt32 cpu) {
   //
   // We should now be on the correct CPU, so send EOM.
   //
+  HVDBGLOG("TAHOE-SYNIC: Writing EOM targetCPU=%u actualCPU=%u",
+           cpu, cpu_number());
   wrmsr64(kHyperVMsrEom, 0);
 #else
   //
