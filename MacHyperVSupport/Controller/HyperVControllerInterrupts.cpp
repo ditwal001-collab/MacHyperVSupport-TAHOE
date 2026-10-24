@@ -316,8 +316,6 @@ void HyperVController::sendSynICEOM(UInt32 cpu) {
 
   HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
            cpu, currentCpu, pending ? 1U : 0U);
-  UInt32 currentCpu = cpu_number();
-  bool pending = _cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending;
 
   HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
            cpu, currentCpu, pending ? 1U : 0U);
