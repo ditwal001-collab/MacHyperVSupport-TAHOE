@@ -9,6 +9,10 @@
 #include "HyperVInterruptController.hpp"
 #include "VMBus.hpp"
 
+extern "C" {
+#include <kern/sched_prim.h>
+}
+
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
 //
 // PM versions.
@@ -196,10 +200,6 @@ bool HyperVController::initInterrupts() {
     HVSYSLOG("PM callbacks are invalid");
     return false;
   }
-  _preemptionLock = IOSimpleLockAlloc();
-  if (_preemptionLock == nullptr) {
-    return false;
-  }
 #endif
 
   //
@@ -311,6 +311,10 @@ void HyperVController::disableInterrupts() {
 }
 
 void HyperVController::sendSynICEOM(UInt32 cpu) {
+  if (cpu >= _cpuDataCount) {
+    HVSYSLOG("Invalid SynIC CPU %u", cpu);
+    return;
+  }
   UInt32 currentCpu = cpu_number();
   bool pending = _cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending;
 
@@ -319,46 +323,55 @@ void HyperVController::sendSynICEOM(UInt32 cpu) {
 
   HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
            cpu, currentCpu, pending ? 1U : 0U);
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
+  // Called only by the VMBus workloop, with interrupts/preemption enabled.
+  // ThreadBind changes affinity; thread_block is required to migrate.
+  // Never hold a spinlock or disable interrupts across thread_block.
+  if (!ml_get_interrupts_enabled()) {
+    HVSYSLOG("SynIC EOM requires a schedulable thread context");
+    return;
+  }
+  processor_t processor = _pmCallbacks.LCPUtoProcessor(cpu);
+  if (processor == nullptr) {
+    HVSYSLOG("No processor for SynIC CPU %u", cpu);
+    return;
+  }
+  processor_t previousProcessor = _pmCallbacks.ThreadBind(processor);
+  thread_block(THREAD_CONTINUE_NULL);
+
+  // Keep the CPU check and CPU-local MSR access in one non-migratable region.
+  bool intsEnabled = ml_set_interrupts_enabled(false);
+  if (cpu_number() != cpu) {
+    ml_set_interrupts_enabled(intsEnabled);
+    _pmCallbacks.ThreadBind(previousProcessor);
+    HVSYSLOG("Failed to migrate to SynIC CPU %u", cpu);
+    return;
+  }
+#endif
   //
   // Only EOM if there is a pending message.
   //
   _cpuData[cpu].messages[kVMBusInterruptMessage].type = kHyperVMessageTypeNone;
+  // Publish the empty slot before checking the hypervisor's pending flag.
+  OSMemoryBarrier();
   if (!_cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending) {
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
+    ml_set_interrupts_enabled(intsEnabled);
+    _pmCallbacks.ThreadBind(previousProcessor);
+#endif
     return;
   }
   
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
   //
-  // Change to desired CPU if needed.
+  // The slot and EOM register belong to this CPU.
   //
-  if (cpu != cpu_number()) {
-    if (!IOSimpleLockTryLock(_preemptionLock)) {
-      HVSYSLOG("Failed to disable preemption");
-      return;
-    }
-
-    bool intsEnabled = ml_set_interrupts_enabled(false);
-
-    do {
-      processor_t proc = _pmCallbacks.LCPUtoProcessor(cpu);
-      if (proc == nullptr) {
-        break;
-      }
-
-      _pmCallbacks.ThreadBind(proc);
-    } while (false);
-
-    IOSimpleLockUnlock(_preemptionLock);
-    ml_set_interrupts_enabled(intsEnabled);
-    HVDBGLOG("Changed to cpu %u", cpu_number());
-  }
-
-  //
-  // We should now be on the correct CPU, so send EOM.
-  //
-  HVDBGLOG("TAHOE-SYNIC: Writing EOM targetCPU=%u actualCPU=%u",
-           cpu, cpu_number());
+  UInt32 actualCpu = cpu_number();
   wrmsr64(kHyperVMsrEom, 0);
+  ml_set_interrupts_enabled(intsEnabled);
+  _pmCallbacks.ThreadBind(previousProcessor);
+  HVDBGLOG("TAHOE-SYNIC: Writing EOM targetCPU=%u actualCPU=%u",
+           cpu, actualCpu);
 #else
   //
   // PM kext API does not exist on 10.4, call function on all CPUs.
