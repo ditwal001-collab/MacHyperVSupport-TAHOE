@@ -8,12 +8,13 @@
 #include "HyperVController.hpp"
 #include "HyperVInterruptController.hpp"
 #include "VMBus.hpp"
+#include <libkern/OSAtomic.h>
 
+#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
 extern "C" {
 #include <kern/sched_prim.h>
 }
 
-#if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
 //
 // PM versions.
 //
