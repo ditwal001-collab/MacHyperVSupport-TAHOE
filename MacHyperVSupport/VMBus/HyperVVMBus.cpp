@@ -154,7 +154,9 @@ IOReturn HyperVVMBus::sendVMBusMessageGated(VMBusChannelMessage *message, UInt32
     // Wait for response.
     //
     _vmbusWaitForMessageType = *responseType;
-    _cmdGate->commandSleep(&_cmdGateEvent);
+    HVDBGLOG("TAHOE-DEBUG: Waiting for response type %u", *responseType);
+    IOReturn sleepResult = _cmdGate->commandSleep(&_cmdGateEvent);
+    HVDBGLOG("TAHOE-DEBUG: commandSleep returned 0x%X", sleepResult);
 
     HVDBGLOG("Awoken from sleep, message type is %u with size %u", _vmbusWaitMessage.type, _vmbusWaitMessage.size);
     memcpy(responseMessage, _vmbusWaitMessage.data, VMBusMessageTypeTable[*responseType].size);
@@ -208,7 +210,9 @@ void HyperVVMBus::processIncomingVMBusMessage(UInt32 cpu) {
     } else {
       HVDBGLOG("Unknown message type %u", msg->header.type);
     }
+    HVDBGLOG("TAHOE-DEBUG: Before sendSynICEOM CPU %u", cpu);
     hvController->sendSynICEOM(cpu);
+    HVDBGLOG("TAHOE-DEBUG: After sendSynICEOM CPU %u", cpu);
     
   } else if (vmbusMessage->type == kVMBusConnIdEvent) {
     HVDBGLOG("Incoming VMBus event on CPU %u", cpu);
