@@ -25,6 +25,10 @@ DOCS = [
     'evidence/OBSERVATIONS.md', 'evidence/RESULTS_LOG.md',
     'Docs/handoff/RESTART.md',
     'evidence/ci/40087952850-compiler-error.md',
+    'evidence/ci/run-40090495930.json',
+    'evidence/ci/boot-01-0756f1d.json',
+    'evidence/ci/boot-01-0756f1d-sanitized.txt',
+    'evidence/ci/boot-01-observations.jsonl',
 ]
 
 

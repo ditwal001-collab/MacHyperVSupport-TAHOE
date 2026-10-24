@@ -16,8 +16,8 @@ Debug/Release builds and analyses. Downloaded package and kext hashes match
 CI provenance; see evidence/ci/run-40090495930.json.
 Git/network operations work through targeted escalations after the restart.
 The user authorized Git/gh development commands without repeated questions.
-Documentation/export changes are still local until explicitly committed;
-inspect the actual Git status. Existing .bak files must not be staged.
+Documentation/export baseline `c3d417b` is committed and pushed; inspect the
+actual Git status for newer observations. Existing .bak files must not be staged.
 
 The original handoff was found in the sibling `../HANDOFF` directory, not in
 `docs/handoff`. Its reported boot observations have not been independently
@@ -41,3 +41,9 @@ Next: keep capturing serial and observe installer/login progress without
 interrupting an active upgrade; document the outcome, commit documentation
 separately, then perform repeated and clean-release tests when safe. No stable
 runtime fix is established by this one instrumented pass.
+
+A separate clean source branch `test/synic-eom-clean-20261024` was pushed.
+Functional commit `b9a9719` applies directly to `cd66095f` without added
+diagnostics; separate CI commit `da2bd1b` requests a build. Worktree:
+`evidence/local-tests/clean-worktree`. Its CI conclusion is not yet retrieved.
+Do not confuse that source branch with the active VM's instrumented binary.

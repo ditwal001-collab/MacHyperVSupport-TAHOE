@@ -163,6 +163,12 @@ Original startergo attribution remains in this report and the baseline history.
 It also exports an alternative clean functional patch directly against the
 non-instrumented pinned base, with separate application/content verification.
 This is a source export, not a validated release binary.
+That clean functional source is now independently committed as
+`b9a97199c48115fa4d706655307e9c8adddc0bb0` directly on base `cd66095f`.
+Branch `test/synic-eom-clean-20261024` adds separate CI commit
+`da2bd1b49247aea1c17cf71f31925648df3ca14f` and was pushed to request a clean
+build. Its CI conclusion has not yet been retrieved. The active VM remains on
+the instrumented `0756f1d` Debug binary; it has not been switched to this branch.
 
 Local checks passed for all ten multiline workflow shell blocks (`bash -n`),
 the provenance shell script, and an execution check that the nested bootstrap
@@ -206,5 +212,12 @@ hashes are in evidence/ci/boot-01-0756f1d.json and its sanitized companion.
 By 11:56 UTC, launchd reported WindowServer running and OSInstaller invoked
 its progress UI. Storage I/O continued in serial output. This establishes
 installer-process activity, not completion of the upgrade or a usable login.
+Entry diagnostics include target 0 / current 4 / pending 1 followed by EOM on
+actual CPU 0, matching and correcting the specific previously observed failure
+scenario in this run. Other cross-CPU entries were also observed. The CPU
+locality result therefore is not merely a same-CPU caller's fast-path success.
+At the 12:06 UTC observation, serial output and storage activity continued;
+there were still no wrong-CPU EOM writes, migration failures, root waits or
+kernel panics. Upgrade completion remained unconfirmed.
 Repeated trials and a clean release comparison remain mandatory before a
 stability claim. Do not force additional boots while an upgrade is active.
