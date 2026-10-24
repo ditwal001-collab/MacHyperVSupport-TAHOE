@@ -18,10 +18,19 @@ GraphicsBridge: Fix race condition by reordering initialization, with analysis
 credited to Qonfused. It allocates the PCI lock for object lifetime and populates
 valid PCI configuration before registering with the root bridge and calling
 the superclass start. Our SynIC change does not alter GraphicsBridge.
-The actual checkout is a descendant baseline, not an exact c48fc5c checkout:
-`cd66095f0d6c099f3498522fdf3edbd4825dbb81` also contains subsequent upstream
-graphics/VRAM work. Local net changes between c48fc5c and pre-development HEAD
-affect only CI, Controller instrumentation and VMBus instrumentation.
+The actual development line descends directly from c48fc5c through local CI
+commit aa887e5, then 377c2b5 and the diagnostic commits. Its merge-base with
+the separate master-side cd66095 is c48fc5c. Local net changes between c48fc5c
+and pre-development HEAD affect only CI, Controller instrumentation and VMBus
+instrumentation. cd66095 additionally changes six files, including graphics,
+GraphicsBridge and packaging; it is not the tested source baseline.
+
+An initial exporter/clean-build setup mistakenly used cd66095 as its base.
+Those earlier exports and that clean branch are superseded, not validation
+evidence for an isolated fix. The exporter now uses c48fc5c and rejects any
+unexported changes to other existing baseline files, which catches this class
+of ancestry error. The active instrumented VM binary and its proven source/run
+mapping are unaffected. This correction is retained in the results history.
 
 Local CI commits `aa887e5` and `377c2b5` adapt the bootstrap to Xcode 16.4 and
 system Python and repair YAML indentation. Diagnostics `c14a86c`, `15f8a75`,
@@ -163,12 +172,19 @@ Original startergo attribution remains in this report and the baseline history.
 It also exports an alternative clean functional patch directly against the
 non-instrumented pinned base, with separate application/content verification.
 This is a source export, not a validated release binary.
-That clean functional source is now independently committed as
+The superseded clean functional source was independently committed as
 `b9a97199c48115fa4d706655307e9c8adddc0bb0` directly on base `cd66095f`.
 Branch `test/synic-eom-clean-20261024` adds separate CI commit
 `da2bd1b49247aea1c17cf71f31925648df3ca14f` and was pushed to request a clean
-build. Its CI conclusion has not yet been retrieved. The active VM remains on
+build. It used the wrong cd66095 baseline and must not serve as a controlled
+comparison, irrespective of its CI conclusion. The active VM remains on
 the instrumented `0756f1d` Debug binary; it has not been switched to this branch.
+The corrected branch is `test/synic-eom-clean-c48fc5c`, with functional commit
+`7a3b98a480242391a92339df987fcc3f98ddd4b6` directly on c48fc5c and separate CI
+head `c960997ae3725ead2c07c8004f57939925a97c54`. It has been pushed; its build
+conclusion is still unverified. A direct comparison with tested `0756f1d`
+confirms identical graphics, framebuffer and packaging source; only local
+diagnostics and a nonfunctional ignore-file entry differ.
 
 Local checks passed for all ten multiline workflow shell blocks (`bash -n`),
 the provenance shell script, and an execution check that the nested bootstrap

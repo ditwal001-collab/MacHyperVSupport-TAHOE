@@ -42,8 +42,14 @@ interrupting an active upgrade; document the outcome, commit documentation
 separately, then perform repeated and clean-release tests when safe. No stable
 runtime fix is established by this one instrumented pass.
 
-A separate clean source branch `test/synic-eom-clean-20261024` was pushed.
-Functional commit `b9a9719` applies directly to `cd66095f` without added
-diagnostics; separate CI commit `da2bd1b` requests a build. Worktree:
-`evidence/local-tests/clean-worktree`. Its CI conclusion is not yet retrieved.
-Do not confuse that source branch with the active VM's instrumented binary.
+The first clean source branch `test/synic-eom-clean-20261024` (b9a9719/da2bd1b)
+is SUPERSEDED: it mistakenly used cd66095f rather than the actual c48fc5c base
+of the tested development line. Its worktree remains preserved under
+`evidence/local-tests/clean-worktree`; do not use it for an isolated comparison.
+The exporter is corrected to c48fc5c and checks for unexported baseline changes.
+Earlier package ZIPs declaring cd66095f as base are superseded. None of this
+changes the active VM's instrumented binary or its source provenance.
+Corrected clean branch `test/synic-eom-clean-c48fc5c` is pushed: functional
+commit `7a3b98a`, CI head `c960997`. Worktree is
+`evidence/local-tests/clean-c48-worktree`. Its CI conclusion is unverified.
+Graphics/framebuffer/packaging match the instrumented tested baseline exactly.

@@ -10,7 +10,7 @@ import uuid
 import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
-BASE = 'cd66095f0d6c099f3498522fdf3edbd4825dbb81'
+BASE = 'c48fc5ccade272ec79f633dcb23e45ba1c40d6cc'
 CI_BASE = '377c2b5a63efd5fab3ead497dc7256b99c74004e'
 DEBUG_BASE = '9b80c5f39d67a5c9fd76a9765b8302092c2f250f'
 SOURCE_PATHS = [
@@ -57,6 +57,16 @@ def main():
     args = parser.parse_args()
     if args.build_conclusion == 'success' and not (args.build_run and args.tested_sha):
         parser.error('A successful build requires --build-run and --tested-sha')
+    tested_inputs_match = None
+    if args.tested_sha:
+        build_inputs = [
+            'MacHyperVSupport', 'MacHyperVFramebuffer',
+            'MacHyperVSupport.xcodeproj', WORKFLOW, PROVENANCE,
+        ]
+        tested_inputs_match = not git('diff', '--name-only', args.tested_sha,
+                                      '--', *build_inputs).strip()
+        if args.build_conclusion == 'success' and not tested_inputs_match:
+            parser.error('Exported build inputs differ from the declared successful source')
     output_root = (ROOT / args.output_root).resolve()
     # All generated data, including the verification tree, stays in this checkout.
     output_root.relative_to(ROOT)
@@ -81,6 +91,12 @@ def main():
     # Populate only affected base files. git apply never receives --index.
     verify = package / 'verified-source'
     affected = [WORKFLOW, '.gitignore', *SOURCE_PATHS, 'MacHyperVSupport/VMBus/HyperVVMBus.cpp']
+    base_files = set(git('ls-tree', '-r', '--name-only', BASE).decode().splitlines())
+    changed = set(git('diff', '--name-only', BASE, '--').decode().splitlines())
+    unexported = (changed & base_files) - set(affected)
+    if unexported:
+        raise RuntimeError('Unexported changes relative to the pinned base: '
+                           + ', '.join(sorted(unexported)))
     for path in affected:
         target = verify / path
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -100,6 +116,7 @@ def main():
             raise RuntimeError('Patched source differs from working tree: ' + path)
         hashes[path] = digest(actual)
     verification.append('Patched files equal normalized working-tree content: PASS')
+    verification.append('No other existing baseline file has unexported changes: PASS')
     # Also offer a source-only alternative with no diagnostic prerequisites.
     # The exact removals deliberately fail if instrumentation changes shape.
     clean_sources = {path: normalized((ROOT / path).read_bytes()) for path in SOURCE_PATHS}
@@ -169,6 +186,8 @@ def main():
         'candidate_run': args.build_run,
         'candidate_run_tested_sha': args.tested_sha,
         'candidate_run_conclusion': args.build_conclusion,
+        'tested_build_inputs_match_export': tested_inputs_match,
+        'clean_patch_build_status': 'NOT ESTABLISHED BY THIS INSTRUMENTED BUILD',
         'vm_test': 'NOT RUN',
         'normalized_source_sha256': hashes,
         'files_sha256': {

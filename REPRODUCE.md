@@ -2,8 +2,11 @@
 
 See [the technical report](Docs/handoff/SYNIC_EOM_REPORT.md) before applying.
 The exported patch series uses base
-`cd66095f0d6c099f3498522fdf3edbd4825dbb81`. It already includes the credited
-GraphicsBridge commit `c48fc5ccade272ec79f633dcb23e45ba1c40d6cc`.
+`c48fc5ccade272ec79f633dcb23e45ba1c40d6cc`, the credited startergo
+GraphicsBridge commit and actual parent of the local CI/debug development line.
+Earlier exports used `cd66095f` incorrectly; those archives are superseded.
+That master-side revision contains unrelated later graphics/VRAM changes and
+does not represent the tested baseline. No pushed history has been rewritten.
 
 Run `BuildScripts/export-maintainer-package.ps1` in PowerShell. It creates a new
 timestamped directory under `evidence/packages`, refuses to overwrite one,
