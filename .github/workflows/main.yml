@@ -26,8 +26,8 @@ jobs:
       - name: CI Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) || exit 1
-src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
-eval "$src" || exit 1
+          src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
+          eval "$src" || exit 1
       - name: macOS 10.13 SDK Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
@@ -66,8 +66,8 @@ eval "$src" || exit 1
       - name: CI Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) || exit 1
-src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
-eval "$src" || exit 1
+          src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
+          eval "$src" || exit 1
       - name: macOS 10.13 SDK Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
@@ -94,8 +94,8 @@ eval "$src" || exit 1
       - name: CI Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/ci-bootstrap.sh) || exit 1
-src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
-eval "$src" || exit 1
+          src=$(printf '%s\n' "$src" | sed -e 's/XCODE_VERSION="[^"]*"/XCODE_VERSION="16.4.0"/' -e 's#${DEVELOPER_DIR}/usr/bin/python3#/usr/bin/python3#g') || exit 1
+          eval "$src" || exit 1
       - name: macOS 10.13 SDK Bootstrap
         run: |
           src=$(/usr/bin/curl -Lfs https://raw.githubusercontent.com/acidanthera/ocbuild/master/macosx10.13-sdk-bootstrap.sh) && eval "$src" || exit 1
