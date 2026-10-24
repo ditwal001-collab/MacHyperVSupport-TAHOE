@@ -1,5 +1,13 @@
 # Tahoe SynIC development handoff
 
+LATEST cursor work: candidate c9eb980 on test/tahoe-software-cursor passed
+CI40139181101 Debug/Release and analyses; downloaded binary/ZIP hashes verified
+in evidence/ci/run-40139181101-verified.json. NOT installed or runtime validated.
+Target restarted on unchanged e170982 copies for guest module inspection; local
+pre-kernel unlock is the current blocker. Read-only HVCURSORTEST ISO attached at
+SCSI0:2 (Inspect.command plus candidate ZIP), no automatic installer/security
+changes. See latest UNATTENDED.md. Do not confuse candidate availability with fix.
+
 LATEST 2026-10-25 local: VM Running and full macOS desktop visible in target
 VMConnect. User reports fast mouse movement but disappearing black pointer.
 Prior OFF/unlock notices below are historical. Preserve interactive session.

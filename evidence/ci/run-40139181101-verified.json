@@ -1,0 +1,24 @@
+{
+  "source": "c9eb980daab9598b1af6732217147490dacceb3e",
+  "run": 40139181101,
+  "build": "success",
+  "clang": "success",
+  "installed": false,
+  "runtime_validated": false,
+  "variants": {
+    "Debug": {
+      "package_sha256": "1e37ed6267d99b94080058f20bb56735452de0a5483eb8f81a0b9108c5ea4613",
+      "binaries": {
+        "MacHyperVFramebuffer": "310f155f50aa2f5ffccd688ba0ef280e268335e209e616ae888f2f73d8133ef3",
+        "MacHyperVSupportMonterey": "803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888"
+      }
+    },
+    "Release": {
+      "package_sha256": "3cb1cd9e75ce2431e249809368efde28bf73aa06ae4a3efd782e92c0c1a2c9e7",
+      "binaries": {
+        "MacHyperVFramebuffer": "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+        "MacHyperVSupportMonterey": "7e21215cb13f76dc7ba9a1458070efeb8f6495d12862ba540f5375f3460297e6"
+      }
+    }
+  }
+}

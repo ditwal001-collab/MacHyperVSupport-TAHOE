@@ -1,5 +1,37 @@
 # Current state before unattended continuation
 
+## Current cursor work / local-unlock blocker, 2026-10-25 local
+
+Candidate c9eb980 CI40139181101 SUCCESS: Debug/Release and both Clang analyses.
+Independent verification: evidence/ci/run-40139181101-verified.json.
+Debug framebuffer310f155f50aa2f5ffccd688ba0ef280e268335e209e616ae888f2f73d8133ef3;
+Release framebufferd8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122.
+Core binary is byte-identical to e170982 comparison; candidate not installed.
+
+Target had returned Off with zero-byte serial-20261024T223540Z-477635b9.log;
+cause unverified. Agent read only the system TEST copy offline: temporarily
+detached, mounted ReadOnly/NoDriveLetter, restored SCSI0:1 in finally. 7-Zip22
+cannot use the native APFS device paths tried; no filesystem writes, no original
+disks touched. Do not repeat those unsuccessful native-path attempts blindly.
+
+Agent restarted target on the same exact EFI/System copies with verified serial
+PID48800. New capture serial-20261024T225535Z-cbaf6894.log is zero bytes while
+the visible local pre-kernel password/unlock screen waits. No credential request
+in chat, no guesses/security bypass. Guest module identification/install requires
+local unlock; this is a real access blocker, not an approval question.
+
+Read-only test media attached at new free SCSI0:2 DVD slot (no previous DVD):
+local-tests/cursor-media-20261025-02/CursorTest.iso,
+SHA25682E2655BAAF7FF36C9D3E0231D6618699C5C108287AD478A0516E12384FDDDF0.
+Label HVCURSORTEST; Inspect.command runs sw_vers/kextstat/kmutil/show disk hashes,
+no sudo/install/reboot. Actual compiled bundle ID fish.goldfish64.MacHyperVFramebuffer.
+Framebuffer.zip contains only the verified candidate; its extracted executable
+must retain/receive normal kext permissions when eventually installing. Root
+ownership, existing backups, current security state and cache rebuild must be
+verified in guest first. README/source explicitly require /Library/Extensions on
+modern macOS; do not just enable the disabled OpenCore framebuffer entry.
+DVD is not bootable; firmware boot order unchanged. No cursor fix claimed.
+
 ## Autonomous restart and separate cursor candidate, 2026-10-25 local
 
 User explicitly authorized automatic starts. After user shutdown, target Off was

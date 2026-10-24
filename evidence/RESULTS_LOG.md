@@ -1,5 +1,23 @@
 # Results log (append only)
 
+## 2026-10-25 local - cursor comparison build verified; guest access pending
+
+CI40139181101 / source c9eb980daab9598b1af6732217147490dacceb3e SUCCESS
+Debug/Release and analyses. ZIP/binary hashes matched CI provenance, boot flag and
+activation message found in framebuffer binaries. See run-40139181101-verified.json.
+No installation/runtime claim. Software fallback is a test hypothesis.
+Target test system was temporarily detached/read-only mounted for APFS inspection;
+7-Zip native device path attempts failed, system restored at SCSI0:1 via finally.
+No filesystem modifications. Agent restarted unchanged e170982/run40124452997
+with same executable803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888
+and config32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Serial PID48800 verified; new zero-byte capture225535Z and console show local
+pre-kernel unlock. Module identification blocked pending local authentication.
+Read-only HVCURSORTEST ISO attached at previously free SCSI0:2 DVD slot:
+SHA25682E2655BAAF7FF36C9D3E0231D6618699C5C108287AD478A0516E12384FDDDF0.
+Contains candidate ZIP and read-only inspection script. No security or boot-order
+changes, no automatic install. All raw context/media remain private local-tests.
+
 ## 2026-10-25 local - user shutdown, authorized restart, isolated cursor candidate
 
 Previous boot capture serial-20261024T222131Z-ebab9d12.log: 697354 bytes,
