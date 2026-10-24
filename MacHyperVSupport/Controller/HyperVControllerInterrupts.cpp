@@ -8,7 +8,6 @@
 #include "HyperVController.hpp"
 #include "HyperVInterruptController.hpp"
 #include "VMBus.hpp"
-#include <libkern/OSAtomic.h>
 
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
 extern "C" {
@@ -354,7 +353,7 @@ void HyperVController::sendSynICEOM(UInt32 cpu) {
   //
   _cpuData[cpu].messages[kVMBusInterruptMessage].type = kHyperVMessageTypeNone;
   // Publish the empty slot before checking the hypervisor's pending flag.
-  OSMemoryBarrier();
+  __sync_synchronize();
   if (!_cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending) {
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
     ml_set_interrupts_enabled(intsEnabled);
