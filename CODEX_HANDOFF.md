@@ -31,9 +31,14 @@ executable was replaced, with original kext backed up. The original EFI VHDX
 and protected Sequoia backup are unchanged. The test image is now attached at
 SCSI 0:0 and the VM is RUNNING. Do not delete/move this ignored image while
 attached. No direct offline write was made to the system VHDX.
-Serial receiver exec session 51796 is running; its actual PID is recorded in
-the local test directory's serial/capture-ready.json. It creates unique files
-and waits for reconnection. The first boot passed enumeration and APFS root
+The original foreground receiver (exec session 51796) ended. There is a serial
+coverage gap from 12:34:13.99 to 12:36:24.48 UTC; do not claim complete upgrade
+coverage or absence of errors during that interval. A separate hidden process
+was started via Start-Process; Python PID 46464 is recorded in the local test
+directory's serial-reconnect-02/capture-ready.json. It is connected and writing
+new data. Inspect actual process/file liveness rather than assuming that a
+foreground tool session survives a completed assistant turn.
+Both directories preserve unique files and support reconnects. The first boot passed enumeration and APFS root
 with 21 matching-CPU EOM writes. Installer/login completion remains pending;
 do not interrupt an active upgrade for repeated-boot testing.
 At 12:27 UTC the same boot was still emitting serial storage traffic, with

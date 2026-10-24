@@ -235,5 +235,10 @@ locality result therefore is not merely a same-CPU caller's fast-path success.
 At the 12:06 UTC observation, serial output and storage activity continued;
 there were still no wrong-CPU EOM writes, migration failures, root waits or
 kernel panics. Upgrade completion remained unconfirmed.
+The original foreground capture process later ended. There is a coverage gap
+from 12:34:13.99 to 12:36:24.48 UTC. Existing logs were preserved and a separate
+hidden background receiver restored capture without a VM restart. No statement
+about absence of errors during this unrecorded interval is justified. See the
+results log and observation history for process/file liveness checks.
 Repeated trials and a clean release comparison remain mandatory before a
 stability claim. Do not force additional boots while an upgrade is active.
