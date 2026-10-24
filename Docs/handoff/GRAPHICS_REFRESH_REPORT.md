@@ -1,5 +1,57 @@
 # Separate VMConnect refresh investigation
 
+## Opt-in software cursor comparison candidate
+
+Branch test/tahoe-software-cursor, c9eb980daab9598b1af6732217147490dacceb3e,
+based on e170982, adds a framebuffer-local bool read from -hvgfxfbswcursor before
+super::start. getAttribute(kIOHardwareCursorAttribute) returns zero only with that
+flag; all other behavior remains unchanged. This tests removal of hardware cursor
+conversion/visibility transitions, without enlarging protocol messages or changing
+SynIC or mouse input. Existing flushCursor sends the transparent host shape.
+Apple documents IOFramebuffer software rendering when hardware cursor unavailable:
+https://github.com/apple-oss-distributions/IOGraphics/blob/main/IOGraphicsFamily/IOKit/graphics/IOFramebuffer.h
+CI40139181101 started. Not installed/runtime tested. Loaded framebuffer identity
+and a supported installation path still need verification; no security bypass.
+
+## More precise user reproduction, 2026-10-25 local
+
+In VMConnect, clicking Downloads in Finder makes the pointer disappear before
+opening the Jump Desktop DMG. Three or four fast mouse movements restore it
+briefly. Jump Desktop is not yet a tested alternate viewer. This is user-reported,
+not independently instrumented. Cursor shape/visibility refresh and conversion
+remain hypotheses; do not describe input loss or a confirmed fix. Preserve this
+sequence for a cursor-specific comparison after loaded-module identification.
+
+## Restart follow-up, 22:22 UTC
+
+User initiated restart. The previously empty serial log has now populated with
+the prior boot and orderly shutdown: 22 EOM writes all on matching CPUs, 59
+hardware cursor conversion failures, no panic/root-wait marker. Thus current
+data strengthens a cursor-conversion hypothesis, but does not prove disappearance
+causality. Delayed output/visibility cause is unknown. Receiver reconnected;
+new reboot is at local pre-kernel unlock. See latest RESULTS_LOG/UNATTENDED.
+
+## Latest user test, 2026-10-25 local / 2026-10-24 22:20 UTC
+
+User reports mouse movement is now fast, but the black pointer disappears after
+a short time. This is a reported performance improvement, not a confirmed complete
+cursor fix. Read-only VMConnect capture shows a full macOS desktop with open apps;
+runtime OS version and loaded framebuffer binary remain unverified. No guest input,
+restart, disk change or cursor code modification was performed for this observation.
+Prepared candidate remains e170982/run40124452997 (33 ms), executable
+803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888,
+config32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Host reports Running. Receiver PID48800 is alive with the expected command line,
+but its latest serial file is still zero bytes: no current-boot SynIC validation
+can be inferred. Raw screenshot stays private under local-tests.
+
+Source inspection confirms setCursorImage advertises a 32x32 descriptor and returns
+Unsupported on conversion failure. Prior boots had conversion failures. A transition
+to an unsupported cursor image is a hypothesis for disappearance, not established
+causality. Identify the actual loaded framebuffer and restore serial evidence
+before a cursor-specific comparison; do not blindly enlarge the protocol buffer
+or replace an unrelated core binary. Preserve the current interactive user session.
+
 ## Verified problem and scope correction
 
 The 0756f1d SynIC candidate reached a normal password login framebuffer, but

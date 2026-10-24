@@ -1,5 +1,11 @@
 # Tahoe SynIC development handoff
 
+LATEST 2026-10-25 local: VM Running and full macOS desktop visible in target
+VMConnect. User reports fast mouse movement but disappearing black pointer.
+Prior OFF/unlock notices below are historical. Preserve interactive session.
+PID48800 receiver is alive but current log zero bytes: current-boot SynIC evidence
+is unavailable. See UNATTENDED.md and GRAPHICS_REFRESH_REPORT.md latest entries.
+
 FINAL STATE CHECK: VM is now Off after waiting at local pre-kernel unlock; cause
 of the poweroff is unverified, new kernel log still empty. Do not auto-restart
 or claim the pacing candidate ran. Local start/unlock is required for runtime

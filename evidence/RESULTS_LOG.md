@@ -1,5 +1,65 @@
 # Results log (append only)
 
+## 2026-10-25 local - user shutdown, authorized restart, isolated cursor candidate
+
+Previous boot capture serial-20261024T222131Z-ebab9d12.log: 697354 bytes,
+SHA256989B68C0637AA2651628AF79F8A6B0B6AB93809989EBAEDDF8613DA402F58DFC;
+22 EOM writes, all matching CPU; 161 cursor conversion failures; zero panic/root
+wait markers. Tail shows CPU halted and driver PowerOff. User reported shutdown;
+host Off confirmed. Original disks/backups untouched.
+User subsequently authorized automatic starts. Agent verified two expected
+working-copy attachments and serial PID48800 then started target unchanged:
+e170982/run40124452997, executable803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888,
+config32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+New source candidate c9eb980 on test/tahoe-software-cursor adds opt-in boot flag
+-hvgfxfbswcursor to advertise no hardware cursor (IOFramebuffer software path).
+CI40139181101 started; no installation/runtime claim. Identifying actual loaded
+framebuffer module remains necessary before installing this separate component.
+
+## 2026-10-25 local - user-reported intermittent pointer reproduction
+
+User clarifies the trigger: clicking Downloads in Finder makes the pointer
+disappear, before opening the downloaded Jump Desktop DMG. Three or four fast
+mouse movements restore the pointer briefly, then it disappears again. This is
+a user-reported reproduction sequence in VMConnect, not an agent-observed trace
+or a completed Jump Desktop comparison. No new source/build/install change.
+Hypothesis: cursor shape/visibility refresh or conversion state, rather than
+complete loss of mouse input. Correlation with earlier conversion errors does
+not establish causality. Next comparison should record cursor shape/visibility
+events around this exact trigger and identify the loaded framebuffer binary.
+
+## 2026-10-24 22:22 UTC - user-initiated reboot and recovered serial evidence
+
+User initiated restart; host uptime reset. Agent performed read-only checks only.
+Source/artifact/config unchanged from preceding e170982/run40124452997 test.
+Receiver PID48800 auto-reconnected. Previous capture (same private folder below)
+serial-20261024T205403Z-a56bdd2a.log is now 493656 bytes, SHA256
+EC4A3A10FE147CE49835CD827190D823DDB803AD7132DB0EE90CD222645CBEC5.
+It contains Darwin25.6, 22 EOM writes all target==actual CPU, 59 hardware cursor
+conversion failures, no panic/root-wait marker, and shutdown ending MACH Reboot.
+Earlier zero-byte observation was a time-specific snapshot; why data became
+visible later is unproved. No permanent missing-boot evidence claim is justified.
+New serial-20261024T222131Z-ebab9d12.log empty at checkpoint; console at local
+pre-kernel password/unlock. Current reboot kernel outcome pending.
+No cursor fix established; conversion errors correlate with reported symptom.
+
+## 2026-10-25 local / 2026-10-24 22:20 UTC - pointer follow-up
+
+User-reported: movement fast; black pointer disappears after a short time.
+Verified: target Running; read-only VMConnect capture shows full macOS desktop.
+Prepared source e170982, Actions40124452997; executable SHA256
+803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888;
+EFI config SHA25632be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+These are prepared artifact identities, not an in-guest loaded-module check.
+Private image: local-tests/system-boot-selection-20261024T164253Z/
+vmconnect-20261024T222015908510Z-0.png. Serial receiver PID48800 alive but
+local-tests/display-pacing-test-20261024-01/serial-start-20261024T205328Z-cc486be1/
+serial-20261024T205403Z-a56bdd2a.log remains empty. Current boot SynIC result unknown.
+Hypothesis: cursor image transitions may exceed the framebuffer 32x32 conversion
+descriptor; earlier logs show conversion failures, but causal linkage is unproved.
+No guest input/restart/disk/code change; active user session preserved.
+Confirmed complete cursor fix: none.
+
 Unknown values are deliberately explicit. All dates below are 2026-10-24.
 
 | Test | Git SHA / source | Build run | Kext SHA256 | EFI config hash | Boot outcome | Evidence and result |
@@ -55,6 +115,16 @@ that second boot was incorrect and is superseded. VMBus enumeration and SCSI
 start remain observed facts; installed Tahoe volume state is still unknown.
 
 ## Additional verified observations
+
+2026-10-24 user-requested pacing restart: target Running with the verified
+e170982/run40124452997 working-copy candidate. Executable SHA256
+803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888;
+unchanged config32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Old receiver had exited; new independently verified PID48800 was ready before
+start, with a unique new serial folder. No disk/config/security change; original
+disks remain detached. Exact start time/paths are in display-pacing-test local
+user-start-*.json and serial-start-record-*.json. Local unlock and mouse runtime
+assessment pending; this start checkpoint is not a confirmed improvement.
 
 Final check after the 33-ms candidate's pre-kernel unlock wait: VM Off, zero new
 kernel serial bytes. Poweroff cause NOT established. Do not count a pacing boot,

@@ -1,5 +1,65 @@
 # Current state before unattended continuation
 
+## Autonomous restart and separate cursor candidate, 2026-10-25 local
+
+User explicitly authorized automatic starts. After user shutdown, target Off was
+verified; log serial-20261024T222131Z-ebab9d12.log ends CPU halted / PowerOff.
+It has 22 matching-CPU EOM writes, 161 cursor conversion failures, no panic/root
+wait marker; SHA256989B68C0637AA2651628AF79F8A6B0B6AB93809989EBAEDDF8613DA402F58DFC.
+Agent started ONLY target with the SAME expected two working-copy disks after
+checking serial PID48800. No EFI/config/binary/disk modification was performed.
+This start is still e170982/run40124452997, NOT the new cursor candidate.
+
+Separate branch test/tahoe-software-cursor, c9eb980daab9598b1af6732217147490dacceb3e,
+adds an opt-in -hvgfxfbswcursor boot flag in the framebuffer, advertising no
+hardware cursor only when requested. Existing flushCursor hides host cursor;
+IOFramebuffer supplies software drawing. Default behavior stays unchanged.
+Build40139181101 started; query actual status. Candidate NOT installed, NOT
+runtime validated. Need loaded framebuffer identity before installation; core
+binary replacement alone does not install this change. Never bypass kext security.
+User also requests remote-access alternatives if VMConnect remains unreliable;
+Jump Desktop Connect/Fluid is first comparison, AnyDesk or Apple Screen Sharing
+with VNC alternatives. No remote-access service configured by agent.
+
+## User-initiated restart, 2026-10-24 22:21 UTC
+
+User announced restart; host uptime reset and target is Running. No restart was
+issued by the agent. Target console now shows local pre-kernel password/unlock.
+Receiver PID48800 remained alive and reconnected automatically to a new capture
+serial-20261024T222131Z-ebab9d12.log (empty at this checkpoint).
+IMPORTANT correction to immediately preceding empty-log observation: previous
+serial-20261024T205403Z-a56bdd2a.log is now populated (493656 bytes), contains
+Darwin25.6 boot through clean MACH Reboot, 22 matching-CPU EOM writes, zero
+wrong-CPU writes, 59 cursor conversion failures, no panic/root-wait marker.
+Reason for delayed file visibility/output is not established. Do not claim a
+permanent capture gap. Current restart's kernel validation still pending unlock.
+Snapshot SHA256 EC4A3A10FE147CE49835CD827190D823DDB803AD7132DB0EE90CD222645CBEC5.
+No disk/config/code changes. Pointer disappearance remains unresolved.
+
+## Latest observation, 2026-10-25 local (22:20 UTC previous day)
+
+Target Running; read-only target VMConnect screenshot shows a full macOS desktop.
+User reports fast movement but black pointer disappears after a short time.
+This supersedes the earlier pending-unlock/off state below. Preserve the active
+interactive session; no restart or guest input was performed for this check.
+Serial receiver PID48800 verified alive, but newest log remains zero bytes.
+Current-boot SynIC validation is unavailable; do not claim logging coverage.
+See GRAPHICS_REFRESH_REPORT.md for source-based cursor hypothesis and evidence limits.
+
+## User-requested restart, 2026-10-24: VM RUNNING for local mouse test
+
+The user explicitly requested start to test the prepared pacing comparison.
+Host confirmed Running on the same two working copies; no disk/config change.
+Source e170982/run40124452997, interval33ms, executable803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888,
+config32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Old serial PID46464 had ended while the VM was Off. A fresh independent hidden
+receiver is verified PID48800; COM1 pipe unchanged. Exclusive new capture folder:
+evidence/local-tests/display-pacing-test-20261024-01/serial-start-20261024T205328Z-cc486be1/.
+Exact start UTC is in the latest local user-start-*.json; serial-start-record
+also preserves readiness before boot. Existing target console retained, or a
+visible target console opened if absent. Local unlock and runtime mouse result
+still pending at the start checkpoint. Original disks/backups remain preserved.
+
 ## Latest verified state: target VM OFF; pacing runtime still unvalidated
 
 At the final state check after the local-unlock wait, host reported Off. The
