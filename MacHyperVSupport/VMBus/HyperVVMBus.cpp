@@ -200,7 +200,9 @@ void HyperVVMBus::processIncomingVMBusMessage(UInt32 cpu) {
     // Add offered channels to array.
     //
     if (msg->header.type == kVMBusChannelMessageTypeChannelOffer) {
-      addVMBusDevice((VMBusChannelMessageChannelOffer*) msg);
+      HVDBGLOG("TAHOE-DEBUG: Before addVMBusDevice");
+      bool result = addVMBusDevice((VMBusChannelMessageChannelOffer*) msg);
+      HVDBGLOG("TAHOE-DEBUG: After addVMBusDevice result=%u", result ? 1U : 0U);
     } else if (msg->header.type == kVMBusChannelMessageTypeRescindChannelOffer) {
       removeVMBusDevice((VMBusChannelMessageChannelRescindOffer*) msg);
     } else {
