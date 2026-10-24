@@ -1,5 +1,55 @@
 # Current state before unattended continuation
 
+## 2026-10-24 19:20 UTC: refresh fix observed; mouse-performance comparison building
+
+User reports input now working after separate graphics refresh binary installed;
+VMConnect screenshot shows post-login Setup Assistant (Analytics). Latest capture
+serial-20261024T190640Z-8fa4ff79.log: Darwin 25.6.0, 14 channels, 15 parseable EOM
+writes, zero mismatches, no captured panic/root wait. Evidence:
+evidence/ci/display-01-3d31e11.json and GRAPHICS_REFRESH_REPORT.md.
+Active new EFI remains display-refresh-test-20261024-01/EFI.display-refresh.vhdx.
+System working copy unchanged attachment; original disks remain preserved.
+
+User then reports slow mouse movement. Actual guest resolution now 1920x1080x32;
+VM CPUUsage sampled 13%; hardware cursor conversion errors captured. Current
+full-frame timer is 10 ms, up to 100 requests/sec. Cause not yet established.
+Separate experimental branch fix/tahoe-refresh-pacing, source
+e17098263de44ac71251bcd31caea999e050221e, changes only interval 10 -> 33 ms.
+Worktree evidence/local-tests/display-pacing-worktree. Run40124452997 building;
+Clang analysis passed, Build pending at last check. NOT installed. Do not change
+mouse speed/global host settings or claim a mouse fix before runtime comparison.
+Current VM stays running while CI finishes. Receiver PID46464 still alive.
+
+## 2026-10-24 19:06 UTC: separate graphics candidate boot (current state)
+
+User independently reports unreadable/stale VMConnect display and apparently
+nonworking keyboard/mouse focus. Reconnect refreshed the client once, then it
+stayed at 11:57 while the direct Hyper-V framebuffer reached 12:01 and showed
+changed masked input / a working power menu. Thus prior WMI login-screen/clock
+evidence did NOT establish a usable live VMConnect console. Scope correction:
+input reached the guest while its visible client image did not refresh reliably.
+The desktop-capture helper also required per-process DPI awareness; it now uses
+physical pixel dimensions. No global host DPI/keyboard/security settings changed.
+
+Guest was gracefully shut down using the live WMI-observed macOS login power
+menu. Host Off confirmed; no hard stop in this graphics experiment.
+Separate branch fix/tahoe-display-refresh, source 3d31e1107d097f2a3eee4683e89d7d8678a76708,
+run 40101047189 SUCCESS. Only diff versus 0756f1d is the seven-line startergo
+refresh-timer hunk (one markFullScreenDirty() call plus original comments).
+SynIC Controller/VMBus source unchanged. New Debug Monterey executable SHA256:
+39219543142986a6485ea2ae05a15a4c34e017946a45f40a2106466520a840a8.
+Config unchanged: 32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+
+VM now starts with a NEW EFI at SCSI 0:0:
+evidence/local-tests/display-refresh-test-20261024-01/EFI.display-refresh.vhdx.
+Same system working copy remains SCSI 0:1. New EFI was exclusively copied,
+hash-verified, edited only detached/Off, host-unmounted before attachment.
+Only executable content changed; Info.plist equal; previous executable and all
+EFI images preserved. Context, installation verification and boot plan are in
+the new ignored experiment directory. PID 46464 checked before boot.
+Next: confirm SynIC counters, then actual VMConnect clock/menu/input redraws
+against direct WMI images. A static WMI login screenshot alone is insufficient.
+
 ## 2026-10-24 17:22 UTC: CONFIRMED LIVE NORMAL TAHOE LOGIN SCREEN
 
 Successful copy-only boot using EFI.no-storage-packets.vhdx + System.test.vhdx.

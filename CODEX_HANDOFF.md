@@ -1,5 +1,12 @@
 # Tahoe SynIC development handoff
 
+LATEST (2026-10-24 19:20 UTC): user testing exposed frozen VMConnect output despite
+fresh WMI previews. Separate startergo refresh backport 3d31e11/run40101047189 is
+now installed on another EFI copy and user confirms input working; Setup Assistant
+is visible. Mouse movement is slow. Separate 10 -> 33 ms pacing experiment e170982
+is building in run40124452997 and is NOT yet installed. Read GRAPHICS_REFRESH_REPORT.md
+and latest UNATTENDED.md first. SynIC source is unchanged; original disks preserved.
+
 CURRENT RESULT (2026-10-24 17:22 UTC): the VM has reached a live normal Tahoe
 password login screen on isolated system/EFI copies, using the 0756f1d binary.
 All 14 channels and 24 matching-CPU EOM writes observed. Read

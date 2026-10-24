@@ -56,6 +56,28 @@ start remain observed facts; installed Tahoe volume state is still unknown.
 
 ## Additional verified observations
 
+2026-10-24 19:01 UTC scope correction: current direct framebuffer showed 12:01
+and changed masked input; the interactive VMConnect client stayed at 11:57.
+Prior WMI login evidence proved a running framebuffer, not usable client refresh.
+Reconnect refreshed it once. User independently reported no apparent input/focus.
+No claim that keyboard packets were absent is justified by that stale client.
+
+2026-10-24 19:06:40 UTC: separate graphics test source 3d31e11, build40101047189,
+Debug executable SHA256 39219543142986a6485ea2ae05a15a4c34e017946a45f40a2106466520a840a8,
+same config SHA256 32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f.
+Graceful native macOS menu shutdown, verified new exclusive EFI copy; only binary
+content changed, SynIC source equal. Boot reached user-reported working input and
+visible post-login Setup Assistant. All 14 channels, 15 matching-CPU EOM writes,
+no panic/root wait. Raw prefix hashes and limitations: ci/display-01-3d31e11.json.
+Original system/EFI/backups preserved. An additional pretest 18:50 capture shows
+14 channels and 24 matching-CPU EOM writes; boot initiator not inferred.
+
+User subsequently reports slow mouse movement: 1920x1080x32, sampled VM CPU13%,
+cursor-conversion failures and full-frame timer10ms observed. Cause unresolved.
+Separate e170982 pacing experiment changes only10 ->33ms; run40124452997 building,
+not installed/runtime validated at this checkpoint. Graphics and SynIC corrections
+remain distinct; no arbitrary mouse acceleration or host-global change performed.
+
 2026-10-24 17:19:29 and 17:22:06 UTC: CONFIRMED normal Tahoe login GUI on the
 isolated system/EFI copies, with clock advancing between independent console
 captures. Darwin 25.6.0; version previously read from the same System snapshot

@@ -1,8 +1,15 @@
 # Verified Tahoe login-screen boot — 2026-10-24
 
+Scope correction after interactive user testing: the initial WMI login preview
+did not prove a usable VMConnect client. A later client-freeze test and separate
+graphics correction recovered visible input; VMConnect then showed post-login
+Setup Assistant. Slow pointer movement remains under investigation. Read
+GRAPHICS_REFRESH_REPORT.md and the latest UNATTENDED.md before using old status.
+
 At 17:19:29 UTC the target VM reached the normal user password login screen.
 A second read-only Hyper-V console capture at 17:22:06 showed the clock advance
-from 10:19 to 10:22, establishing live GUI updates. These are not Recovery screens.
+from 10:19 to 10:22, establishing framebuffer updates, not client freshness.
+These are not Recovery screens.
 Personal account login and runtime `sw_vers` were not performed. The running
 kernel is Darwin 25.6.0; the same System snapshot's version was previously read
 as macOS 26.7.1, build 25G241 from Recovery before the cold copy was created.
@@ -58,7 +65,9 @@ so this is not a controlled proof that logging alone caused the original failure
 The override bypasses the installer BaseSystem path. A usable login screen on a
 copy does NOT prove the original upgrade/migration completed correctly. Do not
 silently promote this boot profile to a production installer repair. The separate
-speculative graphics branch was not installed; the baseline GUI updates work.
+graphics branch was not installed at that checkpoint. Subsequent user testing
+showed stale client output despite fresh WMI previews; the graphics experiment
+is documented in GRAPHICS_REFRESH_REPORT.md.
 
 ## Preservation and current VM attachments
 

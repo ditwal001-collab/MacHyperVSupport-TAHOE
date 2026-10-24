@@ -1,0 +1,84 @@
+{
+  "observed_utc": "2026-10-24T19:17:42.414101+00:00",
+  "source": "3d31e1107d097f2a3eee4683e89d7d8678a76708",
+  "build_run": 40101047189,
+  "monterey_sha256": "39219543142986a6485ea2ae05a15a4c34e017946a45f40a2106466520a840a8",
+  "config_sha256": "32be11f98247242f8e1534076817825cae2fa79b235ce289b179ec59e39caf8f",
+  "synic_source_unchanged": true,
+  "user_reported_input_working": true,
+  "visible_vmconnect_progress": "post-login Setup Assistant Analytics panel",
+  "original_scope_correction": "WMI login preview did not establish usable VMConnect; old client froze while guest input changed framebuffer",
+  "shutdown_before_install": "graceful native macOS login power menu",
+  "original_efi_and_system_preserved": true,
+  "screenshots_and_raw_logs_published": false,
+  "graphics_test": {
+    "raw_prefix_bytes": 494302,
+    "raw_prefix_sha256": "86406ce1833c62b9de12a106e2a0503d6ea9612307ada3e395c56fb0ec65f2ca",
+    "darwin": [
+      "25.6.0"
+    ],
+    "channels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "parseable_eom_writes": 15,
+    "mismatches": 0,
+    "unparseable_eom_lines": 0,
+    "panic": false,
+    "root_wait": false
+  },
+  "additional_pretest_boot": {
+    "raw_prefix_bytes": 298826,
+    "raw_prefix_sha256": "477dd735b128da6d4b04b0177d962e4ac560da61e27f8d03f2b394d9f02dfb2d",
+    "darwin": [
+      "25.6.0"
+    ],
+    "channels": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "parseable_eom_writes": 24,
+    "mismatches": 0,
+    "unparseable_eom_lines": 0,
+    "panic": false,
+    "root_wait": false
+  },
+  "additional_pretest_boot_initiator": "not established by this observation",
+  "remaining_issue": "user reports slow pointer movement; hardware cursor conversion fails; latency/refresh-rate cause not yet established",
+  "active_refresh_interval_ms": 10,
+  "guest_resolution": [
+    1920,
+    1080
+  ],
+  "pacing_experiment": {
+    "branch": "fix/tahoe-refresh-pacing",
+    "source": "e17098263de44ac71251bcd31caea999e050221e",
+    "run": 40124452997,
+    "interval_ms": 33,
+    "runtime_tested": false
+  }
+}

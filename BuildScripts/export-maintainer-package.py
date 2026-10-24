@@ -20,6 +20,7 @@ SOURCE_PATHS = [
 WORKFLOW = '.github/workflows/main.yml'
 PROVENANCE = 'BuildScripts/record-provenance.sh'
 DOCS = [
+    'Docs/handoff/GRAPHICS_REFRESH_REPORT.md',
     'Docs/handoff/TAHOE_BOOT_RESULT.md',
     'CODEX_HANDOFF.md', 'PATCH_PLAN.md', 'REPRODUCE.md',
     'Docs/handoff/SYNIC_EOM_REPORT.md',
@@ -36,6 +37,7 @@ DOCS = [
     'evidence/ci/boot-03-0756f1d.json',
     'evidence/ci/boot-04-nobsdmgroot-observation.json',
     'evidence/ci/boot-05-tahoe-login.json',
+    'evidence/ci/display-01-3d31e11.json',
     'evidence/ci/run-40093339256-verified.json',
     'evidence/ci/run-40101047189-verified.json',
 ]
