@@ -1,5 +1,19 @@
 # Current state before unattended continuation
 
+## Latest verified state: target VM OFF; pacing runtime still unvalidated
+
+At the final state check after the local-unlock wait, host reported Off. The
+latest kernel capture remains zero bytes. Cause of the intervening poweroff is
+NOT established; do not attribute it to the pacing kext which had not produced
+any kernel evidence. Current snapshot time: evidence/ci/display-02-pacing-pending.json.
+Keep this Off state intact. Runtime comparison needs a local start/unlock and
+receiver-liveness check first; never obtain the password in chat or bypass it.
+Attached copies remain EFI.refresh-pacing.vhdx at SCSI0:0 and System.test.vhdx at
+SCSI0:1. Original system/EFI and every test variant/backup remain preserved.
+Source e170982/run40124452997 successfully built and hashes checked; NO mouse
+improvement or release-stability claim is established. All source/documentation
+is saved; kernel/GUI validation is blocked on the local unlock/start boundary.
+
 ## 2026-10-24 19:44 UTC: local pre-kernel unlock required (current blocker)
 
 The 33-ms candidate is installed on new EFI.refresh-pacing.vhdx and the VM is

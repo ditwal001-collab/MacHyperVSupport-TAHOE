@@ -1,5 +1,10 @@
 # Tahoe SynIC development handoff
 
+FINAL STATE CHECK: VM is now Off after waiting at local pre-kernel unlock; cause
+of the poweroff is unverified, new kernel log still empty. Do not auto-restart
+or claim the pacing candidate ran. Local start/unlock is required for runtime
+comparison. See latest UNATTENDED.md and ci/display-02-pacing-pending.json.
+
 CURRENT BLOCKER (2026-10-24 19:44 UTC): 33-ms pacing candidate e170982/run40124452997
 passed all build/analysis/hash checks and is staged on another EFI copy, but VM
 waits at a local pre-kernel unlock screen. No new kernel output/mouse improvement

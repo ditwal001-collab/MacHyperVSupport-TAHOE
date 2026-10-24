@@ -7,6 +7,8 @@ Setup Assistant. Slow pointer movement remains under investigation. Read
 GRAPHICS_REFRESH_REPORT.md and the latest UNATTENDED.md before using old status.
 Latest pacing candidate e170982 passed build/hash checks and is staged, but its
 boot waits at a local pre-kernel unlock screen. No mouse improvement is proved.
+Subsequent final check found the VM Off, still without new kernel evidence;
+local start/unlock is needed. See latest UNATTENDED.md for the authoritative state.
 
 At 17:19:29 UTC the target VM reached the normal user password login screen.
 A second read-only Hyper-V console capture at 17:22:06 showed the clock advance

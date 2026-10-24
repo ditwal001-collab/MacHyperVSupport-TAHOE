@@ -84,6 +84,11 @@ See evidence/ci/display-02-pacing-pending.json. The cursor diagnostic text is no
 present in the inspected Monterey binary; the separately loaded framebuffer
 module's actual binary/version still needs guest inspection.
 
+At the final state check the VM was Off and the new kernel log remained empty.
+The intervening poweroff cause is not established. Preserve that state; local
+start/unlock plus receiver verification is needed before continuing the comparison.
+No mouse improvement is claimed by the successful compiler/build result.
+
 Active EFI: ignored local `display-pacing-test-20261024-01/EFI.refresh-pacing.vhdx`
 at SCSI 0:0. Same System.test.vhdx remains at SCSI 0:1. Never move/delete these
 attached files. Operational details are in UNATTENDED.md and local context JSON.

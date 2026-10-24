@@ -56,6 +56,13 @@ start remain observed facts; installed Tahoe volume state is still unknown.
 
 ## Additional verified observations
 
+Final check after the 33-ms candidate's pre-kernel unlock wait: VM Off, zero new
+kernel serial bytes. Poweroff cause NOT established. Do not count a pacing boot,
+CPU-local EOM pass, mouse improvement or regression for this candidate. Preserve
+Off state and both attached working copies; local start/unlock and logging check
+are prerequisites to further runtime work. Exact check time and state:
+ci/display-02-pacing-pending.json. Original disks/backups remain preserved.
+
 2026-10-24 19:39:24 UTC pacing attempt: source e170982, run40124452997 SUCCESS
 (Debug/Release and Clang). New executable SHA256
 803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888;

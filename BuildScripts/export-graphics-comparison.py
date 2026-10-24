@@ -79,7 +79,7 @@ def main():
         '0002 is a separate 10 -> 33 ms experiment; runtime improvement NOT established.\n'
         'Builds contain the SynIC candidate; these two patches themselves do not add it.\n'
         'Refresh build 40101047189: user confirmed restored visible input; slow pointer remains.\n'
-        'Pacing build 40124452997: build/hash checks PASS, waiting for local pre-kernel unlock.\n'
+        'Pacing build 40124452997: build/hash checks PASS; runtime needs local start/unlock.\n'
         'No raw logs, login images, configuration or disk images included.\n'
         'To regenerate using bundled tool: python tools/export-graphics-comparison.py --repo REPO_PATH\n',
         encoding='utf-8')

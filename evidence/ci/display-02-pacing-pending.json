@@ -9,7 +9,7 @@
   "source_change": "only timer interval 10 -> 33 ms vs 3d31e11",
   "efi_copy_installed": true,
   "new_candidate_runtime_validated": false,
-  "status": "WAITING FOR LOCAL PRE-KERNEL UNLOCK; NO MOUSE-IMPROVEMENT CLAIM",
+  "status": "OFF AFTER PRE-KERNEL UNLOCK WAIT; RUNTIME NOT VALIDATED",
   "preboot_authentication_screen_observed": true,
   "filevault_state_directly_queried": false,
   "local_password_entry_needed": true,
@@ -23,5 +23,9 @@
   "private_auth_screen_image_published": false,
   "cursor_source_unchanged": true,
   "mouse_source_unchanged": true,
-  "synic_source_unchanged": true
+  "synic_source_unchanged": true,
+  "last_state_verified_utc": "2026-10-24T19:54:56.417926+00:00",
+  "vm_state": "Off",
+  "poweroff_cause": "not established by captured evidence",
+  "runtime_validation_requires_local_start_and_unlock": true
 }
