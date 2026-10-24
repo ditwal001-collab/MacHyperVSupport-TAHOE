@@ -1,0 +1,49 @@
+{
+  "utc": "2026-10-24T13:25:42.727295+00:00",
+  "user_report": "macOS GUI reached macOS Recovery",
+  "classification": "Recovery GUI boot; installed-system login and upgrade completion NOT proven",
+  "marker_counts": {
+    "recovery": 397,
+    "BaseSystem": 9,
+    "basesystem": 9,
+    "root-dmg": 0,
+    "boot-uuid": 4,
+    "boot-args": 1,
+    "OSInstaller": 0,
+    "Got boot device": 1,
+    "macOS Utilities": 0,
+    "RecoveryOS": 116
+  },
+  "user_report_reinstall_menu": "Reinstall macOS Sequoia",
+  "capture_kernel_versions": [
+    {
+      "capture": "serial-20261024T115105Z-528d5105.log",
+      "darwin_versions": [
+        "25.6.0"
+      ],
+      "kernel_handoffs": 1,
+      "recoveryos_mentions": 38,
+      "osinstaller_mentions": 18,
+      "root_resolved": true
+    },
+    {
+      "capture": "serial-20261024T123624Z-0b5554ca.log",
+      "darwin_versions": [],
+      "kernel_handoffs": 0,
+      "recoveryos_mentions": 5,
+      "osinstaller_mentions": 2,
+      "root_resolved": false
+    },
+    {
+      "capture": "serial-20261024T132134Z-0f0a25de.log",
+      "darwin_versions": [
+        "24.4.0"
+      ],
+      "kernel_handoffs": 1,
+      "recoveryos_mentions": 59,
+      "osinstaller_mentions": 0,
+      "root_resolved": true
+    }
+  ],
+  "tahoe_repeat_boot_acceptance": false
+}

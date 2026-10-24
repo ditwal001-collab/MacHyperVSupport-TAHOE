@@ -29,6 +29,9 @@ DOCS = [
     'evidence/ci/boot-01-0756f1d.json',
     'evidence/ci/boot-01-0756f1d-sanitized.txt',
     'evidence/ci/boot-01-observations.jsonl',
+    'evidence/ci/boot-02-0756f1d.json',
+    'evidence/ci/boot-02-0756f1d-sanitized.txt',
+    'evidence/ci/boot-02-recovery-assessment.json',
 ]
 
 

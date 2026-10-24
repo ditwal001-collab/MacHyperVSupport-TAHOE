@@ -30,7 +30,64 @@ Unknown values are deliberately explicit. All dates below are 2026-10-24.
 | Same boot, 12:27 UTC observation | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug as above | Same config hash | Still running, upgrade completion UNKNOWN | About 79 MiB serial data, continuously written; one firmware-to-XNU handoff and one APFS root resolution; still 21 EOM writes and zero CPU mismatches, migration failures, root waits or panics. Hyper-V heartbeat queried OK earlier. No forced lifecycle action. ci/boot-01-observations.jsonl |
 | Serial receiver liveness and recovery, 12:35–12:36 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug unchanged | Config unchanged | VM not restarted; installer completion still UNKNOWN | FAIL in continuous capture: foreground receiver/session ended; last byte 12:34:13.99 UTC. Restored through an independent hidden process at 12:36:24.48 UTC, receiving new data. About 2m10s coverage gap; outcome during gap UNKNOWN. Original 94.8 MiB capture preserved; new files under serial-reconnect-02; no observed EOM mismatch/panic/root wait in captured data. |
 
+## Subsequent observations
+
+2026-10-24, second captured boot at 13:21–13:23 UTC: user reported VM booting;
+receiver automatically reconnected into a new file. Source `0756f1d75601f0c24bce98ae4adf8c83ce6e3307`,
+CI `40090495930`, Debug kext SHA256 `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9`,
+last verified EFI config SHA256 `430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb`.
+Observed PASS through all 14 channels, completed scan, SCSI start and APFS root;
+at least 16 EOM writes, no CPU mismatch, panic or root-device waiting. Evidence:
+`ci/boot-02-0756f1d.json` and sanitized companion; complete growing raw file in
+the local test directory. Upgrade/login completion not established. This is
+the second captured successful enumeration, not release-stability acceptance.
+
+Correction after user GUI report and kernel inspection, 13:25 UTC: this second
+boot is **Sequoia Recovery**, Darwin **24.4.0**. The recovery menu offers
+"Reinstall macOS Sequoia". It must not count as a second Tahoe boot or as
+upgrade completion. The first captured boot was Darwin **25.6.0** in the
+Tahoe installer/upgrade environment. Both show successful enumeration, but
+their OS/boot environments differ. Evidence: ci/boot-02-recovery-assessment.json.
+No reinstall, erase, restore or offline system-volume change was initiated.
+Further root-path inspection: boot 2 resolves an IOHDIX/BaseSystem disk-image
+root, not the installed system's APFS root. Earlier shorthand "APFS root" for
+that second boot was incorrect and is superseded. VMBus enumeration and SCSI
+start remain observed facts; installed Tahoe volume state is still unknown.
+
 ## Hypotheses
+
+2026-10-24 16:40 UTC: read-only inspection identifies a blessed APFS System
+snapshot and matching boot.efi. Selected Preboot CoreServices Boot.plist contains
+`Kernel Flags = -bsdmgroot`; its SystemConfiguration counterpart has empty flags.
+NVRAM boot-args do not contain that flag; recovery-boot-mode and efi-boot-next are
+absent. Serial explicitly confirms BaseSystem.dmg pivot and migration mode.
+Therefore the third Tahoe run is an installer/migration boot with underlying
+APFS access, not a normal installed-System boot. The reason migration did not
+complete remains UNKNOWN. No flag was changed based on this observation.
+Local evidence: frames 20261024T163540Z, 163616Z, 164002Z, 164057Z.
+
+2026-10-24 16:43 UTC: authorized guest graceful shutdown from idle Recovery;
+host confirmed Off, original system disk detached, new full cold copy begun in
+the uniquely named system-boot-selection local directory. Hash verification is
+pending; no copied disk is yet attached/modified/booted. Original EFI and protected
+backups remain untouched. Installed binary/config provenance remains as above.
+
+Clean source CI run 40093339256: downloaded Debug and Release ZIP and Monterey
+executable hashes independently match CI provenance. See
+ci/run-40093339256-verified.json. This is BUILD verification, not runtime acceptance.
+Speculative graphics run 40101047189 also passed; its variant remains uninstalled.
+
+2026-10-24 16:17 UTC live continuation: source `0756f1d`, build `40090495930`,
+Debug executable SHA256 `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9`;
+last verified EFI config SHA256 `430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb`.
+Third boot serial contains 23 matching target/actual CPU-0 EOM writes and
+OSInstaller-triggered reboot at 15:19:09 followed by orderly unmount/restart.
+Current responsive console independently reports Darwin 24.4.0 Recovery.
+Receiver PID 46464 remains alive; reconnect file at 15:20:39 has no bytes.
+No completed Tahoe login. Installer log ends at reboot; visible efilogin-helper
+archive-limit/missing-sound errors have UNKNOWN causal relevance. No VM lifecycle
+or VHDX change performed. Raw log and timestamped console frames remain local
+under the existing vm-test directory. Latest handoff: Docs/handoff/UNATTENDED.md.
 
 - Wrong-CPU EOM may leave CPU 0's queued offers undelivered and cause storage
   enumeration to stall. Correlation in the supplied excerpts is not causality.

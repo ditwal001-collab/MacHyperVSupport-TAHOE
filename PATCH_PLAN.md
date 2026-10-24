@@ -16,5 +16,8 @@ Implemented candidate: `670b352`; committed follow-up `ad9a0b3` confines the
 scheduler header to modern targets. OSMemoryBarrier remained undeclared after
 that header repair; `0756f1d` now uses the compiler full-fence builtin
 `__sync_synchronize()` and removes the ineffective OSAtomic include.
-Run `40090495930` is pending. See the report for remaining
+Run `40090495930` passed Debug/Release builds and analyses. Clean source run
+`40093339256` also passed and downloaded package/executable hashes match
+provenance (evidence/ci/run-40093339256-verified.json); it is not runtime tested.
+See the report for remaining
 risks, exact ancestry, patch export and acceptance criteria.

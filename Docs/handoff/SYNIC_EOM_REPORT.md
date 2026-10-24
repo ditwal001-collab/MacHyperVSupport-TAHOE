@@ -242,3 +242,18 @@ about absence of errors during this unrecorded interval is justified. See the
 results log and observation history for process/file liveness checks.
 Repeated trials and a clean release comparison remain mandatory before a
 stability claim. Do not force additional boots while an upgrade is active.
+
+## Second captured boot: different OS environment
+
+After the user reported another boot, the independent receiver reconnected at
+13:21:34 UTC. That capture again reached 14 channels, completed VMBus scan,
+SCSI start, APFS root and WindowServer, with at least 16 matching-CPU EOM writes
+and no captured root wait or panic. The user then identified the GUI as macOS
+Recovery with "Reinstall macOS Sequoia". Serial kernel inspection confirms
+Darwin 24.4.0, whereas the first installer capture was Darwin 25.6.0.
+This is Sequoia Recovery compatibility evidence, not a second Tahoe boot or
+proof the upgrade completed. The boot-selection/upgrade state needs separate
+investigation; no reinstall or destructive Recovery operation was performed.
+The second root-device path is IOHDIX/BaseSystem (disk-image/RAM-backed), not
+the installed system's APFS root. Earlier generic root-device detection must
+not be interpreted as successful startup of the installed Tahoe volume.

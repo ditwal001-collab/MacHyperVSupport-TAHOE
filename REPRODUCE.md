@@ -22,8 +22,9 @@ and invoke the Python entry point directly:
 The ZIP also includes `synic-functional-clean.patch`, an alternative source-only
 patch against the same base with the diagnostic code removed. Apply this patch
 alone instead of 0002/0003 for the clean candidate. CI patches are independent.
-The exporter verifies this variant separately; it has not been compiled or
-tested in a VM.
+The exporter verifies this variant separately. The corrected clean branch based
+on c48fc5c compiled successfully in run 40093339256, with downloaded hashes
+verified in evidence/ci/run-40093339256-verified.json. It has not been tested in a VM.
 
 On a fresh clone checked out at the pinned base:
 

@@ -32,5 +32,8 @@
     "serial-20261024T115105Z-528d5105.log": "12710b2c4d893525f8c78043b2f87ca3a799611af3cc33d505067b42b8a39aee"
   },
   "raw_captures_still_growing": true,
-  "boot_assessment": "FIRST PASS through APFS root; full installer/login outcome pending"
+  "boot_assessment": "FIRST PASS through APFS root; full installer/login outcome pending",
+  "darwin_version": "25.6.0",
+  "environment": "Tahoe installer/upgrade environment",
+  "installed_system_login_confirmed": false
 }

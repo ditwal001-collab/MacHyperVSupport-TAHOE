@@ -62,3 +62,15 @@ Corrected clean branch `test/synic-eom-clean-c48fc5c` is pushed: functional
 commit `7a3b98a`, CI head `c960997`. Worktree is
 `evidence/local-tests/clean-c48-worktree`. Its CI conclusion is unverified.
 Graphics/framebuffer/packaging match the instrumented tested baseline exactly.
+
+Second captured boot: new serial connection at 13:21:34 UTC after the user
+reported booting. By 13:24 UTC it again enumerated all 14 channels, completed
+scan, started SCSI and resolved APFS root; 16 logged EOM writes matched CPU 0,
+with no captured panic/root wait. WindowServer was spawned. Receiver PID 46464
+automatically reconnected into a new file under serial-reconnect-02. See
+evidence/ci/boot-02-0756f1d.json. Full installer/login completion is still not
+established; two observed passes do not establish release stability.
+IMPORTANT environment correction: the second boot is Sequoia Recovery,
+Darwin 24.4.0; user sees "Reinstall macOS Sequoia". The first was Darwin
+25.6.0 in Tahoe's installer environment. Do not count the Recovery boot as a
+second Tahoe boot or an upgrade success. Do not choose Sequoia reinstall.
