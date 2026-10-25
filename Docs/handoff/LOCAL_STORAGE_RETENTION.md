@@ -35,3 +35,8 @@ clean Release runtime validation and a verified rollback strategy are complete.
 Read-only optical devices and additional obsolete scratch data can be cleaned
 later without changing source/backup retention; re-query live attachments first.
 Do not reuse the old inventory as an executable deletion list.
+
+Optical cleanup 2026-10-25: ejected seven obsolete media mappings at SCSI0:3-9
+from the running target only; SCSI0:10 ReleaseRC1 remains attached for the
+pending framebuffer installation. Re-query verified exactly one populated DVD.
+ISO files, disks, backups and serial capture were preserved; no restart.
