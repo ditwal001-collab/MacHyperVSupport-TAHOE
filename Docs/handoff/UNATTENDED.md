@@ -1,3 +1,29 @@
+LATEST 2026-10-25 19:28 UTC: new test account created, Apple sign-in deferred
+with empty field; FileVault Turn On selected/key protected by DPAPI. Setup stalls
+on final Update Mac Automatically since approx19:11 UTC. Clock/mouse responsive,
+no usable shell/desktop. Command-Q REJECTED by auto-review; NOT executed/retried.
+Safer non-forced Msvm_ShutdownComponent request returned32768, serial confirms
+shutdown daemon absent. NO force/reset/kill or security bypass performed.
+New guest Running, old guest Off/preserved, receiver53008 alive. Keep logging.
+Final sw_vers/core UUID/desktop/framebuffer FIRST install still UNVERIFIED.
+See FRESH_INSTALL_TEST.md and ci/fresh-install-setup-stall-20261025.json.
+Do not count fresh test PASS; resolve lifecycle blocker before another boot.
+LATEST 2026-10-25 19:10 UTC: optional FileVault deferral was REJECTED by automatic
+approval review as an unapproved security reduction. Do not retry/bypass it.
+Safer path taken: Turn On FileVault. Recovery-key screen saved ONLY as ignored
+local filevault-recovery-screen-private.dpapi; Windows DPAPI decrypt/hash round
+trip verified, exact newly generated plaintext key screenshot removed after
+verified encrypted backup. Account password likewise testadmin-private.clixml.
+No recovery key, password or authentication image may enter Git/package.
+Old encrypted VM unchanged/Off. New Setup now at appearance, English/Switzerland,
+U.S keyboard, local testadmin, Apple account deferred while its field still empty.
+No global security changes. Check FileVault progress after desktop; do not power
+interrupt active encryption. Need version/core UUID/Aux inventory and framebuffer.
+LATEST 2026-10-25 19:01 UTC: Following user's latest explicit return of control
+('mach du weiter'), agent resumes setup. Apple sign-in remained completely empty;
+no personal login was begun. Chose Sign in Later in Settings / Skip so optional
+Apple authentication does not block driver validation. No credentials collected.
+Use direct thumbnails for setup. Account testadmin created, DPAPI password local.
 LOGGER CHECK 2026-10-25 18:57 UTC: new receiver PID53008 remains active and
 fresh VM Running; old VM Off. Old receiver PID48800 is no longer present.
 Old logs are preserved. Before any future old-VM start, restart its receiver

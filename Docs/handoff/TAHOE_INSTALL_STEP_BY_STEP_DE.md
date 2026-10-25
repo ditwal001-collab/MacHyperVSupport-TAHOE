@@ -8,7 +8,10 @@ Nachlesen; beim Schreiben dieser Anleitung wurde keine VM angelegt oder geaender
 **Nachtrag zum laufenden Praxistest:** In einem spaeteren, ausdruecklich
 beauftragten Neuinstallationstest wurde eine neue VM angelegt. Apple-Tahoe-
 Recovery startete direkt, und die neue leere Systemplatte wurde initialisiert.
-Die Installation ist noch nicht abgeschlossen. Der tatsaechlich benutzte
+Die neue Installation hat den normalen APFS-Systemstart und den englischen
+Einrichtungsassistenten erreicht. Dessen letzte Seite "Update Mac Automatically"
+haengt derzeit; ein fertiger Desktop und der Framebuffer-Erstinstaller sind
+noch nicht bestaetigt. Der tatsaechlich benutzte
 Windows-Recovery-Weg steht in Schritt6a und im [Testprotokoll](FRESH_INSTALL_TEST.md).
 Die urspruenglichen Vollinstaller-Schritte6 und die fertige Neuinstallation
 bleiben davon getrennt; noch keine Ende-zu-Ende-Erfolgsgarantie.
@@ -54,9 +57,14 @@ Fuer einen moeglichst nahen Vergleich mit unserem Aufbau:
    400 GiB sind die virtuelle Obergrenze, keine sofortige Reservierung.
 5. Zusaetzlichen Platz fuer Installer, EFI und eine vollstaendige Rueckfallkopie.
 6. Internet und einen vorhandenen passenden virtuellen Netzwerk-Switch.
-7. Zugriff auf einen Mac fuer den hier beschriebenen Apple-Vollinstaller-Weg.
+7. Nur fuer den alternativen Apple-Vollinstaller-Weg in Schritt6: Zugriff auf einen Mac.
    Unser bereits laufender Mac kann Material vorbereiten; sein Systemlaufwerk
    darf dabei nicht geloescht oder als Installerziel verwendet werden.
+
+Der im Praxistest benutzte Windows-Recovery-Weg in Schritt6a benoetigt keinen
+vorher laufenden Mac. Er benoetigt eine passend vorbereitete EFI; unser Test
+verwendete eine Kopie der bestehenden EFI mit neuer Identitaet. Das ist noch
+keine allgemein verteilbare EFI-Vorlage fuer einen Aufbau ganz von vorn.
 
 Intel ist unsere getestete Plattform. AMD- und ARM-Hosts sind durch diese Arbeit
 nicht validiert. Ein Hyper-V-Haken emuliert keinen Apple-M-Chip.
@@ -72,8 +80,8 @@ Versuch notieren. Nicht mitten im ersten Vergleich alle Komponenten aktualisiere
 | Unser Projekt | [MacHyperVSupport-TAHOE](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE) | Quellcode und Dokumentation |
 | Unser gepruefter Build | [Actions-Lauf 40189441511](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/actions/runs/40189441511) | Artefakte **Artifacts** und **Provenance**; ggf. GitHub-Anmeldung erforderlich |
 | Unser Release-Quellstand | [Commit 6c356817](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/tree/6c3568178ba21136b8c21dd45597476c74ec31d1) | Exakter Treiberstand |
-| Anleitung und Hilfswerkzeuge | [Delivery-Branch](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/tree/maintainer/hyperv-release-delivery) | Diese Anleitung und BuildScripts |
-| Alle Hilfswerkzeuge als ZIP | [Delivery-Branch herunterladen](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/archive/refs/heads/maintainer/hyperv-release-delivery.zip) | Entpacken; fuer die Befehle den enthaltenen Repository-Ordner oeffnen |
+| Anleitung und Hilfswerkzeuge | [Neuinstallationstest-Branch](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/tree/test/tahoe-fresh-install) | Diese Anleitung und BuildScripts |
+| Alle Hilfswerkzeuge als ZIP | [Test-Branch herunterladen](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/archive/refs/heads/test/tahoe-fresh-install.zip) | Entpacken; fuer die Befehle den enthaltenen Repository-Ordner oeffnen |
 | Apple macOS-Download | [Apple: macOS laden/installieren](https://support.apple.com/102662) | Originalinstaller; dort Tahoe waehlen, nicht automatisch das neueste andere macOS |
 | Apple Installationsmedium | [Apple: bootfaehiges Installationsprogramm](https://support.apple.com/101578) | Erklaerung zu createinstallmedia |
 | Hyper-V | [Microsoft: Hyper-V installieren](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/install-hyper-v) | Windows-Voraussetzungen und Installation |

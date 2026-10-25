@@ -1,0 +1,44 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "3c08709ccdb0fa227c614c7799cee0c156eda8ca7fba8d540909ea732ac5dc52",
+  "utc": "2026-10-25T19:28:00Z",
+  "phase": "Normal installed-system Setup Assistant; final automatic-update page stalls",
+  "setup_account_created": true,
+  "apple_account": "Deferred while optional field empty; no personal credentials collected",
+  "filevault": "Turn On selected; key screen encrypted locally; fdesetup status not yet available",
+  "automatic_updates": "Continue selected; no deliberate disable",
+  "stall_started_approx_utc": "2026-10-25T19:11:00Z",
+  "last_direct_thumbnail_utc": "2026-10-25T19:25:33Z",
+  "guest_state": "Running",
+  "previous_guest_state": "Off; preserved",
+  "serial_receiver_pid": 53008,
+  "nonforced_guest_shutdown": {
+    "return_value": 32768,
+    "serial_evidence": "Unable to request shutdown (shutdown daemon is not running)",
+    "forced_fallback": false
+  },
+  "approval_review": {
+    "command_q": "Rejected; not executed or retried",
+    "filevault_deferral": "Rejected; safer Turn On selected"
+  },
+  "snapshot": {
+    "utc": "2026-10-25T19:26:36Z",
+    "prefix_bytes": 369479,
+    "sha256": "82e16488b668c35baa0fc0da1bb9f71ef744c73e6b69c71b4a6380af2d04c1f3",
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "cursor_conversion_failures": 0,
+    "complete_eom_writes": 0
+  },
+  "acceptance_complete": false,
+  "final_sw_vers_verified": false,
+  "loaded_core_uuid_verified": false,
+  "framebuffer_first_install_complete": false,
+  "hypotheses": [
+    "Cause of setup stall unresolved; no demonstrated SynIC regression",
+    "FileVault completion state unknown; not proof of encryption deadlock"
+  ],
+  "safety": "No reset, forced power-off, security reduction or live disk mount; no backup overwrite"
+}

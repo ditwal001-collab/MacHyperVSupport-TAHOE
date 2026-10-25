@@ -119,6 +119,42 @@ first-install success has yet been delivered by this checkpoint.
 
 ## Next acceptance steps
 
+### Setup checkpoint, 2026-10-25 19:28 UTC
+
+The independent local test account was created. After the user returned control,
+the optional Apple-account field was still empty, so sign-in was deferred; no
+personal Apple credentials were entered or collected. English/U.S. input and
+Zurich/Switzerland time zone were selected. FileVault was enabled through setup,
+and the recovery-key screen was preserved only in verified Windows-DPAPI-encrypted
+local storage. The resulting encryption state has not yet been queried in macOS.
+Do not include that screen, the encrypted credential or raw images in a delivery.
+
+At approximately19:11 UTC Continue was selected on Update Mac Automatically,
+preserving automatic updates. At19:24 the page still showed its spinner and
+disabled Continue button; the menu clock advanced and mouse movement was visible.
+Neither an Apple-menu click nor the tested application-opening shortcuts opened
+a usable diagnostic shell. No terminal command was typed blindly.
+
+Automatic approval review rejected Command-Q because quitting setup could disrupt
+installation/encryption. That command was not executed or retried. A safer,
+non-forced Hyper-V guest shutdown request returned32768; serial explicitly reports
+that the shutdown daemon is not running. No forced shutdown, reset, process kill,
+security reduction or live VHDX mount was performed. The guest remains Running;
+the original guest remains Off and preserved. Serial receiver53008 is active.
+
+The19:26:36 bounded369479-byte serial prefix has SHA256
+82e16488b668c35baa0fc0da1bb9f71ef744c73e6b69c71b4a6380af2d04c1f3.
+It contains no captured panic/root-device-wait/cursor-conversion markers and no
+per-call EOM traces. Its raw copy remains local under full-install/snapshots.
+See ci/fresh-install-setup-stall-20261025.json for exact build/config provenance.
+
+Confirmed result: blank-disk installation reached normal APFS-root Setup Assistant.
+Open blocker: final setup does not complete, and a supported guest-controlled
+shutdown is unavailable without its userspace daemon. A SynIC regression,
+FileVault deadlock or graphics cause is NOT established by these observations.
+Final sw_vers, loaded core UUID, desktop and first framebuffer install remain
+unverified. Do not mark the fresh-install acceptance test PASS.
+
 Record online install version, target-volume selection and progress. Do not
 interrupt installation for repeated boot tests. Then verify sw_vers, loaded
 Release core, synthetic storage/network/input and first desktop. Build and test
