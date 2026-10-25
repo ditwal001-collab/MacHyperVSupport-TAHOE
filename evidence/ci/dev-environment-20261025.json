@@ -1,11 +1,37 @@
 {
   "scope": "Local guest development setup; no CI build or driver source change",
-  "utc": "2026-10-25T01:14:02Z",
-  "guest": {"macos": "26.7.1", "build": "25G241", "architecture": "x86_64", "state": "Running; normal session locked"},
+  "utc": "2026-10-25T01:22:08Z",
+  "guest": {
+    "macos": "26.7.1",
+    "build": "25G241",
+    "architecture": "x86_64",
+    "state": "Running; desktop session open; Simulator app visible"
+  },
   "tools": {
-    "vscode": {"version": "1.143.1", "source": "Microsoft", "language": "en", "checksum_and_signature_verified": true},
-    "dotnet_sdk": {"version": "10.0.402", "source": "Microsoft", "sha512_verified": true, "single_sdk_listed": true, "console_build_run": "PASS"},
-    "xcode": {"version": "26.5", "build": "17F42", "source": "Mac App Store compatible fallback", "host_slices": ["x86_64", "arm64"], "gui_launch": "PASS", "iphoneos_sdk": "26.5"}
+    "vscode": {
+      "version": "1.143.1",
+      "source": "Microsoft",
+      "language": "en",
+      "checksum_and_signature_verified": true
+    },
+    "dotnet_sdk": {
+      "version": "10.0.402",
+      "source": "Microsoft",
+      "sha512_verified": true,
+      "single_sdk_listed": true,
+      "console_build_run": "PASS"
+    },
+    "xcode": {
+      "version": "26.5",
+      "build": "17F42",
+      "source": "Mac App Store compatible fallback",
+      "host_slices": [
+        "x86_64",
+        "arm64"
+      ],
+      "gui_launch": "PASS",
+      "iphoneos_sdk": "26.5"
+    }
   },
   "ios_smoke": {
     "kind": "Native SwiftUI Xcode project",
@@ -16,19 +42,38 @@
     "signing": "disabled for smoke build",
     "executable_sha256": "24b5e25c4c3ffc38c07e52ee775a9a9d21ba2a01307cefd1e11a85c604960b37",
     "device_execution": "not tested",
-    "simulator_execution": "not tested; session locked",
+    "simulator_execution": "PASS: iPhone17 iOS26.5/23F77; x86_64 build, install, launch and visible SwiftUI text",
     "initial_verifier_issue": "lipo verify_arch invocation failed after successful first build; corrected to exact lipo -archs comparison"
   },
   "serial": {
     "receiver_pid": 48800,
-    "prefix_bytes": 512473,
-    "sha256": "a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3",
+    "prefix_bytes": 700569,
+    "sha256": "7afa3d2ff0ec70428d7b2a1f22747d14ed8b9227657648f76f5289356c6dc510",
     "matching_eom_writes": 26,
     "mismatched_eom_writes": 0,
     "cursor_conversion_failures": 0,
     "panic_markers": 0,
     "root_wait_markers": 0
   },
-  "limitations": ["Xcode 27 Intel execution unsupported; no verified patch found", "No simulator or physical iPhone runtime validation", "No .NET iOS or MAUI workload installed", "Bounded serial observation is not release stability proof"],
-  "privacy": "No account names, addresses, screenshots, raw logs or credentials included"
+  "limitations": [
+    "Xcode27 Intel execution unsupported; no verified patch found",
+    "No physical iPhone execution or signing validation",
+    "No .NET iOS or MAUI workload installed",
+    "Simple Simulator rendering verified; Metal features and performance untested",
+    "Bounded serial observation is not release stability proof"
+  ],
+  "privacy": "No account names, addresses, screenshots, raw logs or credentials included",
+  "simulator": {
+    "runtime": "iOS26.5/23F77 Universal",
+    "runtime_image_state": "Ready",
+    "device_type": "iPhone17",
+    "build": "PASS",
+    "architecture": "x86_64",
+    "install": "PASS",
+    "launch": "PASS",
+    "visible_ui": "Developer environment ready",
+    "helper_sha256": "6994b3cfc90c1aca4022acdbe3c99c6765508377dfa6091b5401b4699a1f4b9d",
+    "iso_sha256": "f769610ce353c267f6eaba46957d8aac1674580831ec908e82ae8c9366e4198e"
+  },
+  "agreed_workflow": "Develop locally with Xcode26.5; later final rebuild/test/sign/distribute on Apple Silicon Mac with Xcode27. No rental or remote provisioning performed."
 }

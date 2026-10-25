@@ -113,7 +113,9 @@ The corrected test printed `BUILD SUCCEEDED` and
 `IOS_ARM64_BUILD_VERIFIED_UNSIGNED`. MinimumOSVersion was15.0; output was Mach-O
 64-bit arm64. Device execution, signing and simulator execution are distinct.
 
-Local successful project suffix: X1PVN6oc. Executable SHA256:
+Local successful project: `~/Developer/IOSDevSmoke.X*` (one matching project).
+Use the actual directory name; similarly shaped characters in screenshots are
+not a reliable source for transcribing its random suffix. Executable SHA256:
 `24b5e25c4c3ffc38c07e52ee775a9a9d21ba2a01307cefd1e11a85c604960b37`.
 The initial smoke project compiled successfully too, but its post-build lipo
 argument order failed. The final helper uses `lipo -archs` with an exact arm64
@@ -140,6 +142,47 @@ Simulator runtime completion and execution remain unverified. Later serial
 snapshot01:14:02 contained512473 bytes, SHA256
 `a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3`,
 still26 matching EOM and0 cursor/panic/rootwait markers. Capture PID48800 alive.
+
+## Simulator validation and agreed workflow, 2026-10-25 01:22 UTC
+
+The session-lock blocker above is historical. The user reported the session open;
+fresh console captures at01:16 confirmed the desktop, Terminal and Xcode.
+`xcrun simctl list runtimes` initially returned no runtimes. The installed Apple
+command `xcodebuild -downloadPlatform iOS` resolved the Universal iOS26.5/23F77
+image; `xcrun simctl runtime list` showed Ready (one9.9G image). Opening the
+installed Simulator app registered the runtime and booted an iPhone17.
+
+`BuildScripts/verify-ios-simulator.command` receives the actual existing smoke
+project path. It builds for iphonesimulator/x86_64 in an exclusive subdirectory,
+verifies architecture, installs onto the already booted simulator, launches
+org.example.HVDevSmoke, and saves a guest-local screenshot and hashes.
+The test printed BUILD SUCCEEDED and IOS_SIMULATOR_APP_LAUNCHED. Native VMConnect
+showed the app's Developer environment ready text on the virtual iPhone. Thus
+build, install, process launch and simple SwiftUI rendering are verified.
+This does not establish Metal feature support, simulator performance or complex
+app compatibility. SpringBoard initially showed placeholder icons during startup.
+
+The read-only HVIOSSIM ISO at SCSI0:9 is under
+`evidence/local-tests/ios-simulator-20261025-01/`; ISO SHA256
+`f769610ce353c267f6eaba46957d8aac1674580831ec908e82ae8c9366e4198e`;
+helper SHA256
+`6994b3cfc90c1aca4022acdbe3c99c6765508377dfa6091b5401b4699a1f4b9d`.
+Guest build logs/screenshots stay under the smoke project's SimulatorCheck.*
+directory; host captures and raw serial remain local-only. No personal metadata
+or screenshot payload is published.
+
+The user accepts local development with Xcode26.5, followed later by access to
+an Apple-Silicon Mac running Xcode27 for final rebuild, compatibility testing,
+signing and distribution. Keep dependencies reproducible and test compiler/SDK
+differences in that final stage. New iOS27 API work requires the newer toolchain.
+No remote Mac was provisioned or rented and no signing account was configured.
+
+At01:22:08 the VM remained Running, uptime56m32; serial PID48800 was alive.
+Bounded prefix700569 bytes, SHA256
+`7afa3d2ff0ec70428d7b2a1f22747d14ed8b9227657648f76f5289356c6dc510`:
+26 matching EOM, zero mismatches/cursor conversion/panic/rootwait markers,
+one software-cursor activation. This is additional observation under development
+workload, not repeated-boot or clean-Release stability validation.
 
 ## Sources
 

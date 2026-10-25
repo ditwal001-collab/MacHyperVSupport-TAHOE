@@ -1,5 +1,17 @@
 # Tahoe SynIC development handoff
 
+LATEST DEVELOPMENT CHECKPOINT 2026-10-25 01:22 UTC: session OPEN, Xcode26.5
+GUI and iPhone17/iOS26.5 Simulator running. Native SwiftUI smoke app compiled,
+installed and launched in Simulator; visible text Developer environment ready.
+ARM64 iPhone build with minimum iOS15 already passed. VS Code1.143.1 and .NET
+SDK10.0.402 verified. Read Docs/handoff/DEV_ENVIRONMENT.md and latest UNATTENDED.
+Prior lock-screen blocker is superseded. User's agreed plan: develop locally
+with26.5; later rent/find Apple Silicon Mac with Xcode27 for final build/test,
+signing and release. No rental/account purchase or remote deployment performed.
+Branch setup/tahoe-dev-environment; driver delivery remains separate/preserved.
+Serial still active: uptime56m32,26 matching EOM,0 cursor failures/panic/rootwait
+in bounded prefix; no VM reboot or driver/security changes during setup.
+
 LATEST SUCCESS CHECKPOINT 2026-10-25 00:28 UTC: software cursor workaround active
 on isolated test copies. c9eb980/run40139181101 framebuffer0.9.10 installed through
 guarded four-module Aux rebuild; core803a3d24... unchanged. Fresh Off/detached EFI

@@ -1,5 +1,29 @@
 # Current state before unattended continuation
 
+## Simulator validated; session OPEN, 2026-10-25 01:22 UTC
+
+The previous session-lock access blocker is superseded. User corrected status;
+fresh screenshots at01:16 showed open desktop/Terminal/Xcode. Initial simctl
+runtime list was empty; xcodebuild -downloadPlatform iOS resolved Universal
+iOS26.5/23F77, runtime image Ready9.9G. Opening installed Simulator registered
+the runtime and booted iPhone17. Native SwiftUI test built for x86_64 Simulator,
+installed and launched successfully; visible Developer environment ready text,
+BUILD SUCCEEDED and IOS_SIMULATOR_APP_LAUNCHED confirmed. No signing/device
+distribution claim. See DEV_ENVIRONMENT.md and new simulator verification helper.
+
+User agrees: develop on26.5 here, later use/rent Apple Silicon Mac with Xcode27
+for final build, compatibility tests, signing and release. Do not buy/rent or
+create external resources without a concrete user request for that future step.
+One accepted Intel-compatible Xcode installation; VS Code/.NET verified earlier.
+No .NET iOS/MAUI workload or ARM emulator installed.
+
+VM Running uptime56m32, Serial PID48800 alive;01:22:08 bounded700569-byte prefix
+SHA2567afa3d2ff0ec70428d7b2a1f22747d14ed8b9227657648f76f5289356c6dc510;
+26 matching EOM,0 mismatch/cursor conversion/panic/rootwait,1 software marker.
+Simulator helper ISO HVIOSSIM at read-only SCSI0:9; all original backups intact.
+Leave working VM/Simulator session undisturbed. No setup VM reboot or driver,
+security, EFI/VHDX changes. Sustained/repeated/Release driver tests still pending.
+
 ## Verified development setup, 2026-10-25 01:14 UTC
 
 Supersedes the pending-Xcode notes below. User-scoped VS Code1.143.1 and

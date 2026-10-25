@@ -220,18 +220,18 @@ Unknown values are deliberately explicit. All dates below are 2026-10-24.
 | Compiler full-fence correction pushed | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Pending | Not accessed | NOT RUN | IN PROGRESS: __sync_synchronize replaces unavailable OSMemoryBarrier; removes ineffective OSAtomic include; other source/CI unchanged |
 | Pinned build and downloaded artifacts verified | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9`; Release `b67abe5162028218f87a7a04f4edd8f2239adaf283e35ef7dd8fc7221d69a8f5` | N/A | NOT RUN at build verification | PASS: Debug/Release package builds and Clang analyses; package and kext hashes match uploaded provenance; `_thread_block` import, no fence helper import; ci/run-40090495930.json |
 | Authorized VM test preparation | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug as above | `430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb` | Target VM verified Off before preparation | PASS: new EFI copy matched original hash; old installed kext hash matched historical record; only candidate executable differs after installation; original EFI and backups preserved; local-tests/vm-test-0756f1d-20261024-01/*-verified.json |
-| First instrumented candidate boot, 11:51–11:54 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9` | `430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb` | FIRST PASS through APFS root; full installer/login outcome pending | 21 observed EOM writes all target 0 / actual 0; channels 1–14, completed scan, SCSI controller started, APFS root; no root waiting or panic at observation; ci/boot-01-0756f1d.json and sanitized excerpt; complete serial capture continues locally |
-| Same boot, 11:55–11:56 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug as above | Same config hash | PARTIAL PASS: WindowServer running; OSInstaller progress-UI calls; installation completion unknown | Serial capture continues; no forced reboot while upgrade appears active; local capture file under local-tests/vm-test-0756f1d-20261024-01/serial |
+| First instrumented candidate boot, 11:51â€“11:54 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9` | `430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb` | FIRST PASS through APFS root; full installer/login outcome pending | 21 observed EOM writes all target 0 / actual 0; channels 1â€“14, completed scan, SCSI controller started, APFS root; no root waiting or panic at observation; ci/boot-01-0756f1d.json and sanitized excerpt; complete serial capture continues locally |
+| Same boot, 11:55â€“11:56 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug as above | Same config hash | PARTIAL PASS: WindowServer running; OSInstaller progress-UI calls; installation completion unknown | Serial capture continues; no forced reboot while upgrade appears active; local capture file under local-tests/vm-test-0756f1d-20261024-01/serial |
 | Clean source variant prepared and pushed | Functional `b9a97199c48115fa4d706655307e9c8adddc0bb0`; CI head `da2bd1b49247aea1c17cf71f31925648df3ca14f` | Run not yet retrieved | Not built/verified yet | Not installed | NOT RUN | Branch test/synic-eom-clean-20261024 contains the functional patch directly on pinned base, without local diagnostic code; separate CI commit; existing VM test continues unchanged |
 | Same boot, 12:06 UTC observation | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug as above | Same config hash | Installer/upgrade activity continues; completion UNKNOWN | 21 EOM writes, zero CPU mismatches, migration failures, root waits or panics; continuously growing serial and storage I/O; exact prior target 0 / entry CPU 4 / pending 1 case now writes on actual CPU 0; ci/boot-01-observations.jsonl |
 | Export/clean-branch ancestry correction | Tested line base `c48fc5ccade272ec79f633dcb23e45ba1c40d6cc` | N/A | Active VM binary unchanged | Active VM config unchanged | No new VM action | FAIL in initial export setup: cd66095f is on a different descendant line with six unrelated changed files; old clean branch b9a9719/da2bd1b and exports based on cd66095f are superseded. Verified aa887e5 parent and merge-bases; exporter corrected and now rejects unexported existing-base changes. Instrumented source/build/runtime evidence remains valid. |
 | Corrected clean source variant pushed | Functional `7a3b98a480242391a92339df987fcc3f98ddd4b6`; CI head `c960997ae3725ead2c07c8004f57939925a97c54` | Run not yet retrieved | Not verified yet | Not installed | NOT RUN | Branch test/synic-eom-clean-c48fc5c uses the actual c48fc5c baseline; graphics/framebuffer/packaging match tested instrumented source; source-only patch is two files, 42 insertions/31 deletions; CI/source commits remain separate |
 | Same boot, 12:27 UTC observation | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug as above | Same config hash | Still running, upgrade completion UNKNOWN | About 79 MiB serial data, continuously written; one firmware-to-XNU handoff and one APFS root resolution; still 21 EOM writes and zero CPU mismatches, migration failures, root waits or panics. Hyper-V heartbeat queried OK earlier. No forced lifecycle action. ci/boot-01-observations.jsonl |
-| Serial receiver liveness and recovery, 12:35–12:36 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug unchanged | Config unchanged | VM not restarted; installer completion still UNKNOWN | FAIL in continuous capture: foreground receiver/session ended; last byte 12:34:13.99 UTC. Restored through an independent hidden process at 12:36:24.48 UTC, receiving new data. About 2m10s coverage gap; outcome during gap UNKNOWN. Original 94.8 MiB capture preserved; new files under serial-reconnect-02; no observed EOM mismatch/panic/root wait in captured data. |
+| Serial receiver liveness and recovery, 12:35â€“12:36 UTC | `0756f1d75601f0c24bce98ae4adf8c83ce6e3307` | `40090495930` | Debug unchanged | Config unchanged | VM not restarted; installer completion still UNKNOWN | FAIL in continuous capture: foreground receiver/session ended; last byte 12:34:13.99 UTC. Restored through an independent hidden process at 12:36:24.48 UTC, receiving new data. About 2m10s coverage gap; outcome during gap UNKNOWN. Original 94.8 MiB capture preserved; new files under serial-reconnect-02; no observed EOM mismatch/panic/root wait in captured data. |
 
 ## Subsequent observations
 
-2026-10-24, second captured boot at 13:21–13:23 UTC: user reported VM booting;
+2026-10-24, second captured boot at 13:21â€“13:23 UTC: user reported VM booting;
 receiver automatically reconnected into a new file. Source `0756f1d75601f0c24bce98ae4adf8c83ce6e3307`,
 CI `40090495930`, Debug kext SHA256 `38bf5d6dcc26dd62eb4818086ea6c48505d09880e5919574e7073c922f4ffec9`,
 last verified EFI config SHA256 `430d1f347fa0b5271cd212e1c35692013b252361eccc8ba5f0ff6c3ec95368eb`.
@@ -444,3 +444,19 @@ a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3;
 Driver c9eb980/run40139181101, core803a3d24... and configf2b8dce6... unchanged.
 Reproducer and media hashes in DEV_ENVIRONMENT.md; curated evidence in
 evidence/ci/dev-environment-20261025.json. All backups retained, no VM restart.
+
+## Simulator validation, 2026-10-25 01:22 UTC
+
+Previous lock-screen blocker superseded: fresh01:16 desktop inspection confirms
+open session. iOS26.5/23F77 Universal image Ready; iPhone17 boots. Existing
+SwiftUI project built for Simulator/x86_64, installed and launched successfully.
+BUILD SUCCEEDED, IOS_SIMULATOR_APP_LAUNCHED and Developer environment ready
+visible in native VMConnect. Reproducer/media hashes in DEV_ENVIRONMENT.md.
+No physical-device/signing/Metal/performance claims; user accepts26.5 development
+and later Xcode27 final build/test/sign/distribution on Apple Silicon Mac.
+
+VM uptime56m32, serial PID48800 alive;700569-byte prefix SHA256
+7afa3d2ff0ec70428d7b2a1f22747d14ed8b9227657648f76f5289356c6dc510;
+26 matching EOM,0 mismatch/cursor conversion/panic/rootwait,1 software marker.
+Driver c9eb980/run40139181101, core803a3d24... configf2b8dce6... unchanged.
+No VM reboot, security changes, EFI/VHDX changes or backup removal during setup.
