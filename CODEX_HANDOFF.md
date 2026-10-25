@@ -1,3 +1,12 @@
+DELIVERY 2026-10-25 20:21 UTC: full fresh test/docs pushed at14d6ebf.
+New Hyper-V-only maintainer archive evidence/packages/hyperv-maintainer-20261025T202025Z-cc97e0bc.zip
+SHA256487034944f5c0356f00d35ccba066c0662f2c9662628eaa74cc4b8613b83fef7,
+91 entries; patch reconstruction/CI binary/privacy/archive readback PASS.
+Guide includes direct Recovery, observed setup recovery, KDK/first-install ISO
+builder and precise validation limits. Existing local scratch files preserved.
+Final prepared helper ISO: full-install-20261025-01/final-first-install-media/
+FreshFramebuffer.iso (not attached; combined revised helper not rerun from blank).
+Old guest Off; new guest Running; logger53008 remains active. No pending user input.
 LATEST 2026-10-25 20:17 UTC: FIRST FULL FRESH TAHOE RELEASE DESKTOP CONFIRMED.
 26.7.1/25G241, loaded core UUID7CAF03F1-3631-33A9-AAAF-581270B665B0 and
 framebuffer UUID3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6 match CI run40189441511
