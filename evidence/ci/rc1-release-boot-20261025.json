@@ -1,0 +1,27 @@
+﻿{
+    "utc":  "2026-10-25T13:37:30Z",
+    "source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "run":  40189441511,
+    "configuration":  "Release",
+    "core_sha256":  "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "f2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81",
+    "loaded_core_uuid":  "7CAF03F1-3631-33A9-AAAF-581270B665B0",
+    "loaded_framebuffer_uuid":  "3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6",
+    "loaded_identity_check":  "Both kextstat UUIDs match LC_UUID in original CI Release binaries",
+    "outcome":  "Normal desktop visible; user reports faster and satisfactory behavior",
+    "serial_prefix_bytes":  204960,
+    "serial_sha256":  "aa15150cadd5346248af4635b8fb828f652fb7c1ac3ee8ce8637bee8ba414d2b",
+    "panic_markers":  0,
+    "root_wait_markers":  0,
+    "cursor_conversion_failures":  0,
+    "software_cursor_activation_markers":  1,
+    "complete_eom_writes":  0,
+    "limitations":  [
+                        "No per-call EOM CPU instrumentation in clean Release",
+                        "One successful complete Release boot; ten-start target not achieved",
+                        "Earlier restart stopped pre-kernel: guest shutdown event18508 at13:29:32 UTC; timeout hypothesis only",
+                        "Storage SRB STATUS84 messages remain; no error-free claim or classification yet"
+                    ],
+    "private_evidence":  "release-rc1-test-20261025-01/release-boot-02; vmconnect-20261025T133726626724Z-0.png"
+}

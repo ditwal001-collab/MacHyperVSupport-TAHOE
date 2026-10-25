@@ -125,3 +125,22 @@ retained inside the guest under /Users/Shared/HVReleaseRC1.s0ZkXpJy.
 The macOS restart notice is expected; it alone would not prove success.
 A normal Apple-menu restart was requested after the successful marker. Full
 Release loaded identity and runtime validation remain pending after that restart.
+
+## First complete Release desktop boot, 2026-10-25 13:37 UTC
+
+Source6c3568178ba21136b8c21dd45597476c74ec31d1/run40189441511.
+Verified loaded core UUID7CAF03F1-3631-33A9-AAAF-581270B665B0 and framebuffer
+UUID3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6 against LC_UUID in the original CI
+Release binaries. Executable/config SHA256 values are recorded in
+ evidence/ci/rc1-release-boot-20261025.json. Desktop is visible and the user
+reports faster, satisfactory operation. This is one complete Release success.
+A bounded204960-byte serial prefix SHA256aa15150cadd5346248af4635b8fb828f652fb7c1ac3ee8ce8637bee8ba414d2b
+shows enumeration through channel14, SCSI/APFS root and software-cursor activation;
+no captured panic, root wait or cursor conversion failure. Some concurrent boot
+lines are interleaved. No per-call EOM traces exist in clean Release: zero trace
+lines are not new target/actual CPU validation. SRB STATUS84 messages remain in
+the raw capture and are not classified here; do not claim an error-free log.
+The preceding restart had no kernel output and guest-requested shutdown18508 at
+13:29:32 UTC; preboot timeout remains a hypothesis. A subsequent start at13:32
+reached this desktop. Ten-start and sustained Release validation remain open.
+Raw console/prefix evidence stays local under the Release test directory.

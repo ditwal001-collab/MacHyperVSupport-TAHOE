@@ -1,3 +1,10 @@
+LATEST 2026-10-25 13:37 UTC: FULL RELEASE DESKTOP BOOT VERIFIED. Loaded core and
+framebuffer UUIDs both match original run40189441511 Release binaries. User
+reports faster/satisfactory operation. Read rc1-release-boot-20261025.json and
+RELEASE_RC1.md. Current isolated Release pair stays Running, backups preserved.
+One full Release success, NOT ten-start/stability acceptance. Serial receiver48800
+continues; current serial-20261025T133215Z-a781464d.log. No per-call EOM traces.
+Earlier prekernel shutdown/timeouts remain open, no authentication bypass.
 LATEST 2026-10-25 13:23 UTC: guarded Release framebuffer installation SUCCEEDED,
 marker and expected d8a079d4 executable hash observed. Four-module Aux preserved;
 Boot/System hash checks OK. Backup /Users/Shared/HVReleaseRC1.s0ZkXpJy retained.
