@@ -112,3 +112,16 @@ was issued after that start, and the new serial file remained empty. A preboot
 unlock timeout is plausible but not established. This event occurred before the
 obsolete-image cleanup at12:18 and must not be attributed to that cleanup.
 No clean Release kernel execution or SynIC regression is inferred from it.
+
+## Release framebuffer installation 2026-10-25 13:23 UTC
+
+The guarded installer completed after local sudo authentication. Console evidence
+vmconnect-20261025T132316516368Z-0.png shows RELEASE_RC1_FRAMEBUFFER_INSTALLED,
+the expected framebuffer SHA256 d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122,
+and Aux SHA256 51d86e9db1092774f5830fe769b69608e657d4d860535d9f135563506a416e25.
+Boot/System collection hash checks passed before and after the Aux replacement;
+all four Aux module IDs and other versions passed the script checks. Backup is
+retained inside the guest under /Users/Shared/HVReleaseRC1.s0ZkXpJy.
+The macOS restart notice is expected; it alone would not prove success.
+A normal Apple-menu restart was requested after the successful marker. Full
+Release loaded identity and runtime validation remain pending after that restart.

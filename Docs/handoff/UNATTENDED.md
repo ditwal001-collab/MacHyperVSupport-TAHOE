@@ -1,3 +1,9 @@
+LATEST 2026-10-25 13:23 UTC: guarded Release framebuffer installation SUCCEEDED,
+marker and expected d8a079d4 executable hash observed. Four-module Aux preserved;
+Boot/System hash checks OK. Backup /Users/Shared/HVReleaseRC1.s0ZkXpJy retained.
+Normal Apple-menu restart initiated; inspect current console/serial and loaded
+module identities. Both Release files now installed; runtime acceptance pending.
+Older statements that framebuffer is still Debug are historical and superseded.
 # Current state before unattended continuation
 
 ## Guest-requested pre-kernel stop, 2026-10-25
