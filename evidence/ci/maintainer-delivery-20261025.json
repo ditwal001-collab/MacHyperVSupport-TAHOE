@@ -1,0 +1,20 @@
+{
+  "archive": "maintainer-20261025T003641Z-94907bdd.zip",
+  "archive_sha256": "cfb8ffc1909d51fd493c61bc048c0a125cdd8a7967d14bc81774b738038b4c48",
+  "manifest_entries": 25,
+  "verification": "Nested source/binary hashes, patch reconstruction and configured privacy checks PASS",
+  "documentation_head_in_archive": "9bf10d1",
+  "source_package": "20261025T003414Z-05466d38.zip",
+  "graphics_package": "graphics-20261025T003232Z-355ee969.zip",
+  "final_passive_sample_utc": "2026-10-25T00:37:42.546213Z",
+  "final_passive_prefix_bytes": 346500,
+  "final_passive_prefix_sha256": "742268bc9ab1e94aec1e4c9c1a2ac1bd962fa330aac1c90cf1952de57c142943",
+  "final_complete_eom_writes": 26,
+  "final_mismatched_eom_writes": 0,
+  "final_cursor_conversion_failures": 0,
+  "final_software_cursor_activation_markers": 1,
+  "final_panic_markers": 0,
+  "final_root_wait_markers": 0,
+  "state": "Test VM Running, uptime approximately12 minutes, serial receiver alive; no additional guest inputs or lifecycle tests",
+  "scope": "One positive instrumented Debug session; sustained/repeated/Release acceptance pending"
+}

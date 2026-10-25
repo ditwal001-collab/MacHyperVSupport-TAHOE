@@ -1,5 +1,21 @@
 # Current state before unattended continuation
 
+## Final delivery checkpoint, 2026-10-25 00:37:42 UTC
+
+Target Running uptime12m07, serial PID48800 alive. New immutable prefix346500 bytes,
+SHA256742268bc9ab1e94aec1e4c9c1a2ac1bd962fa330aac1c90cf1952de57c142943;
+26 matching EOM,0 cursor conversion failures,1 software activation,0 panic/rootwait.
+No further guest input/lifecycle changes; preserve current working user session.
+Complete local maintainer archive (source series + original Debug/Release ZIPs,
+provenance, project map, instructions, guarded example installer):
+evidence/packages/maintainer-20261025T003641Z-94907bdd.zip,
+SHA256cfb8ffc1909d51fd493c61bc048c0a125cdd8a7967d14bc81774b738038b4c48.
+25 manifest entries; nested source/binary hashes, patch reconstructions and privacy
+checks PASS. Documentation head in archive9bf10d1. Source export and graphics export
+are separate ZIPs inside; binary Release remains runtime unvalidated.
+See evidence/ci/maintainer-delivery-20261025.json for latest passive check outside
+the archive checkpoint. Original unrelated .bak/untracked files preserved.
+
 ## Current success checkpoint: RUNNING, software cursor active
 
 Boot2026-10-25 00:25:35 UTC on new local-tests/software-cursor-test-20261025-01/

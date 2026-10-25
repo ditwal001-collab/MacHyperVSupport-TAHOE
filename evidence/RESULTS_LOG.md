@@ -1,5 +1,20 @@
 # Results log (append only)
 
+## 2026-10-25 00:37:42 UTC - passive12-minute check and delivery
+
+Same c9eb980 framebuffer310f155f... / run40139181101, core803a3d24...,
+configf2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81.
+Host Running uptime12m07; receiver48800 alive. Immutable346500-byte serial prefix
+SHA256742268bc9ab1e94aec1e4c9c1a2ac1bd962fa330aac1c90cf1952de57c142943:
+26 matching EOM,0 mismatches,0 cursor conversion failures,1 software marker,
+0 panic/rootwait. Passive observation only; no new inputs/reboot/stress test.
+Complete delivery archive maintainer-20261025T003641Z-94907bdd.zip,
+SHA256cfb8ffc1909d51fd493c61bc048c0a125cdd8a7967d14bc81774b738038b4c48,
+25 manifest entries; source reconstruction, original CI ZIP/binary hash checks and
+nested privacy checks PASS. Includes project map/build/install/rollback instructions
+and separate source/Binary provenance. No raw logs, images/config/VHDX/KDK payload.
+Acceptance remains one positive Debug session, not stable Release validation.
+
 ## 2026-10-25 00:28 UTC - positive software cursor workaround run
 
 Guarded four-module Aux installer succeeded, sourcec9eb980/run40139181101,
