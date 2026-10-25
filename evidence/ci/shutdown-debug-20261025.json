@@ -1,0 +1,15 @@
+{
+  "date_utc": "2026-10-25",
+  "source_core": "e17098263de44ac71251bcd31caea999e050221e",
+  "source_framebuffer": "c9eb980daab9598b1af6732217147490dacceb3e",
+  "build_run": 40139181101,
+  "core_sha256": "803a3d24f6312ce53f1b7385321c37e1a14e28d5c413620634243f821e60c888",
+  "efi_configuration_sha256": "f2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81",
+  "hyperv_integration_shutdown": "failed0x80004005; guest remained Running",
+  "guest_menu_shutdown": "orderly driver poweroff; total2735ms",
+  "vm_off_confirmed_utc": "2026-10-25T11:49:08Z",
+  "hard_reset_or_worker_termination": false,
+  "serial_prefix_bytes": 5578215,
+  "serial_prefix_sha256": "22de7f0660f76252ec26023992702950c69d6672a740de192ba23d25208c3091",
+  "interpretation": "Guest-menu shutdown works in this attempt; Hyper-V integration failure remains open"
+}

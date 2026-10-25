@@ -1,0 +1,28 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "verification": "Original CI ZIPs and all kext executables match uploaded SHA256 provenance",
+  "thread_block_import_present": true,
+  "release_tahoe_trace_strings_absent": true,
+  "packages": {
+    "Debug": {
+      "file": "MacHyperVSupport-0.9.10-DEBUG.zip",
+      "sha256": "fab4ca6d2c29319e0bb89dcfbb234b86161fa5ddde2170758fea19d307b070ff",
+      "binaries": {
+        "MacHyperVFramebuffer.kext/Contents/MacOS/MacHyperVFramebuffer": "310f155f50aa2f5ffccd688ba0ef280e268335e209e616ae888f2f73d8133ef3",
+        "MacHyperVSupportMonterey.kext/Contents/MacOS/MacHyperVSupportMonterey": "13d2938a88a5bf60d8b83df7b26f2c3e3b5b9ddf9c03ab2628f44c9ae134d40c",
+        "MacHyperVSupport.kext/Contents/MacOS/MacHyperVSupport": "c6fbac568367176688bedc709360e1f51ae7ffb1e563daf5f1d480232c1328a5"
+      }
+    },
+    "Release": {
+      "file": "MacHyperVSupport-0.9.10-RELEASE.zip",
+      "sha256": "162f47670ef9f4640bdfdefd8ba9495b1a039ca6828a52f5ec4498e9d3cb5d6c",
+      "binaries": {
+        "MacHyperVFramebuffer.kext/Contents/MacOS/MacHyperVFramebuffer": "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+        "MacHyperVSupportMonterey.kext/Contents/MacOS/MacHyperVSupportMonterey": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+        "MacHyperVSupport.kext/Contents/MacOS/MacHyperVSupport": "f04b1c81b3001fd7927ea22722dbbeb0c01ff5140225f7700fa338452294e814"
+      }
+    }
+  },
+  "runtime": "Not established by this verification; see independent boot evidence"
+}

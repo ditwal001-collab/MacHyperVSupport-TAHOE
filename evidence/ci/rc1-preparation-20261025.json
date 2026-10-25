@@ -1,0 +1,21 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "stage": "Preparation boot, not a complete Release runtime test",
+  "core_configuration": "Release",
+  "framebuffer_configuration": "Preserved Debug; guarded Release framebuffer install pending",
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "framebuffer_sha256": "310f155f50aa2f5ffccd688ba0ef280e268335e209e616ae888f2f73d8133ef3",
+  "efi_configuration_sha256": "f2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81",
+  "cold_copy_equality": true,
+  "cold_efi_sha256": "2e6fe24d9918c20c8c2e0539c84c6e566213d6b42fdc7cdfdfab3e48340b6f48",
+  "cold_system_sha256": "4e07f7ce61e39377d9c9f2a58400838e73677b2aea2ff26dd91817ce2473679d",
+  "only_efi_changed_file": "EFI/OC/Kexts/MacHyperVSupportMonterey.kext/Contents/MacOS/MacHyperVSupportMonterey",
+  "debug_rollback_pair_preserved": true,
+  "host_unmounted_before_start": true,
+  "observed_utc": "2026-10-25T12:07:56Z",
+  "observed_state": "Running at local pre-kernel unlock screen",
+  "serial_receiver_alive": true,
+  "opened_serial_log_bytes": 0,
+  "runtime_assessment": "Blocked before kernel; no clean Release runtime or repeated-boot success claimed"
+}

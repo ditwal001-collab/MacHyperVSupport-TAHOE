@@ -1,0 +1,17 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "branch": "release/tahoe-clean-rc1",
+  "run": 40189441511,
+  "conclusion": "success",
+  "debug_build": "success",
+  "release_build": "success",
+  "clang_debug_analysis": "success",
+  "clang_release_analysis": "success",
+  "coverity": "skipped: upstream-owner-only condition",
+  "artifact_service_digests": {
+    "Provenance": "sha256:7ede359cec17c6a46b83062f73b4cf36a143a08ad4a9f84b2a387a32877f7eb3",
+    "Artifacts": "sha256:d385503b4abe15721678dd3b6e60d79ebed65f28e772a248a1dec5979ed927f8"
+  },
+  "local_package_and_binary_verification": "run-40189441511-verified.json",
+  "runtime": "Reported separately; CI success is not runtime proof"
+}

@@ -405,3 +405,43 @@ The latest login-screen boot adds 24 matching-CPU writes and all 14 channels.
 This establishes observed CPU-local behavior and a normal GUI start on a copy,
 not a stable release or original migration-completion claim. Repeated and clean
 Release runtime tests and a personal user-session/version check remain pending.
+
+## Overnight Debug result and clean candidate, 2026-10-25
+
+At11:32 UTC VM Running uptime11h07m15; user reports stable macOS.
+Core803a3d24.../framebuffer310f155f..., sourcee170982/c9eb980 run40139181101;
+configf2b8dce6... unchanged. Receiver48800 alive;5432111-byte prefix SHA256
+3a74723014ec76e64de3167bc6c0ab9d714de2d81df010a42fe9932a6d9ca90d.
+26 startup EOM writes match CPUs;0 cursor conversion/panic/rootwait markers.
+Positive sustained Debug evidence, not clean Release/repeated-boot proof.
+
+Clean combined source6c3568178ba21136b8c21dd45597476c74ec31d1, run40189441511,
+Debug/Release builds and Clang analyses PASS. All ZIP/kext hashes match uploaded
+provenance; Release contains no TAHOE-SYNIC/TAHOE-DEBUG strings. Core Release
+c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16;
+framebufferd8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122.
+Clean Release runtime remains a separate pending test at this checkpoint.
+
+Normal Hyper-V integration shutdown failed0x80004005; guest remained Running.
+Normal macOS menu shutdown then completed, serial total2735ms; Off confirmed
+11:49:08 UTC. No hard reset/worker termination. Preserve this open integration
+issue separately from SynIC/cursor results. Final Debug-prefix SHA256
+22de7f0660f76252ec26023992702950c69d6672a740de192ba23d25208c3091.
+New cold Release copies created from detached Off sources; initial copy command
+had invalidated object properties and copied nothing, corrected using immutable
+pre-shutdown path snapshot. Full cold-copy SHA verification is pending.
+Anonymized Hyper-V/EFI profiles and HYPERV_SETUP document actual versus unknown
+configuration history. No protected/original backups changed.
+
+## Release preparation checkpoint, 2026-10-25 12:07 UTC
+
+Both new cold copies hash-match sources: EFI2e6fe24d... and system4e07f7ce... .
+Only Release corec97e2919... changed on new EFI; configf2b8dce6... identical.
+Original overnight Debug disk pair retained detached. Normal preparation boot
+started12:03:54; local pre-kernel unlock screen observed. Actual new log empty
+at12:07:56; receiver48800 alive. Framebuffer is still Debug310f155f..., so no
+full Release or repeated-boot success counted. Local unlock/sudo needed before
+guarded Release framebufferd8a079d4... installation and normal reboot.
+Source6c35681/run40189441511; all hashes in run verification and RC1 report.
+A Hyper-V-only package draft passed reconstruction, CI hash and privacy checks.
+Cleanup remains read-only inventory; originals/active/Debug rollback preserved.

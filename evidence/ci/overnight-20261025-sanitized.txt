@@ -1,0 +1,30 @@
+Normalized anonymized extract from pinned overnight prefix.
+All EOM-write matches are included; other raw content is omitted.
+Source prefix SHA256: 3a74723014ec76e64de3167bc6c0ab9d714de2d81df010a42fe9932a6d9ca90d
+source_line=584 EOM targetCPU=0 actualCPU=0
+source_line=596 EOM targetCPU=0 actualCPU=0
+source_line=612 EOM targetCPU=0 actualCPU=0
+source_line=628 EOM targetCPU=0 actualCPU=0
+source_line=644 EOM targetCPU=0 actualCPU=0
+source_line=656 EOM targetCPU=0 actualCPU=0
+source_line=672 EOM targetCPU=0 actualCPU=0
+source_line=684 EOM targetCPU=0 actualCPU=0
+source_line=700 EOM targetCPU=0 actualCPU=0
+source_line=716 EOM targetCPU=0 actualCPU=0
+source_line=728 EOM targetCPU=0 actualCPU=0
+source_line=740 EOM targetCPU=0 actualCPU=0
+source_line=757 EOM targetCPU=0 actualCPU=0
+source_line=773 EOM targetCPU=0 actualCPU=0
+source_line=873 EOM targetCPU=0 actualCPU=0
+source_line=887 EOM targetCPU=0 actualCPU=0
+source_line=895 EOM targetCPU=0 actualCPU=0
+source_line=903 EOM targetCPU=0 actualCPU=0
+source_line=981 EOM targetCPU=0 actualCPU=0
+source_line=989 EOM targetCPU=0 actualCPU=0
+source_line=997 EOM targetCPU=0 actualCPU=0
+source_line=1004 EOM targetCPU=0 actualCPU=0
+source_line=1011 EOM targetCPU=0 actualCPU=0
+source_line=1046 EOM targetCPU=0 actualCPU=0
+source_line=1057 EOM targetCPU=0 actualCPU=0
+source_line=1073 EOM targetCPU=0 actualCPU=0
+source_line=3007 Software cursor comparison enabled by boot arg

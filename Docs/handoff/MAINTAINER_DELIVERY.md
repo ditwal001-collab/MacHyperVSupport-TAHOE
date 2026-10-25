@@ -1,17 +1,18 @@
 # Maintainer delivery and project map
 
-This delivery includes source patches AND the original CI binary ZIPs. Do not
-reconstruct provenance from a copied executable alone. Check each ZIP/hash,
-source commit, run and configuration identity before installation. All binaries
-are candidates; only the explicitly recorded Debug runs have runtime evidence.
+This Hyper-V-only delivery includes clean source patches, original CI binary
+ZIPs, anonymized VM/EFI setup and a technical test record. Start with this guide,
+HYPERV_SETUP.md and RELEASE_RC1.md. Check each ZIP/hash, source, run and runtime
+scope before installation. An11h07 Debug run is verified; clean Release build
+success alone is not a stable-release acceptance claim.
 
 ## Project structure and changed files
 
 ```text
 MacHyperVSupport/
-  Controller/HyperVController.hpp             EOM affinity declarations/diagnostics
+  Controller/HyperVController.hpp             remove obsolete preemption lock
   Controller/HyperVControllerInterrupts.cpp   CPU-local EOM functional correction
-  VMBus/HyperVVMBus.cpp                       enumeration instrumentation
+  VMBus/HyperVVMBus.cpp                       baseline restored in clean candidate
   Graphics/HyperVGraphicsPrivate.cpp          separate startergo refresh hunk
   Graphics/HyperVGraphicsRegs.hpp             separate 33-ms pacing comparison
 MacHyperVFramebuffer/
@@ -33,12 +34,18 @@ also retains startergo attribution from3454a80 and source commit3d31e11.
 
 ## Reproduce source and builds
 
-Use a fresh checkout at that base. Apply the CPU export's numbered0001-0004
-patches in order with `git apply --check` followed by `git apply`. An alternative
-clean functional patch excludes instrumentation; follow REPRODUCE.md rather than
-applying both functional variants. Apply optional graphics0001-0003 separately
-for the combined graphics/cursor comparison. Their scope excludes the CPU fix.
-Every series was application-checked and reconstructed against the pinned source.
+Use a fresh checkout at that base. The CURRENT bundle has five patches under
+patches/:0001 clean SynIC CPU placement,0002 startergo full-frame refresh,
+0003 refresh pacing,0004 optional software cursor,0005 CI/provenance. For each
+in order run `git apply --check PATCH` then `git apply PATCH`. The exporter checks
+application and reconstructs all nine changed source/build files byte-for-byte
+after line-ending normalization against the clean candidate. The historical
+instrumented four-patch exports described in older reports are separate variants;
+do not apply them on top of this clean series.
+
+The reference/ GraphicsBridge patch is attribution/history only: base c48fc5c
+already contains it. Do not apply the reference patch again. Original base and
+refresh-hunk attribution are preserved in ATTRIBUTION.txt.
 
 Pinned source/run mapping:
 
@@ -48,7 +55,8 @@ Pinned source/run mapping:
 | Clean SynIC build |c960997 (clean-c48 branch)|40093339256|build only|
 | Refresh backport |3d31e1107d097f2a3eee4683e89d7d8678a76708|40101047189|visible input restored; slow mouse|
 |33-ms pacing |e17098263de44ac71251bcd31caea999e050221e|40124452997|user reports faster mouse|
-| Combined optional cursor |c9eb980daab9598b1af6732217147490dacceb3e|40139181101|one positive short Debug software-cursor test|
+| Combined optional cursor |c9eb980daab9598b1af6732217147490dacceb3e|40139181101|positive overnight11h07 Debug observation|
+| Clean combined RC1 |6c3568178ba21136b8c21dd45597476c74ec31d1|40189441511|build/analyses passed; see RELEASE_RC1.md for actual runtime status|
 
 The GitHub Actions workflow builds Debug/Release and runs both Clang analyses.
 It uses macos-15-intel/Xcode16.4, pinned MacKernelSDK and ocbuild, and a
@@ -58,15 +66,18 @@ and remaining transitive downloads prevent a bit-identical rebuild guarantee.
 To repeat the combined build in the existing repository:
 
 ```sh
-gh workflow run main.yml --ref test/tahoe-software-cursor
-gh run view 40139181101
-gh run download 40139181101 --dir downloaded-build
+gh workflow run main.yml --ref release/tahoe-clean-rc1
+gh run view 40189441511
+gh run download 40189441511 --dir downloaded-build
 ```
 
 A new run has a new identity: verify its source and uploaded provenance anew.
-The delivery contains original Debug/Release ZIPs for the tested instrumented
-SynIC source and combined cursor source; do not mix their core executables.
-The combined Debug core is803a3d24...; its separate framebuffer is310f155f... .
+The delivery contains original Debug/Release ZIPs in separate historical-reference
+and clean-RC1 directories. Do not mix executables/provenance between them.
+Overnight Debug core is803a3d24..., framebuffer310f155f... . Clean RC1 Release
+core isc97e2919..., framebufferd8a079d4... . Exact hashes are in the manifest
+and run-40189441511-verified.json. The profile/overnight evidence records which
+configuration was actually booted.
 
 ## Install, test and roll back
 
@@ -87,10 +98,11 @@ The combined Debug core is803a3d24...; its separate framebuffer is310f155f... .
    hashes, and select the preserved EFI. Never overwrite backups or force a
    shutdown during an active installer. Review any failed cache build before reboot.
 
-The guest-specific guarded InstallAux.command is included as a tested example.
-It intentionally refuses different build/module hashes or a different Aux
-inventory. Inspect/adapt those preconditions for another machine; no private
-OpenCore configuration or VM image is supplied. KDK payloads are not redistributed.
+The guest-specific guarded InstallAux-example.command derives from the tested
+Aux-only procedure, pinned to this candidate's hashes. Its runtime installation
+status is recorded in RELEASE_RC1.md. It refuses different build/module hashes
+or a different Aux inventory. Inspect/adapt those preconditions for another
+machine; full private EFI configurations, VM images and KDK payloads are omitted.
 
 The lab's `-nobsdmgroot` flag bypassed a residual installer BaseSystem selection
 on isolated copies. It is not part of the SynIC/cursor patch and is not a general
@@ -99,10 +111,12 @@ is still unproven. Maintain that distinction when reviewing the reports.
 
 ## Acceptance boundary
 
-The latest prefix and user tests show a usable Tahoe26.7.1 desktop, correct
-captured EOM CPU placement and a working software-cursor workaround. The root
-hardware-cursor cause, same-binary flag A/B comparison, long sessions, repeated
-boots and clean Release runtime acceptance remain open. No stable release claim
-is made. Read RESULTS_LOG.md for failures, rollbacks and the host Stopping incident.
+The Debug tests show a usable Tahoe26.7.1 desktop, correct captured EOM placement,
+a useful software-cursor workaround and one positive overnight session. The root
+hardware-cursor cause and same-binary flag A/B remain unresolved; read RELEASE_RC1
+for repeated-boot and clean-Release runtime status. No stable-release claim follows
+from a long Debug session or a successful CI build. RESULTS_LOG covers failures,
+rollbacks, host-finalization and integration-shutdown incidents. HYPERV_SETUP
+separates recorded changes from pre-existing settings and unknown before-values.
 Raw logs, personal GUI images, local names/IPs, original configurations, disk
 images and the temporary fixed-target diagnostic viewer are excluded.

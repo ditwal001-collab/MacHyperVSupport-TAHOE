@@ -31,8 +31,11 @@ and0 root-wait markers. Its SHA256 is in evidence/ci/display-03-software-cursor.
 VMConnect displays the desktop again. The user reports moving the mouse, opening
 Safari and opening Downloads successfully, with no disappearance so far.
 
-This confirms a useful workaround in one short instrumented Debug run. It does
-not establish sustained/repeated boot stability or Release acceptance. Existing
+The initial short Debug result was followed by an11h07 overnight run, confirmed
+on2026-10-25 at11:32 UTC: VM Running, receiver alive,26 matching startup EOMs,
+zero cursor conversion/panic/root-wait markers in a5432111-byte prefix. See
+evidence/ci/overnight-20261025.json. This extends sustained Debug evidence in one
+boot; it does not establish repeated-boot stability or clean Release acceptance. Existing
 framebuffer0.9.9 was upgraded to0.9.10 together with enabling software rendering;
 the version change is another variable. An A/B test with the same0.9.10 binary,
 only toggling the argument, remains necessary to isolate its effect. Do not claim

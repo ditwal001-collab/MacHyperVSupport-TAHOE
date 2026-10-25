@@ -1,5 +1,36 @@
 # Tahoe SynIC development handoff
 
+LATEST 2026-10-25 12:07 UTC: overnight Debug run verified11h07, no captured
+EOM CPU mismatch/cursor conversion/panic/rootwait. Clean combined RC1 source
+6c3568178ba21136b8c21dd45597476c74ec31d1 on release/tahoe-clean-rc1 passed
+CI40189441511 Debug/Release and Clang. Read RELEASE_RC1.md and HYPERV_SETUP.md.
+Root branch maintainer/hyperv-release-delivery intentionally excludes application
+setup commits; their separate branch remains preserved. New Hyper-V-only exporter
+reconstructs five clean patches and checks original CI binaries/privacy/scope.
+
+Current VM is Running at LOCAL PRE-KERNEL UNLOCK, no new kernel output. Do not
+send shell commands into that password field. New isolated disks:
+local-tests/release-rc1-test-20261025-01/EFI.release-rc1.vhdx and
+System.release-rc1.vhdx at SCSI0:0/0:1. Full cold hashes match Debug sources;
+old overnight pair is detached/preserved. New EFI core isc97e2919..., config
+f2b8dce6... unchanged. Framebuffer is STILL Debug310f155f... until guarded
+guest install from read-only HVRELRC1 DVD0:10. This preparation boot is not a
+complete Release test. Serial PID48800 alive, current log
+serial-20261025T120334Z-e3581efd.log empty by actual handle read at12:07:56.
+
+After LOCAL unlock, verify desktop/root context and run the guarded installer
+files/InstallAux.command from the Release test root via its DVD. It requires
+normal local sudo authentication, preserves all four Aux IDs/other versions
+and root Boot/System hashes. Then normal reboot; verify BOTH Release core
+c97e2919... and framebufferd8a079d4... before acceptance. Target10 clean boots;
+none counted yet. No password stored. Do not use broad kmutil --update-all.
+
+Normal Hyper-V shutdown first failed0x80004005. macOS-menu shutdown succeeded
+and Off was verified11:49 without reset/worker kill. All source disks detached
+before cold copying. User requests obsolete test/media cleanup AFTER package
+verification; inventory saved locally, not a deletion approval for active disks,
+originals, protected backup or current Debug rollback pair. Do not delete those.
+
 LATEST SUCCESS CHECKPOINT 2026-10-25 00:28 UTC: software cursor workaround active
 on isolated test copies. c9eb980/run40139181101 framebuffer0.9.10 installed through
 guarded four-module Aux rebuild; core803a3d24... unchanged. Fresh Off/detached EFI

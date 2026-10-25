@@ -1,5 +1,41 @@
 # Current state before unattended continuation
 
+## Overnight / clean Release checkpoint, 2026-10-25 12:07 UTC
+
+Read RELEASE_RC1.md and HYPERV_SETUP.md. Debug overnight observation11h07 is
+verified; clean combined source6c35681/run40189441511 builds and both Clang
+analyses passed. All ZIP/kext hashes match provenance. Per-call Tahoe traces
+are absent from clean source/Release binaries. Current maintainership branch
+is isolated from application-setup work; that branch is preserved separately.
+
+New cold EFI/system copies hash-match their original Debug sources. Previous
+working overnight pair remains detached and intact. New pair in
+local-tests/release-rc1-test-20261025-01 is attached at0:0/0:1, host unmounted.
+Core Release c97e2919..., configf2b8dce6... unchanged. Framebuffer still Debug
+310f155f..., so this first preparation boot is NOT full Release acceptance.
+Guest waits at LOCAL PRE-KERNEL UNLOCK. Receiver48800 alive; current serial
+serial-20261025T120334Z-e3581efd.log has zero actual bytes at12:07:56. Do not
+inject shell commands into the password screen. Local unlock and later local
+sudo authentication are required; no credentials stored or bypass attempted.
+
+Read-only HVRELRC1 DVD0:10 carries guarded InstallAux.command pinned to the
+new Release framebufferd8a079d4... . After normal local access, verify the
+installer hashd2dac05f... and run through normal sudo. It preserves all four
+Aux IDs, other versions, root Boot/System hashes and exclusive original backup.
+Only after successful install + normal reboot can a BOTH-Release boot be counted.
+Repeated boot/GUI/network/I/O/shutdown target remains10; count0 at this checkpoint.
+
+Shutdown integration returned0x80004005. Normal guest-menu shutdown succeeded
+and Off11:49 was verified without reset/worker termination. Full shutdown
+failure and subsequent success are recorded separately. Initial copy call after
+detach had invalidated Path objects; no copy occurred; immutable saved paths
+were used successfully. Full cold-copy hashes are in the local test directory.
+
+User requests cleanup after the maintainer package is verified. Inventory is
+read-only so far:6.8GB review candidates among selected file types. Retain all
+active disks/media, original/protected backups and the cold Debug rollback pair.
+No cleanup deletion has been performed at this checkpoint.
+
 ## Final delivery checkpoint, 2026-10-25 00:37:42 UTC
 
 Target Running uptime12m07, serial PID48800 alive. New immutable prefix346500 bytes,

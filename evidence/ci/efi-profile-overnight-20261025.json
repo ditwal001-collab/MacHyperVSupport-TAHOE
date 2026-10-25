@@ -1,0 +1,77 @@
+{
+  "scope": "Saved audited configuration; not a live disk read",
+  "software_cursor_reconstructed_from_recorded_single_change": true,
+  "config_sha256": "f2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81",
+  "boot_arguments": [
+    "-v",
+    "keepsyms=1",
+    "debug=0x12a",
+    "serial=5",
+    "msgbuf=1048576",
+    "-hvstordbg",
+    "-hvvmbusdbg",
+    "-hvvmbusdebdbg",
+    "-hvctrldbg",
+    "-nobsdmgroot",
+    "-hvgfxfbswcursor"
+  ],
+  "unlisted_boot_argument_count": 0,
+  "sip_csr_active_config_hex": "03000000",
+  "kernel_quirks": {
+    "ProvideCurrentCpuInfo": true,
+    "AppleXcpmCfgLock": false,
+    "AppleCpuPmCfgLock": false,
+    "DisableIoMapper": false,
+    "PanicNoKextDump": true,
+    "PowerTimeoutKernelPanic": true
+  },
+  "cpuid_data_hex": "55060a00000000000000000000000000",
+  "cpuid_mask_hex": "ffffffff000000000000000000000000",
+  "acpi": [
+    {
+      "path": "SSDT-HV-DEV.aml",
+      "enabled": true
+    },
+    {
+      "path": "SSDT-HV-PLUG.aml",
+      "enabled": true
+    },
+    {
+      "path": "SSDT-HV-VMBUS.aml",
+      "enabled": true
+    }
+  ],
+  "kexts": [
+    {
+      "bundle": "Lilu.kext",
+      "enabled": true,
+      "minimum_kernel": "",
+      "maximum_kernel": ""
+    },
+    {
+      "bundle": "MacHyperVSupport.kext",
+      "enabled": true,
+      "minimum_kernel": "",
+      "maximum_kernel": "20.99.99"
+    },
+    {
+      "bundle": "MacHyperVSupportMonterey.kext",
+      "enabled": true,
+      "minimum_kernel": "21.0.0",
+      "maximum_kernel": ""
+    },
+    {
+      "bundle": "VirtualSMC.kext",
+      "enabled": true,
+      "minimum_kernel": "",
+      "maximum_kernel": ""
+    },
+    {
+      "bundle": "MacHyperVFramebuffer.kext",
+      "enabled": false,
+      "minimum_kernel": "",
+      "maximum_kernel": ""
+    }
+  ],
+  "privacy": "Full configuration, platform identity, serials, device paths and other NVRAM omitted"
+}
