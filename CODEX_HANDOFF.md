@@ -1,5 +1,18 @@
 # Tahoe SynIC development handoff
 
+PACKAGE / CLEANUP CHECKPOINT 2026-10-25 12:18 UTC: Hyper-V-only package
+evidence/packages/hyperv-maintainer-20261025T121628Z-40dd7327.zip,
+SHA2564348d3bae44d04f8b52d14d7ff440cdfe74349b7a1b9fe313d3d82ce8eefaf33;
+72 entries, source reconstruction, original CI hashes and privacy/scope PASS.
+No application-setup content. See LOCAL_STORAGE_RETENTION.md (operational,
+excluded from package). User-authorized cleanup removed ONLY five old inactive
+experimental EFI images and duplicate host KDK DMG:6.23GB logical,6.228GB
+observed free-space increase. No active/rollback/original/protected disk deleted.
+All raw serial evidence and CI archives remain. Deleted image paths in older
+historical notes are intentionally no longer current recovery inputs.
+Current Release preparation still waits at local pre-kernel unlock; receiver
+48800 active. Guarded framebuffer installation and full Release test not yet run.
+
 LATEST 2026-10-25 12:07 UTC: overnight Debug run verified11h07, no captured
 EOM CPU mismatch/cursor conversion/panic/rootwait. Clean combined RC1 source
 6c3568178ba21136b8c21dd45597476c74ec31d1 on release/tahoe-clean-rc1 passed

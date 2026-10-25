@@ -1,5 +1,25 @@
 # Current state before unattended continuation
 
+## Package and cleanup checkpoint, 2026-10-25 12:18 UTC
+
+Hyper-V-only package hyperv-maintainer-20261025T121628Z-40dd7327.zip in
+evidence/packages; SHA2564348d3bae44d04f8b52d14d7ff440cdfe74349b7a1b9fe313d3d82ce8eefaf33.
+72 entries; patch reconstruction, CI hashes, recursive privacy/scope checks PASS.
+It clearly states Release runtime pending; no stable release or external delivery
+was claimed. Local operational housekeeping note is not part of the package.
+
+After user-authorized exact-file preflight, five obsolete inactive experimental
+EFI images and duplicate host KDK DMG were deleted:6234329236 logical bytes,
+6228107264 observed free-space increase. Active Release pair, full overnight
+Debug rollback pair, all original/protected backups, CI archives and serial
+evidence remain. Earlier paths naming removed experiment images are historical.
+See LOCAL_STORAGE_RETENTION.md and local cleanup plan/result JSONs. Do not run
+an indiscriminate old-directory cleanup or delete the retained86GB rollback disk.
+
+Release preparation still waits at local pre-kernel unlock. Serial48800 alive;
+normal local unlock and later sudo needed. Do not type commands at login screen.
+Release framebuffer has not been installed; clean Release runtime count remains0.
+
 ## Overnight / clean Release checkpoint, 2026-10-25 12:07 UTC
 
 Read RELEASE_RC1.md and HYPERV_SETUP.md. Debug overnight observation11h07 is
