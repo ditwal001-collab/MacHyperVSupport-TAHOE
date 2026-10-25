@@ -69,17 +69,28 @@ trap restore ERR
 changed=1
 ditto "$new" "$destination"
 test "$(shasum -a 256 "$destination/$exe" | awk '{print $1}')" = "$expected"
+# The boot collection must describe the final /Library/Extensions path, not
+# the private probe path. Keep the first candidate only as a no-mutation probe.
+kmutil create -n aux -V release -a x86_64 -x \
+  -p "$destination" -p /Library/Extensions/HighPointIOP.kext \
+  -p /Library/Extensions/HighPointRR.kext \
+  -p /Library/Apple/System/Library/Extensions/AppleMobileDevice.kext \
+  -B "$boot" -S "$system" -A "$backup/CanonicalAux.kc" > "$backup/canonical-build.log" 2>&1
+kmutil inspect -A "$backup/CanonicalAux.kc" -V release > "$backup/canonical-inspect.txt"
+awk '$1 ~ /^[A-Za-z0-9_-]+\./ {print $1, $2}' "$backup/canonical-inspect.txt" | sort > "$backup/canonical-versions.txt"
+cmp "$backup/canonical-versions.txt" "$backup/expected-candidate.txt"
+grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Library/Extensions/MacHyperVFramebuffer\.kext$' "$backup/canonical-inspect.txt"
 temp_aux="${aux}.fresh-$(date -u +%Y%m%dT%H%M%SZ)-$$"
 test ! -e "$temp_aux"
-cp -p "$backup/CandidateAux.kc" "$temp_aux"
+cp -p "$backup/CanonicalAux.kc" "$temp_aux"
 chown root:wheel "$temp_aux"
 chmod 644 "$temp_aux"
 mv -f "$temp_aux" "$aux"
 /usr/sbin/kcditto > "$backup/kcditto.log" 2>&1
 shasum -a 256 -c "$backup/base-before.sha256"
-cmp "$aux" "$backup/CandidateAux.kc"
+cmp "$aux" "$backup/CanonicalAux.kc"
 trap - ERR
-cat "$backup/candidate-inspect.txt"
+cat "$backup/canonical-inspect.txt"
 shasum -a 256 "$destination/$exe" "$aux"
 echo "FRESH_FRAMEBUFFER_INSTALLED $backup"
 echo 'Verify loaded UUID after a normal restart; no automatic reboot performed.'
