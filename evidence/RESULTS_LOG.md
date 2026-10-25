@@ -405,3 +405,22 @@ The latest login-screen boot adds 24 matching-CPU writes and all 14 channels.
 This establishes observed CPU-local behavior and a normal GUI start on a copy,
 not a stable release or original migration-completion claim. Repeated and clean
 Release runtime tests and a personal user-session/version check remain pending.
+# Development setup observation, 2026-10-25 00:53 UTC
+
+Separate setup branch from581acf4; guest remains Tahoe26.7.1/25G241 x64.
+User requested English, one current stable version, free App Store preferred.
+VS Code1.143.1 and .NET SDK10.0.402 installed from official Microsoft URLs with
+SHA256/SHA512 and Code signature/Gatekeeper checks. C# Dev Kit installed.
+Guest success marker, console build/run Hello World and single SDK listing
+observed. Details and exact setup-medium hashes: Docs/handoff/DEV_ENVIRONMENT.md.
+Xcode27.1 incompatible (M1 required); App Store compatible fallback accepted,
+Installing visible00:53; exact installed version/iOS validation still pending.
+
+Passive serial sample00:52:58:379717 bytes, SHA256
+28401f53dd3cea7a3d8c9f01aa8e78b2ea668b02b9a413e39dc0d446afd8dad1;
+26 matching EOM,0 mismatch/cursor conversion/panic/rootwait,1 software marker.
+Evidence local-only dev-setup-20261025-02/serial-snapshots; capture PID48800 alive.
+Driver source c9eb980/run40139181101; core803a3d24... and configf2b8dce6...
+unchanged by setup. No reboot, kernel, security or VHDX changes performed.
+This setup is not another confirmed driver fix or release stability test.
+

@@ -1,5 +1,26 @@
 # Current state before unattended continuation
 
+## Development environment setup, 2026-10-25 00:53 UTC
+
+User now requests English development tools: VS Code, .NET 10 SDK and Xcode
+for iOS; one current stable version per tool, free official App Store preferred.
+Branch `setup/tahoe-dev-environment` preserves the driver delivery commit581acf4.
+Read DEV_ENVIRONMENT.md. VS Code1.143.1 and SDK10.0.402 x64 are installed
+user-scoped; Microsoft checksums/signature verified, C# Dev Kit installed,
+console smoke test prints Hello World and normal shell lists exactly one SDK.
+No driver, security, lifecycle or VHDX changes. Read-only HVDEVSETUP DVD0:6 added.
+
+Xcode27.1 App Store explicitly requires M1 or later; Intel VM cannot run it.
+Existing account offered an earlier compatible version; accepted free download
+at00:52. At00:53 App Store shows Installing; exact version not yet verified.
+Do not confuse current store listing27.1 with installed compatible version.
+After install verify actual Info.plist, Mach-O architecture, xcodebuild and SDKs,
+then first-launch components and unsigned iOS build. Respect local auth prompts.
+Console focus can change while user interacts: capture before typing and use
+slow mapped keyboard input; never send a long shell line blindly to another app.
+Serial PID48800 alive;00:52 snapshot26 matching EOM,0 cursor failures/panic/rootwait.
+Preserve the running working cursor session and all original backups.
+
 ## Final delivery checkpoint, 2026-10-25 00:37:42 UTC
 
 Target Running uptime12m07, serial PID48800 alive. New immutable prefix346500 bytes,
