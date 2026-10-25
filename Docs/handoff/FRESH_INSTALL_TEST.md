@@ -70,6 +70,33 @@ against the existing running test VM correctly refused before any mutation.
 The complete helper creation path has not itself been runtime-tested; the
 actual VM was created with the corresponding individual commands above.
 
+## First installed-system startup and interactive setup
+
+The staged installer requested another restart at18:32:45. That boot used the
+Apple -restore/x86_64SURamDisk environment, then itself requested a restart.
+At18:35:27 the next boot had normal boot arguments, no installer-root or restore
+arguments, and mounted the new APFS System snapshot xid723. All14 VMBus channels
+were captured again. No -nobsdmgroot override was used in this fresh sequence.
+
+VMConnect showed black, but an independent direct Hyper-V framebuffer query at
+18:38:41 showed the English Setup Assistant on the new system. This distinction
+is essential: the guest is displaying usable setup while that client is black.
+capture-hyperv-thumbnail.ps1 reproduces this read-only diagnostic and refuses
+to overwrite an existing image. The previous working VM remains Off.
+
+Country Switzerland, primary English(US), U.S. input and Set up as new were
+selected. A separate local test account was prepared with an independently
+generated strong password, stored only in an ignored Windows-DPAPI-encrypted
+credential file. No existing user's password was requested or copied.
+Account creation/login completion is not yet confirmed at this checkpoint.
+
+See fresh-install-normal-boot-20261025.json for exact source, core/config hashes,
+snapshot identity and evidence boundaries. The final sw_vers, loaded core UUID,
+first normal desktop and first-time framebuffer installation still need checking.
+AppleKeyStore/code-signature warnings occur in the log; absence of panic/root-wait
+markers does not mean an error-free log. Raw images and credentials are not
+included in the maintainer export.
+
 ## Verified inputs and evidence
 
 Core source6c3568178ba21136b8c21dd45597476c74ec31d1, Release/run40189441511;

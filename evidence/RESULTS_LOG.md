@@ -481,3 +481,5 @@ Raw console/prefix evidence stays local under the Release test directory.
 2026-10-25 18:05 UTC: Direct fresh-install test preparation/Recovery PASS, installation still in progress. Clean Release6c35681/run40189441511, core c97e2919..., EFI config3c08709c...; exact hashes and bounded serial evidence in ci/fresh-install-preparation-20261025.json. See FRESH_INSTALL_TEST.md. Old guest Off/preserved; only new blank target initialized.
 
 2026-10-25 18:20 UTC: fresh-install staged-installer boot PASS as installer only; installation ongoing. Source6c35681/run40189441511 and exact core/config hashes plus both14-channel serial prefixes in ci/fresh-install-phase2-20261025.json. Guest auto-restart, not a host reset. No completed normal desktop yet.
+
+2026-10-25 18:43 UTC: first NORMAL installed-system APFS snapshot boot reached English Setup Assistant. Exact hashes and bounded serial in ci/fresh-install-normal-boot-20261025.json. VMConnect black/direct thumbnail usable; final version, desktop and first framebuffer install still pending. No -nobsdmgroot override, no old system/data migration. GUI automation paused for user interaction.

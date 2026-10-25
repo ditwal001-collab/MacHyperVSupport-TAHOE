@@ -1,3 +1,22 @@
+LATEST 2026-10-25 18:47 UTC: user requested to sign into their Apple account.
+ALL automated keyboard/mouse input and GUI captures paused to avoid conflict or
+capturing authentication screens. Continue independent documentation only until
+user indicates login done. Local testadmin fields were filled but Continue had
+NOT yet been clicked by agent; actual current setup state must be rechecked later.
+DPAPI credential stays local, never print password. Old VM remains Off.
+LATEST fresh install 2026-10-25 18:41 UTC: normal installed APFS System boot at
+18:35:27 reached ENGLISH SETUP ASSISTANT. No installer/restore/bsdmgroot args;
+root snapshot xid723;14channels. VMConnect is BLACK but direct Hyper-V thumbnail
+shows real usable setup (country Switzerland selected, now Set up as new).
+Do NOT blindly reset. Use new read-only BuildScripts/capture-hyperv-thumbnail.ps1
+via ScriptBlock, -VMName t_full_test -OutputPath NEW.png, to observe actual GUI.
+Guest resolution1024x768, thumbnail1280x720 has active960x720 at x160: native
+x=(thumbnailX-160)/0.9375, y=thumbnailY/0.9375. WMI input works, U.S keyboard.
+Testadmin password generated in ignored test root/testadmin-private.clixml,
+DPAPI encrypted. Never print it. It is NOT yet entered/created in the guest.
+Serial root/serial/serial-20261025T183527Z-1b51154c.log, PID53008 active.
+Read-only FreshTools-v2.iso prepared (not attached), with Inspect.command and
+Release Framebuffer.zip. No new guest framebuffer installed yet. Old VM Off.
 LATEST fresh install 2026-10-25 18:20 UTC: Apple18.381GB package downloaded and
 extracted; automatic guest reboot18:19:08. New macOS Installer entry correctly
 selected; Enter confirmed. Now Apple logo installation with29min estimate.
