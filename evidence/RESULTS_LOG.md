@@ -1,5 +1,50 @@
 # Results log (append only)
 
+## 2026-10-25 00:28 UTC - positive software cursor workaround run
+
+Guarded four-module Aux installer succeeded, sourcec9eb980/run40139181101,
+framebuffer SHA256310f155f50aa2f5ffccd688ba0ef280e268335e209e616ae888f2f73d8133ef3;
+Aux SHA256bd40a30af2dc48e572ddab8d97ac6bea6e2fe00bb73d37ec2293cc0b8300da2.
+Verified exclusive backup /Users/Shared/HVCursorAuxInstall.LFcYut1Y; other three
+module IDs/versions retained; Boot/System collection hashes unchanged; kcditto PASS.
+Guest poweroff completed but host stuck Stopping; Stop-VM InvalidState; matched
+target worker terminated, Hyper-V automatic recovery restart then regular TurnOff
+reached Off. No other VM or original disk/backup changed. Record as host-finalization
+incident, not successful clean reboot. No lifecycle change after current boot start.
+
+New EFI made only Off/detached with source/copy hash equality; config now
+f2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81, only semantic
+change append -hvgfxfbswcursor. Core803a3d24... unchanged. Boot00:25:35 UTC.
+Prefix00:28:22 bytes302283 SHA2567d7797aad71ca46d86ff014a457bdb6e6fb4701e7c722bc7eb21cf0e90f07fa0:
+26 matching-CPU EOM writes,0 mismatches,0 cursor conversion failures,1 software
+activation marker,0 panic/root-wait. VMConnect desktop visible. User reports mouse,
+Safari and Downloads working so far. User later reports guest computer rename;
+no new driver/config action inferred from it. Raw evidence remains private.
+Confirmed scope: useful workaround observed in one short Debug boot. Framebuffer
+0.9.9->0.9.10 plus flag were changed together; causal isolation and sustained,
+repeated and Release tests pending. Original migration completion still unproven.
+
+## 2026-10-25 00:00-00:06 UTC - KDK success; second guarded install rolled back
+
+Matching KDK25G241 installation reported SUCCESS after local root authentication.
+DMG hash/signature provenance unchanged from preceding verified entries.
+Second guarded install c9eb980/run40139181101 framebuffer310f155f... saved old
+module in /Users/Shared/HVCursorBackup-20261025T000026Z-990 and hash verified it.
+kmutil --update-all failed missing non-release kernels and read-only filesystem
+for release collection. Script restored/hash-verified original0.9.9. No reboot.
+Do not repeat this broad command; no unmounting/protection changes performed.
+Private Aux03 failed unrelated AppleCentauriManager/AppleEmbeddedPCIE dependency;
+explicit-only/x86_64 Aux04 failed missing baseKC. Existing root Boot/System KCs
+were listed read-only and now explicitly referenced in private Aux05 probe.
+Current core e170982/run40124452997/803a3d24... and EFI config32be11... unchanged.
+Candidate not active; mouse/cursor behavior after candidate remains untested.
+
+User again reports black VMConnect while independent WMI shows responsive guest.
+Temporary ignored local WMI viewer restored visible access; initial Invalid object
+path bug in viewer corrected by full query. User authentication via viewer reached
+root shell. Viewer now v4 read-only during agent commands; no input logs, no host
+global settings. Helper-viewer cursor behavior is NOT driver-fix validation.
+
 ## 2026-10-24 23:33 UTC - live serial evidence recovered without restart
 
 Directory entry size0 was stale. Direct FileStream Length/read gives325821 bytes

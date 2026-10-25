@@ -1,5 +1,14 @@
 # Tahoe SynIC development handoff
 
+LATEST SUCCESS CHECKPOINT 2026-10-25 00:28 UTC: software cursor workaround active
+on isolated test copies. c9eb980/run40139181101 framebuffer0.9.10 installed through
+guarded four-module Aux rebuild; core803a3d24... unchanged. Fresh Off/detached EFI
+copy enables -hvgfxfbswcursor; configf2b8dce6... . VM RUNNING, desktop visible in
+VMConnect; serial activation marker1,26 matching EOM writes,0 cursor conversion
+failures/panic/root wait in bounded prefix. User reports Safari, Downloads and
+mouse working so far. Read CURSOR_WORKAROUND.md and latest UNATTENDED.md; older
+password/rollback notices below are superseded. Sustained/repeated/Release pending.
+
 IMPORTANT live-log correction: Windows directory listings reported stale zero
 sizes for the open capture. Actual handle-based read confirms current boot data:
 16 matching-CPU EOM writes,7 cursor conversion failures, no panic/root-wait in

@@ -11,13 +11,19 @@ import zipfile
 BASE = 'c48fc5ccade272ec79f633dcb23e45ba1c40d6cc'
 REFRESH = '3d31e1107d097f2a3eee4683e89d7d8678a76708'
 PACING = 'e17098263de44ac71251bcd31caea999e050221e'
+CURSOR = 'c9eb980daab9598b1af6732217147490dacceb3e'
 FILES = ('MacHyperVSupport/Graphics/HyperVGraphicsPrivate.cpp',
-         'MacHyperVSupport/Graphics/HyperVGraphicsRegs.hpp')
+         'MacHyperVSupport/Graphics/HyperVGraphicsRegs.hpp',
+         'MacHyperVFramebuffer/HyperVGraphicsFramebuffer.cpp',
+         'MacHyperVFramebuffer/HyperVGraphicsFramebuffer.hpp')
 DOCS = ('Docs/handoff/GRAPHICS_REFRESH_REPORT.md',
         'evidence/ci/display-01-3d31e11.json',
         'evidence/ci/display-02-pacing-pending.json',
         'evidence/ci/run-40101047189-verified.json',
-        'evidence/ci/run-40124452997-verified.json')
+        'evidence/ci/run-40124452997-verified.json',
+        'Docs/handoff/CURSOR_WORKAROUND.md',
+        'evidence/ci/display-03-software-cursor.json',
+        'evidence/ci/run-40139181101-verified.json')
 
 
 def digest(data):
@@ -48,6 +54,7 @@ def main():
     for old, new, names, patch_name in (
         (BASE, REFRESH, (FILES[0],), '0001-startergo-refresh.patch'),
         (REFRESH, PACING, (FILES[1],), '0002-pacing-experiment.patch'),
+        (PACING, CURSOR, FILES[2:], '0003-opt-in-software-cursor.patch'),
     ):
         patch = package / patch_name
         with patch.open('xb') as output:
@@ -59,7 +66,7 @@ def main():
             assert (verify / name).read_bytes().replace(b'\r\n', b'\n') == git('show', new + ':' + name).replace(b'\r\n', b'\n'), name
         messages.append(patch_name + ': apply/check/reconstruction PASS')
     for name in FILES:
-        assert (verify / name).read_bytes().replace(b'\r\n', b'\n') == git('show', PACING + ':' + name).replace(b'\r\n', b'\n'), name
+        assert (verify / name).read_bytes().replace(b'\r\n', b'\n') == git('show', CURSOR + ':' + name).replace(b'\r\n', b'\n'), name
     for name in DOCS:
         target = package / 'documentation' / name
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -76,10 +83,13 @@ def main():
         '0001 is ONLY the refresh-timer hunk from startergo 3454a80ef6d6e26a3afcdd38a512c559586bd2ba.\n'
         'Original author startergo and author date retained in source commit ' + REFRESH + '.\n'
         'The credited c48fc5c GraphicsBridge baseline is preserved.\n'
-        '0002 is a separate 10 -> 33 ms experiment; runtime improvement NOT established.\n'
-        'Builds contain the SynIC candidate; these two patches themselves do not add it.\n'
+        '0002 is the separate 10 -> 33 ms pacing comparison; user reports faster motion.\n'
+        '0003 adds opt-in -hvgfxfbswcursor in the separate framebuffer component.\n'
+        'Builds contain the SynIC candidate; these three patches themselves do not add it.\n'
         'Refresh build 40101047189: user confirmed restored visible input; slow pointer remains.\n'
-        'Pacing build 40124452997: build/hash checks PASS; runtime needs local start/unlock.\n'
+        'Combined build 40139181101: software activation recorded, zero cursor conversion errors,\n'
+        'user reports Safari/Downloads/mouse working in one short Debug boot.\n'
+        'Repeated, sustained and Release tests pending; original hardware defect unproven.\n'
         'No raw logs, login images, configuration or disk images included.\n'
         'To regenerate using bundled tool: python tools/export-graphics-comparison.py --repo REPO_PATH\n',
         encoding='utf-8')
@@ -87,7 +97,8 @@ def main():
     manifest = dict(base=BASE, refresh_source=REFRESH, pacing_source=PACING,
                     created_utc=datetime.now(timezone.utc).isoformat(),
                     refresh_run=40101047189, pacing_run=40124452997,
-                    pacing_runtime='NOT VALIDATED; LOCAL UNLOCK REQUIRED',
+                    cursor_source=CURSOR, cursor_run=40139181101,
+                    cursor_runtime='One short Debug boot; activation + user Safari/Downloads test observed; release stability pending',
                     files_sha256={p.relative_to(package).as_posix(): digest(p.read_bytes())
                                   for p in sorted(package.rglob('*')) if p.is_file()})
     (package / 'manifest.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')

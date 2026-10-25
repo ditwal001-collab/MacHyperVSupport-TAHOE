@@ -20,6 +20,10 @@ SOURCE_PATHS = [
 WORKFLOW = '.github/workflows/main.yml'
 PROVENANCE = 'BuildScripts/record-provenance.sh'
 DOCS = [
+    'Docs/handoff/MAINTAINER_DELIVERY.md',
+    'Docs/handoff/CURSOR_WORKAROUND.md',
+    'evidence/ci/display-03-software-cursor.json',
+    'evidence/ci/run-40139181101-verified.json',
     'Docs/handoff/GRAPHICS_REFRESH_REPORT.md',
     'Docs/handoff/TAHOE_BOOT_RESULT.md',
     'CODEX_HANDOFF.md', 'PATCH_PLAN.md', 'REPRODUCE.md',
@@ -203,7 +207,7 @@ def main():
         'candidate_run_conclusion': args.build_conclusion,
         'tested_build_inputs_match_export': tested_inputs_match,
         'clean_patch_build_status': 'NOT ESTABLISHED BY THIS INSTRUMENTED BUILD',
-        'vm_test': 'See included runtime evidence: clone-only normal login screen observed; personal account login, original migration completion and release acceptance are not established',
+        'vm_test': 'Clone-only Tahoe26.7.1 desktop confirmed; optional separate cursor workaround has one positive Debug test. Original migration completion and release acceptance remain unestablished.',
         'normalized_source_sha256': hashes,
         'files_sha256': {
             path.relative_to(package).as_posix(): digest(path.read_bytes())

@@ -1,5 +1,12 @@
 # Separate VMConnect refresh investigation
 
+LATEST: c9eb980/run40139181101 opt-in software cursor executed on a test-copy
+boot at2026-10-25 00:25:35 UTC. Serial activation marker present;26 matching-CPU
+EOM writes and0 cursor conversion failures in the bounded00:28:22 prefix. User
+reports mouse movement, Safari and Downloads working so far. See CURSOR_WORKAROUND.md
+and evidence/ci/display-03-software-cursor.json. Older pending notices below are
+historical. One short Debug run is not release-stability or hardware-cause proof.
+
 ## Opt-in software cursor comparison candidate
 
 Branch test/tahoe-software-cursor, c9eb980daab9598b1af6732217147490dacceb3e,

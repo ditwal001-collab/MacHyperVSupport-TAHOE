@@ -1,5 +1,71 @@
 # Current state before unattended continuation
 
+## Current success checkpoint: RUNNING, software cursor active
+
+Boot2026-10-25 00:25:35 UTC on new local-tests/software-cursor-test-20261025-01/
+EFI.software-cursor.vhdx at SCSI0:0; same System.test.vhdx at SCSI0:1.
+Configf2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81;
+only semantic change append -hvgfxfbswcursor. Core803a3d24... unchanged. Original
+EFI/system and all backups preserved. VMConnect now shows working desktop.
+User reports mouse movement, Safari and Downloads work so far. User also reports
+renaming guest computer to match target VM name; treat as reported guest-name
+change, not proof of DNS/LocalHostName changes. Redact local names in exports.
+
+Guarded Aux installer succeeded: guest backup /Users/Shared/HVCursorAuxInstall.LFcYut1Y,
+candidate sourcec9eb980/run40139181101/framebuffer310f155f...;
+active Aux SHA256bd40a30af2dc48e572ddab8d97ac6bea6e2fe00bb73d37ec2293cc0b8300da2.
+All four original IDs retained; other versions unchanged; root Boot/System hashes
+verified unchanged twice. kcditto succeeded. No security settings changed.
+
+Guest shutdown completed; Hyper-V stuck Stopping. Normal Stop-VM InvalidState;
+only matched target worker36988 terminated. Hyper-V autorestarted target; normal
+TurnOff then reached Off. Do not claim fully clean host shutdown or stability.
+Only after confirmed Off/EFI detach did agent make hash-equal fresh EFI copy and
+append flag, dismount, attach and set first boot device to test EFI. Raw context
+JSON in software-cursor-test folder. Boot-plan.json pins exact identities.
+
+Serial PID48800 still captures existing COM1. Current live capture
+serial-20261025T002535Z-efd6db21.log; snapshot helper prefix00:28:22=302283 bytes,
+SHA2567d7797aad71ca46d86ff014a457bdb6e6fb4701e7c722bc7eb21cf0e90f07fa0,
+26 complete matching-CPU EOM writes,0 cursor conversion failures,1 software marker,
+0 panic/root wait. Read actual file handle, not stale directory entry size.
+Diagnostics viewer v4 is read-only; close it if no longer needed. Guest root shell
+ended with shutdown. Do not run older Install.command --update-all.
+Read CURSOR_WORKAROUND.md for exact procedure, evidence boundaries and rollback.
+Goal now: package source/binaries/provenance/instructions; do not repeat disruptive
+tests while user uses this working session. Sustained/Release comparison pending.
+
+## KDK installed; root shell active; private Aux probe05 running (00:06 UTC)
+
+User confirmed visible diagnostic viewer and entered password; root shell verified.
+No more password input needed for this shell. Original VMConnect stays black in
+user report. Temporary LOCAL C# WMI viewer has fixed target ID only, no input
+logging/network/lifecycle calls. v1/v2 invalid object path corrected in v3 by
+querying complete VM object. v4 is now READ-ONLY by default during agent work;
+source/exes ignored local-tests/CursorDiagnosticConsole*. Do not publish fixed VM ID.
+Interactive input only with --input. v4 also fixes releasing mouse buttons on
+focus loss/outside viewport; v3 retired. Keys/maus modifiers explicitly released.
+Guest Terminal was brought full-screen; root shell is the active input context.
+Use slow one-character TypeText20ms and validated Swiss mapping for commands.
+
+Apple-signed matching KDK installation SUCCEEDED around00:00 UTC (installer
+printed The install was successful). Second guarded framebuffer install made
+another exclusive verified backup /Users/Shared/HVCursorBackup-20261025T000026Z-990,
+then kmutil --update-all FAILED: missing debug/research/development/kasan kernels,
+release collection rebuild hit Read-only file system. Original module restored
+and hash-verified by script. Candidate NOT active; no reboot/flag change yet.
+Do not repeat --update-all; it is too broad and system volume stays read-only.
+System Extension Updated notification was dismissed with OK only, not approved.
+
+Aux private probe03 (with KDK, no explicit paths) pulled unneeded KDK driver
+AppleCentauriManager and failed dependency AppleEmbeddedPCIE. Explicit x86_64/-x
+probe04 failed Cannot build pageableKC/auxKC without baseKC. Actual root base
+files exist: /System/Library/KernelCollections/BootKernelExtensions.kc size67584000,
+SystemKernelExtensions.kc size369229824. Probe05 now runs ONLY private aux with
+explicit -B/-S pointing at these existing read-only bases, -a x86_64 -x -p
+/Library/Extensions/MacHyperVFramebuffer.kext, -A /Users/Shared/HVCursorAuxProbe-05.kc.
+Need inspect result; no active collections are being replaced by private probe.
+
 ## Live serial corrected; KDK signature verified; sudo-shell prompt pending
 
 At23:32 UTC actual read handle length325821 despite Get-ChildItem showing0.
