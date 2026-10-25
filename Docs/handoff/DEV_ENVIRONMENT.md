@@ -61,6 +61,33 @@ cloud download button; that offer was accepted and downloading began at
 approximately 00:52 UTC. Its exact version is not yet verified. Do not report
 27.1 as installed or claim the compatible download is necessarily 26.6.
 
+The user explicitly needs new iOS features. A compatible older Xcode is only a
+fallback and does not satisfy the latest iOS SDK requirement. Apple Silicon
+hardware (local or remote build/development access) is required for the currently
+offered Xcode27.1. Intel Hyper-V virtualization cannot provide an Apple M1 CPU.
+Do not spend space on older simulator runtimes or add .NET iOS workloads until
+the toolchain limitation is resolved. App Store product reference:
+https://apps.apple.com/app/xcode/id497799835.
+
+At approximately 01:00 UTC the App Store completed installation (Open button).
+At01:01 direct guest inspection reported **Xcode26.5, build17F42**; Info.plist
+reported26.5 and `file` showed a Universal executable with x86_64 and arm64
+slices. These are actual local results; do not substitute26.6 from external
+version tables. Exact SDK availability and first-launch completion remain to
+be checked. User understands the distinction between compiling ARM iPhone apps
+on Intel and executing an ARM-only Xcode host application on Intel.
+
+Research found no verified Intel-host Xcode27 patch. Apple's Intel Deprecation
+release note states Apple-Silicon-only execution. A concrete Xcode27 Sequoia
+patcher explicitly targets ARM64 and does not support Intel host binaries:
+https://gist.github.com/MihaelIsaev/b09f16a1e8400624d57f539fadcc8a59.
+No third-party patcher was downloaded or executed.
+QEMU's documented userspace emulation covers Linux/BSD, not macOS Mach-O;
+UTM documents macOS ARM guests only on Apple Silicon. Generic ARM64 emulation
+therefore does not establish usable Xcode27 execution in this Intel VM.
+References: https://www.qemu.org/docs/master/user/main.html and
+https://docs.getutm.app/guest-support/macos/.
+
 Check the App Store product and actual installed binary architecture, not just
 the macOS version table. Apple Account authentication, if required, remains a
 local account interaction; never put passwords or session tokens in the repo.
@@ -71,6 +98,48 @@ Completion requires `xcodebuild -version`, SDK listing, an unsigned iOS build
 and, separately, a real Simulator launch test. Simulator graphics/performance
 under this basic Hyper-V framebuffer is unverified. Device signing and App
 Store delivery require the user's Apple team/account configuration.
+
+## Confirmed iOS build, 2026-10-25 01:13 UTC
+
+Xcode26.5/17F42 first launch and local administrator authentication completed.
+`xcodebuild -showsdks` lists platforms and `xcrun --sdk iphoneos
+--show-sdk-version` returns26.5. The user accepts26.5 as the Intel development
+baseline. The current-stable-only policy has this documented hardware exception.
+
+`BuildScripts/verify-ios-dev-environment.command` creates a fresh SwiftUI Xcode
+project under `~/Developer/IOSDevSmoke.*`, builds for iphoneos/arm64 with signing
+disabled, checks Mach-O architecture and MinimumOSVersion, and hashes the binary.
+The corrected test printed `BUILD SUCCEEDED` and
+`IOS_ARM64_BUILD_VERIFIED_UNSIGNED`. MinimumOSVersion was15.0; output was Mach-O
+64-bit arm64. Device execution, signing and simulator execution are distinct.
+
+Local successful project suffix: X1PVN6oc. Executable SHA256:
+`24b5e25c4c3ffc38c07e52ee775a9a9d21ba2a01307cefd1e11a85c604960b37`.
+The initial smoke project compiled successfully too, but its post-build lipo
+argument order failed. The final helper uses `lipo -archs` with an exact arm64
+comparison; this is a verification-script repair, not an Xcode compiler fix.
+One template warning about interface orientations was present; no build errors.
+
+Corrected ISO SHA256:
+`313c94d99265d2cc990fc32345263bd44ea0ade3e35811ab9b0b8969a10f96df`;
+script SHA256:
+`3bf3721bf4f4d675622d008ed04205de3e2eb37c4e8c01dcdcc7244da08568ae`.
+Volume HVIOSVERIFY2 is attached read-only at SCSI0:8;0:7 also points to that
+image after a media-swap attempt that the guest did not initially recognize.
+Old media and previous smoke projects are preserved as test evidence.
+
+The first-launch download UI showed iOS26.5 Universal Simulator23F77 and a
+queued watchOS26.5 runtime. This was observed after overlapping user/agent
+installation clicks; do not claim only the iOS runtime was selected. Simulator
+execution is still being checked. No .NET iOS/MAUI workload was installed.
+
+At01:13/01:14 the normal macOS lock screen appeared. VM uptime did not reset
+(48m27 at01:14); no agent lifecycle operation was performed. Session unlock is
+the current access blocker. Do not inject commands into the password field.
+Simulator runtime completion and execution remain unverified. Later serial
+snapshot01:14:02 contained512473 bytes, SHA256
+`a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3`,
+still26 matching EOM and0 cursor/panic/rootwait markers. Capture PID48800 alive.
 
 ## Sources
 

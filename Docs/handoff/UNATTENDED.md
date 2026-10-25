@@ -1,5 +1,32 @@
 # Current state before unattended continuation
 
+## Verified development setup, 2026-10-25 01:14 UTC
+
+Supersedes the pending-Xcode notes below. User-scoped VS Code1.143.1 and
+.NET SDK10.0.402 verified; .NET console build/run succeeded. App Store installed
+Xcode26.5/17F42 (Universal x86_64/arm64); user accepts this Intel-compatible
+version. Xcode local admin authentication completed; English GUI opens.
+iPhoneOS SDK26.5 verified. Corrected verify-ios-dev-environment.command built
+SwiftUI app for iphoneos/arm64, MinimumOSVersion15.0; BUILD SUCCEEDED and
+IOS_ARM64_BUILD_VERIFIED_UNSIGNED observed at01:13. Executable SHA256
+24b5e25c4c3ffc38c07e52ee775a9a9d21ba2a01307cefd1e11a85c604960b37.
+See DEV_ENVIRONMENT.md for reproducer/media hashes and initial lipo test repair.
+
+Current blocker: normal macOS lock screen, guest session locked at01:13/01:14.
+Do not type shell commands at the password screen. No password is stored.
+Simulator runtime download progressed; exact runtime completion/launch not
+verified. Resume by checking desktop after LOCAL unlock, simctl runtimes and
+one Simulator launch; signing/device execution still require account setup.
+No .NET iOS/MAUI workload or emulator installed. Xcode27 is Apple-Silicon-only;
+concrete Sequoia patcher is ARM-only and cannot solve Intel host execution.
+
+VM Running uptime48m27 at01:14, no reboot during setup. Serial PID48800 alive;
+bounded512473-byte prefix SHA256
+a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3:
+26 matching EOM,0 mismatches/cursor errors/panic/rootwait,1 software marker.
+Development DVDs0:6 HVDEVSETUP and0:7/0:8 HVIOSVERIFY2 are read-only.
+All previous media/backups/test projects preserved; drivers and EFI unchanged.
+
 ## Development environment setup, 2026-10-25 00:53 UTC
 
 User now requests English development tools: VS Code, .NET 10 SDK and Xcode

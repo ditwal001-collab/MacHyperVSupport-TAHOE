@@ -405,7 +405,8 @@ The latest login-screen boot adds 24 matching-CPU writes and all 14 channels.
 This establishes observed CPU-local behavior and a normal GUI start on a copy,
 not a stable release or original migration-completion claim. Repeated and clean
 Release runtime tests and a personal user-session/version check remain pending.
-# Development setup observation, 2026-10-25 00:53 UTC
+
+## Development setup observation, 2026-10-25 00:53 UTC
 
 Separate setup branch from581acf4; guest remains Tahoe26.7.1/25G241 x64.
 User requested English, one current stable version, free App Store preferred.
@@ -424,3 +425,22 @@ Driver source c9eb980/run40139181101; core803a3d24... and configf2b8dce6...
 unchanged by setup. No reboot, kernel, security or VHDX changes performed.
 This setup is not another confirmed driver fix or release stability test.
 
+## Development setup verification, 2026-10-25 01:14 UTC
+
+Xcode26.5/17F42 installed from App Store, Universal host executable verified;
+first launch completed after local user authentication. iPhoneOS SDK26.5.
+Native SwiftUI app built successfully for iphoneos/arm64, minimum iOS15.0.
+Final corrected verifier marker IOS_ARM64_BUILD_VERIFIED_UNSIGNED observed.
+Binary SHA25624b5e25c4c3ffc38c07e52ee775a9a9d21ba2a01307cefd1e11a85c604960b37.
+Initial build succeeded but post-build lipo invocation failed; verifier repaired.
+No compiler fix or driver change claimed. Xcode27 requires Apple Silicon; no
+verified Intel execution patch found. User accepts26.5 as practical baseline.
+
+VM Running uptime48m27; normal guest session now locked. Simulator launch is
+blocked on local unlock; runtime completion/device signing remain unverified.
+Serial PID48800 alive,01:14 prefix512473 bytes SHA256
+a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3;
+26 matching EOM,0 cursor conversion/mismatch/panic/rootwait,1 software marker.
+Driver c9eb980/run40139181101, core803a3d24... and configf2b8dce6... unchanged.
+Reproducer and media hashes in DEV_ENVIRONMENT.md; curated evidence in
+evidence/ci/dev-environment-20261025.json. All backups retained, no VM restart.

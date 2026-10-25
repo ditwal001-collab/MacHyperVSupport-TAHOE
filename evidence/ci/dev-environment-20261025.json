@@ -1,0 +1,34 @@
+{
+  "scope": "Local guest development setup; no CI build or driver source change",
+  "utc": "2026-10-25T01:14:02Z",
+  "guest": {"macos": "26.7.1", "build": "25G241", "architecture": "x86_64", "state": "Running; normal session locked"},
+  "tools": {
+    "vscode": {"version": "1.143.1", "source": "Microsoft", "language": "en", "checksum_and_signature_verified": true},
+    "dotnet_sdk": {"version": "10.0.402", "source": "Microsoft", "sha512_verified": true, "single_sdk_listed": true, "console_build_run": "PASS"},
+    "xcode": {"version": "26.5", "build": "17F42", "source": "Mac App Store compatible fallback", "host_slices": ["x86_64", "arm64"], "gui_launch": "PASS", "iphoneos_sdk": "26.5"}
+  },
+  "ios_smoke": {
+    "kind": "Native SwiftUI Xcode project",
+    "target": "iphoneos/arm64",
+    "minimum_os_version": "15.0",
+    "build": "PASS",
+    "architecture_verification": "PASS",
+    "signing": "disabled for smoke build",
+    "executable_sha256": "24b5e25c4c3ffc38c07e52ee775a9a9d21ba2a01307cefd1e11a85c604960b37",
+    "device_execution": "not tested",
+    "simulator_execution": "not tested; session locked",
+    "initial_verifier_issue": "lipo verify_arch invocation failed after successful first build; corrected to exact lipo -archs comparison"
+  },
+  "serial": {
+    "receiver_pid": 48800,
+    "prefix_bytes": 512473,
+    "sha256": "a423dbd015933f83f2d5aa20b91fe026f1d6501b1907f1e24c27c02f998cd1d3",
+    "matching_eom_writes": 26,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0
+  },
+  "limitations": ["Xcode 27 Intel execution unsupported; no verified patch found", "No simulator or physical iPhone runtime validation", "No .NET iOS or MAUI workload installed", "Bounded serial observation is not release stability proof"],
+  "privacy": "No account names, addresses, screenshots, raw logs or credentials included"
+}
