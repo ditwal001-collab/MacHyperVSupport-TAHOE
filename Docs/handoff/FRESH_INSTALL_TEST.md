@@ -64,6 +64,12 @@ not the installed normal system. See fresh-install-phase2-20261025.json.
 The old source EFI was rehashed at18:18 and still exactly matches its cold-copy
 source hash4313bb56..., confirming it was not edited during new-VM preparation.
 
+For repeatability, new-tahoe-test-vm.ps1 captures the hardware commands as a
+plan-by-default helper. PowerShell parsing passed, and a read-only invocation
+against the existing running test VM correctly refused before any mutation.
+The complete helper creation path has not itself been runtime-tested; the
+actual VM was created with the corresponding individual commands above.
+
 ## Verified inputs and evidence
 
 Core source6c3568178ba21136b8c21dd45597476c74ec31d1, Release/run40189441511;

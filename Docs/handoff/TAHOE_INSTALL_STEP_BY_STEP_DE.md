@@ -345,6 +345,16 @@ Bootdatentraeger derzeit nicht als oeffentliches Downloadpaket aus.
 Diese Schritte beschreiben einen spaeteren Neuaufbau, keine Aenderung der aktuell
 funktionierenden VM. Im Hyper-V Manager immer den vorgesehenen Namen pruefen.
 
+Zum Wiederholen gibt es inzwischen auch `BuildScripts/new-tahoe-test-vm.ps1`.
+Es bildet die im Praxistest manuell benutzten Hardwarebefehle ab, startet die VM
+aber nicht. Standardmaessig zeigt es nur einen Plan; `-Create` erstellt explizit
+eine neue VM. Existiert der Zielname oder eine Ausgabedatei bereits, bricht es ab.
+Es ersetzt weder die EFI-Vorbereitung noch die Installation. Der Helfer ist
+syntaktisch geprueft und hat die bereits laufende Test-VM vor jeder Aenderung
+korrekt abgewiesen; der laufende Praxistest verwendete die Einzelbefehle.
+Falls lokale Skriptrichtlinien die Ausfuehrung blockieren, diese nicht global
+abschalten; die oben beschriebenen Manager-Schritte bleiben verfuegbar.
+
 1. **New > Virtual Machine**.
 2. Eindeutiger neuer Name, zum Beispiel **Tahoe-NewInstall**.
 3. **Generation 2**.
@@ -516,6 +526,8 @@ d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122
 | capture-hyperv-serial.py | Explizit ausgewaehlte COM1-Pipe mitschneiden | Nein |
 | snapshot-serial-log.py | Unveraenderlichen Log-Prefix samt Hash/Markerzaehlern sichern | Nein |
 | collect-hyperv-profile.ps1 | VM-Einstellungen gezielt und anonymisiert erfassen | Nein |
+| new-tahoe-test-vm.ps1 | Neuen VM-Aufbau planen; mit -Create ausschliesslich neue VM/Dateien anlegen | Neue VM wird angelegt und bleibt Off |
+| inspect-fresh-tahoe.command | Nach Erststart Version, Treiber und Aux-Bestand in neuem lokalen Bericht erfassen | Nur neues Berichtsverzeichnis; keine Treiber-/Sicherheitsaenderung |
 | summarize-efi-profile.py | Gespeicherte EFI-Konfiguration zusammenfassen | Nein; keine Live-VHDX bearbeiten |
 | verify-ci-delivery.py | Download gegen originale CI-Provenance pruefen | Nein |
 | export-hyperv-maintainer.py | Gepruefte Patches/Binaries/Dokumente verpacken | Nein; benoetigt lokale archivierte Build-Eingaben |
