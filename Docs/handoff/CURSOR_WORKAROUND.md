@@ -59,7 +59,10 @@ its signature chain to Apple Root CA. Source: dortania/KdkSupportPkg release25G2
 asset Kernel_Debug_Kit_26.7.1_build_25G241.dmg, SHA256
 `9045a521c8ae362d4cb2cc54701b03462686e0069518a0b66cfe2028f87dfe9b`.
 Do not redistribute the KDK inside this handoff. Whether the final Aux-only
-procedure needs an installed KDK has not been tested without it.
+procedure needed an installed KDK was initially untested. The subsequent fresh
+25G241 installation was tested without it: the private Aux build explicitly
+failed with Missing Developer Kit before any active bundle/collection change.
+This establishes the matching KDK prerequisite for that fresh tested system.
 
 The successful procedure used a new private output file and:
 

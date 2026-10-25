@@ -164,3 +164,35 @@ Only then count a full Release desktop with the optional software cursor.
 
 Recovery is not a completed installation. Clean Release has no per-call EOM CPU
 traces, so absent EOM trace lines are not new CPU-locality measurements.
+
+
+## User-authorized restart and first fresh desktop, 2026-10-25 19:46 UTC
+
+The user explicitly approved a hard restart after the final setup stall.
+Restart-VM targeted only the new guest at19:40:54 UTC. Its new serial capture
+reconnected automatically. Preboot FileVault accepted the independent test
+credential when typed slowly, one character per250ms; fast chunked synthetic
+input had failed. No personal credentials or recovery key were exposed.
+
+At19:44:15 a normal Finder desktop was directly visible. This establishes the
+fresh system desktop after one recovery restart, not a smooth unattended setup.
+The read-only Inspect.command completed, confirming macOS26.7.1/build25G241,
+x86_64 and loaded core UUID7CAF03F1-3631-33A9-AAAF-581270B665B0 matching Release
+run40189441511/source6c35681. FileVault reports On. No framebuffer was loaded.
+The inspection report remains in a new private guest HVFreshInspect directory.
+
+The existing Aux has precisely AppleMobileDevice4.0, HighPointIOP4.4.5 and
+HighPointRR4.22.1, without a framebuffer. The dedicated first-install helper
+refuses another build/inventory or an already present framebuffer, backs up
+Aux/Preboot, and builds its candidate before changing installed files. Its first
+runtime invocation failed safely with Missing Developer Kit for25G241. The
+PRIVATE_BUILD_FAILED marker confirms no active bundle/Aux change. Therefore a
+matching KDK is a proven prerequisite for this tested fresh path, not merely an
+assumption inherited from the upgrade experiment. Installation with the existing
+Apple-signed matching KDK is the next step; loaded framebuffer still pending.
+
+Hot replacement of the original read-only DVD was not immediately recognized.
+After ejecting that guest volume, a new DVD at SCSI0:3 exposed HVFRESHFB. A Set
+operation on the empty old DVD reported an object-not-found error; the system
+remained running, old0:2 is empty, and new0:3 is confirmed mounted. No disk-image
+write/mount or old-VM change was used to work around that media issue.

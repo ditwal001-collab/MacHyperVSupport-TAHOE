@@ -1,0 +1,53 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "3c08709ccdb0fa227c614c7799cee0c156eda8ca7fba8d540909ea732ac5dc52",
+  "utc": "2026-10-25T19:53:38Z",
+  "user_authorized_hard_restart_utc_approx": "2026-10-25T19:40:54Z",
+  "first_desktop_utc": "2026-10-25T19:44:15Z",
+  "product_version": "26.7.1",
+  "build": "25G241",
+  "architecture": "x86_64",
+  "loaded_core_uuid": "7CAF03F1-3631-33A9-AAAF-581270B665B0",
+  "filevault_status": "FileVault is On.",
+  "framebuffer_loaded": false,
+  "aux_original_modules": {
+    "com.apple.driver.AppleMobileDevice": "4.0",
+    "com.highpoint-tech.kext.HighPointIOP": "4.4.5",
+    "com.highpoint-tech.kext.HighPointRR": "4.22.1"
+  },
+  "private_aux_probe": "PRIVATE_BUILD_FAILED: Missing Developer Kit matching25G241; active bundle/Aux unchanged",
+  "kdk_dmg_sha256": "9045a521c8ae362d4cb2cc54701b03462686e0069518a0b66cfe2028f87dfe9b",
+  "kdk_package_signature": "signed Apple Software; chain Software Update / Apple Software Update Certification Authority / Apple Root CA",
+  "kdk_installation": "Started, completion pending",
+  "first_full_release_desktop": false,
+  "limitations": [
+    "Hard restart required to escape final setup stall",
+    "Cause of setup stall not established",
+    "No new per-call EOM CPU locality measurements",
+    "Framebuffer first install still pending"
+  ],
+  "snapshot": {
+    "utc": "2026-10-25T19:53:38.194220+00:00",
+    "source_log_name": "serial-20261025T194054Z-443f3939.log",
+    "snapshot_name": "serial-prefix-20261025T195338Z-8fb51292.log",
+    "prefix_bytes": 201549,
+    "snapshot_sha256": "340e27ad1df6384340927a0c9d13ee38a6948abde2152785104262b4fe6acd5f",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "screenshots_sha256": {
+    "thumbnail-20261025T194415368Z.png": "b6d5f1a07124a35ef30dce502a8f7584754760fc03cee4f4c8ab13f63f7fdbd8",
+    "thumbnail-20261025T194547685Z.png": "d0e2ac5e13bd396ec8f8d2fd5bbdbdeabe406b6be27def9252a70cdaccc7e70c",
+    "thumbnail-20261025T194610868Z.png": "1b8b07260e441966673ec784c0756fda9f4f381c1b4f2852aebea564a2e3c251",
+    "thumbnail-20261025T194638809Z.png": "8cf9a175aca0be969d586785b1e1dd40a8dc263877b9ef17989275158fcee50b",
+    "thumbnail-20261025T195032224Z.png": "9b0a164af1f095397c0681f29eca8658a09ac31743bb12af83263503751f91c1",
+    "thumbnail-20261025T195302876Z.png": "c4134981af2d2c7e6df506acf5d2d43e3754acedae726a767ec35b913de24e5a"
+  }
+}

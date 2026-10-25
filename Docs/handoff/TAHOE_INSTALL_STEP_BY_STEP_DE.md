@@ -10,8 +10,9 @@ beauftragten Neuinstallationstest wurde eine neue VM angelegt. Apple-Tahoe-
 Recovery startete direkt, und die neue leere Systemplatte wurde initialisiert.
 Die neue Installation hat den normalen APFS-Systemstart und den englischen
 Einrichtungsassistenten erreicht. Dessen letzte Seite "Update Mac Automatically"
-haengt derzeit; ein fertiger Desktop und der Framebuffer-Erstinstaller sind
-noch nicht bestaetigt. Der tatsaechlich benutzte
+hing; nach einem ausdruecklich genehmigten harten Neustart ist der Desktop mit
+26.7.1/25G241 und dem geprueften Release-Core bestaetigt. Der Framebuffer-
+Erstinstaller ist noch in Pruefung. Der tatsaechlich benutzte
 Windows-Recovery-Weg steht in Schritt6a und im [Testprotokoll](FRESH_INSTALL_TEST.md).
 Die urspruenglichen Vollinstaller-Schritte6 und die fertige Neuinstallation
 bleiben davon getrennt; noch keine Ende-zu-Ende-Erfolgsgarantie.
@@ -493,9 +494,10 @@ zuerst an deren echten Zustand angepasst und getestet werden:
 
 1. Vorhandene Kexts, Aux-Module, Boot/System-Collections und Sicherheitszustand
    erfassen. Aktuelle Daten und EFI auf eigenen Rueckfallkopien sichern.
-2. Passendes Apple-signiertes KDK bereitstellen, falls die lokalen Werkzeuge es
-   brauchen. Unser Test hatte das KDK25G241 installiert; ohne KDK wurde der
-   erfolgreiche Aux-Weg nicht gegengeprueft.
+2. Passendes Apple-signiertes KDK25G241 bereitstellen. Der private Aux-Build
+   der frischen Installation wurde ohne dieses KDK getestet und mit
+   **Missing Developer Kit** sicher abgebrochen. Seine Signatur mit
+   `pkgutil --check-signature` pruefen; keine unbekannten Pakete installieren.
 3. Release-Bundle und erwarteten Hash pruefen; Dateirechte root:wheel,
    Ordner755, Dateien644, ausfuehrbare Datei755 korrekt setzen.
 4. Eine private neue Aux-Collection mit dem tatsaechlichen Modulbestand bauen;

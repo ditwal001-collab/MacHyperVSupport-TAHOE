@@ -30,7 +30,8 @@ TOOLS = ('BuildScripts/export-hyperv-maintainer.py', 'BuildScripts/verify-ci-del
          'BuildScripts/collect-hyperv-profile.ps1', 'BuildScripts/summarize-efi-profile.py',
          'BuildScripts/snapshot-serial-log.py', 'BuildScripts/capture-hyperv-serial.py',
          'BuildScripts/capture-hyperv-thumbnail.ps1', 'BuildScripts/new-tahoe-test-vm.ps1',
-         'BuildScripts/inspect-fresh-tahoe.command')
+         'BuildScripts/inspect-fresh-tahoe.command',
+         'BuildScripts/install-fresh-framebuffer-25G241.command')
 
 
 def sha(data):
