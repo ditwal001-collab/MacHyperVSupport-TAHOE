@@ -1,3 +1,13 @@
+LATEST 2026-10-26 local (23:57 UTC25Oct): user reports stalled setup/update
+and asks intervention. VM Running~1h45/13percent CPU; receiver25588 alive.
+1891907-byte prefix SHAcca3949b... no captured panic/root-wait/cursor failure.
+New screenshot attempt again REJECTED by auto-review due unknown Apple-auth
+completion; no image/input/reset executed. Current-page TITLE clarification pending
+(Update Mac Automatically / Apple authentication / other). Do not retry capture
+without new state evidence. Possible final setup stall is HYPOTHESIS only.
+Exact provenance: ci/srv-clean-install-512g-stall-check-20261025.json.
+Original rollback pair preserved; only new512GiB pair attached. Account created;
+final setup/framebuffer/loaded identity/desktop checks still pending.
 LATEST 2026-10-25 22:31 UTC: user says resume, but automatic approval review
 REJECTED new screenshot because personal Apple sign-in completion is unknown.
 No new screenshot/input executed. A concise STATE clarification is pending:

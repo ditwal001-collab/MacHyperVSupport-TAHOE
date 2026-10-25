@@ -87,3 +87,6 @@ Windows DPAPI encryption and its exact plaintext copy removed. Authentication
 values are excluded from Git/maintainer evidence. Serial logging continues.
 Final setup, FileVault/time zone, sw_vers and first framebuffer installation
 remain pending; no completed main-guest desktop result is claimed yet.
+
+
+At23:57 UTC (26Oct local), the user reported stalled setup/update. VM Running, receiver25588 alive,1891907-byte prefix SHAcca3949b... with no captured panic/root-wait. Automatic review again rejected a new capture because current Apple-auth completion/page is unknown. No capture/input/reset was executed. Current-page title clarification is pending; a final automatic-update setup stall remains a hypothesis. See ci/srv-clean-install-512g-stall-check-20261025.json.
