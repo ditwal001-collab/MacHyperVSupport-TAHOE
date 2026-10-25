@@ -1,3 +1,35 @@
+LATEST 2026-10-25 21:44 UTC: original-guest clean install DOWNLOAD STARTED
+on new512GiB Macintosh HD. New blank disk2 verified549.8GB before APFS creation;
+inherited Swiss German quotes caused label mismatch, corrected via ABC layout
+and renameVolume disk4s1. No original disk write. Initial3h20 ETA not a promise.
+Main serial25588/serial-20261025T213458Z-07006c99.log captures14channels/Recovery;
+no captured panic/root-wait. Original pair detached+hashed, newEFI hostunmounted.
+Read SRV_CLEAN_INSTALL_512G.md and ci/srv-clean-install-512g-preparation-20261025.json.
+No normal desktop yet; WAIT and inspect online-install progress/automatic restarts.
+User-specified local account details only account-profile-private.json and DPAPI
+account-private.clixml; no plaintext credentials in reports. Deleted t_full VM
+is out of scope; its prior test evidence remains. Do not recreate it.
+LATEST TASK 2026-10-25 21:34 UTC: user requests CLEAN REINSTALL of original
+srv-maos-devs11, new512GiB disk, all other hardware unchanged. User deleted the
+separate t_full_test VM; do not operate on/recreate it. Prior test evidence stays.
+Branch test/srv-clean-install-512g. Local root srv-clean-install-20261025-01.
+New EFI.clean.vhdx copied from original Off EFI, same main SMBIOS identity,
+security unchanged; only installer picker/removal-nobsdmgroot/recovery changed.
+Config SHA98608f4eb7a10d1cdf5852d915c5abfbb2802c83d8b2348660d1f2ca75a32272.
+EFI ready-image SHA10da69ddd6a04ee27659543bdac9512eb8909c3392d24c88a2e576d2ea134a15.
+New System.clean-512g.vhdx549755813888 bytes, initially4194304 bytes/unpartitioned.
+Old Release disk pair DETACHED and PRESERVED unchanged. Old system rollback SHA
+0422fc62ecd7279f6ec082ea11f3b8772204c5057b3a42ba718ece605a794ff1.
+New EFI+512GiB system now attached originalVM0:0/0:1; host EFI unmounted.
+Original24GiB/8vCPU/network/ports/settings retained. Verified run40189441511
+success/source6c35681 and Release ZIP162f4767... again. No original/backup writes.
+Main serial receiver25588 started BEFORE boot on existing macos-tahoe-debug pipe,
+root/serial newdirectory. Old deleted-test receiver53008 irrelevant; do not reuse.
+User specified local account; EXACT name/ID in ignored account-profile-private.json,
+password in account-private.clixml DPAPI. Never publish those or repeat secret.
+Continue direct Recovery -> verify NEW blank disk549.8GB before APFS initialization,
+install Tahoe, EN/Switzerland, no migration, user-provided local account. Then
+use revised combined first-framebuffer installer/KDK and validate loaded UUIDs.
 DELIVERY 2026-10-25 20:21 UTC: full fresh test/docs pushed at14d6ebf.
 New Hyper-V-only maintainer archive evidence/packages/hyperv-maintainer-20261025T202025Z-cc97e0bc.zip
 SHA256487034944f5c0356f00d35ccba066c0662f2c9662628eaa74cc4b8613b83fef7,

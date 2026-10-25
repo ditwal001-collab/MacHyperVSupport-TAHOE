@@ -1,0 +1,48 @@
+# Original guest: clean Tahoe reinstall on512GiB
+
+User requested a clean installation of the original guest after the separate
+fresh-install test, explicitly selecting512GiB with other hardware unchanged.
+The user subsequently deleted the separate test VM; no recreation/operation on
+that deleted VM is part of this task. Its existing test evidence is preserved.
+
+The original guest was independently confirmed Off. Its working Release EFI and
+system files were hashed, detached and preserved without modification. Only a
+new EFI copy and a genuinely blank512GiB dynamic512/4096 system disk were attached
+to the original SCSI0:0/0:1 locations.8vCPU,24GiB fixed RAM, network, original COM1
+pipe and other VM settings were retained. The existing main SMBIOS identity and
+security configuration were preserved. Original Sequoia backups were untouched.
+
+The new EFI was host-mounted only while unassigned, validated and unmounted
+before attachment. Installer-only changes remove-nobsdmgroot, expose auxiliary
+picker entries/15-second timeout and replace the new copy's inherited recovery
+payload with the previously verified original Apple files. Original recovery
+material is retained separately. Run40189441511/source6c35681 and original Release
+ZIP hash were rechecked. See ci/srv-clean-install-512g-preparation-20261025.json
+for exact core/config/image/rollback hashes and bounded serial evidence.
+
+Serial receiver25588 started before boot on the unchanged original guest pipe.
+Recovery started21:34:58 and reached the English Reinstall macOS Tahoe screen,
+all14channels, storage and keyboard/mouse. Guest diskutil list showed only a
+blank549.8GB disk2 beside Recovery, EFI and a read-only tooling DVD; host
+attachments were independently rechecked before initializing that NEW disk.
+Inherited Swiss German input mapped quotes incorrectly in the volume name.
+Selecting ABC input and renaming only the new APFS volume corrected Macintosh HD.
+No second erase, original disk write or backup overwrite was needed.
+
+A Command-Q shortcut was conservatively rejected by auto-review. It was not
+executed. Safer explicit navigation closed the idle Terminal window, verified
+the labelled Terminal menu and selected Quit Terminal, returning to Recovery.
+The Apple installer was not yet started at that point; no active setup was quit.
+
+At21:43 the installer accepted the new Macintosh HD target and began its online
+installation. The3h20 initial GUI estimate is not a completion promise. Final
+build, account creation, clean first framebuffer installer and loaded UUID checks
+remain pending. User-provided account details are held only in local encrypted/
+private files; none are reproduced in this public report or CI JSON.
+
+## Evidence boundary
+
+This is installation progress, not a normal desktop success. No panic/root-wait
+marker was captured in the bounded Recovery prefix, but SRB STATUS84 and other
+warnings exist. Clean Release contains no per-call EOM CPU traces; their absence
+is not a new CPU-affinity measurement. Do not reset while installation progresses.
