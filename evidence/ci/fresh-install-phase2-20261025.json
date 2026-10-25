@@ -1,0 +1,79 @@
+{
+  "utc": "2026-10-25T18:20:06Z",
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "3c08709ccdb0fa227c614c7799cee0c156eda8ca7fba8d540909ea732ac5dc52",
+  "phase": "Apple download/extraction finished; automatic guest restart to macOS Installer; GUI29min estimate",
+  "manual_action": "Enter confirmed already selected macOS Installer after guest-requested restart; no host reset",
+  "source_efi_unchanged_sha256": "4313bb563952f504c5c24ce7e5ac12b811504ae2118c4582492da29612f003c3",
+  "snapshots": [
+    {
+      "utc": "2026-10-25T18:20:06.682566+00:00",
+      "source_log_name": "serial-20261025T180004Z-ddd1f2ad.log",
+      "snapshot_name": "serial-prefix-20261025T182006Z-f2947481.log",
+      "prefix_bytes": 902839,
+      "snapshot_sha256": "f7fbff5e113b53a459f0322508e2de14145ddac489051a9b31ae248018097149",
+      "complete_eom_writes": 0,
+      "mismatched_eom_writes": 0,
+      "cursor_conversion_failures": 0,
+      "panic_markers": 0,
+      "root_wait_markers": 0,
+      "software_cursor_activation_markers": 0,
+      "scope": "bounded captured prefix; absence of a marker is not stability proof",
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "utc": "2026-10-25T18:20:06.836384+00:00",
+      "source_log_name": "serial-20261025T181908Z-c2f2f36d.log",
+      "snapshot_name": "serial-prefix-20261025T182006Z-20e7b3af.log",
+      "prefix_bytes": 585072,
+      "snapshot_sha256": "77f816516d24ae6d7dc8d42dab0df691179bed8dd4eafbb798860b323ba7ad20",
+      "complete_eom_writes": 0,
+      "mismatched_eom_writes": 0,
+      "cursor_conversion_failures": 0,
+      "panic_markers": 0,
+      "root_wait_markers": 0,
+      "software_cursor_activation_markers": 0,
+      "scope": "bounded captured prefix; absence of a marker is not stability proof",
+      "channels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ]
+    }
+  ],
+  "macrecovery_sha256": "3023a9b4ca79a5255d93c00f25ab5df37e6f938b729b797d9ecea56184b17aff",
+  "complete_installation": false,
+  "limitations": [
+    "Recovery/installer boots are not normal desktop boots",
+    "No per-call EOM CPU diagnostics in clean Release",
+    "Installer signature fallback observed, not bypassed; no error-free claim"
+  ]
+}

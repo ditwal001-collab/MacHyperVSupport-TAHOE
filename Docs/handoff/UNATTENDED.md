@@ -1,3 +1,10 @@
+LATEST fresh install 2026-10-25 18:20 UTC: Apple18.381GB package downloaded and
+extracted; automatic guest reboot18:19:08. New macOS Installer entry correctly
+selected; Enter confirmed. Now Apple logo installation with29min estimate.
+Current serial root/serial/serial-20261025T181908Z-c2f2f36d.log; PID53008 active.
+Both Recovery and staged-installer boots enumerate14channels with no captured
+panic/root-wait. NOT a normal desktop yet. Do not reset/stop/mount live disks.
+Read ci/fresh-install-phase2-20261025.json, FRESH_INSTALL_TEST.md. Old VM Off.
 LATEST TASK 2026-10-25 18:05 UTC: User explicitly authorized NEW VM t_full_test
 for a direct Tahoe blank-disk installation and requested old VM shutdown.
 Old srv-maos-devs11 user-shutdown confirmed Off; keep it Off and preserved.

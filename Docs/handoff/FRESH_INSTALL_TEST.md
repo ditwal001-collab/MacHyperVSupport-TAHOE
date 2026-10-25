@@ -52,6 +52,18 @@ The old VM was independently rechecked Off at18:10. No installer restart/reset
 was performed. A separate read-only inspection ISO is being prepared for the
 first desktop; it has not yet been attached or used to change guest kexts.
 
+At18:14:53 the Apple payload was mounted successfully; at18:16:04 extraction
+reported succeeded and integrity validation began. The log reported a mobile
+update trust-policy fallback to X509; no verification bypass was introduced.
+At18:19:08 the guest restarted automatically. OpenCore correctly selected the
+new macOS Installer entry; Enter confirmed that selection. Serial reconnected
+without loss of the receiver process. The second boot again enumerated all14
+channels and authenticated the staged installer root, reaching Apple-logo
+installation progress with a29-minute estimate. This is still an installer,
+not the installed normal system. See fresh-install-phase2-20261025.json.
+The old source EFI was rehashed at18:18 and still exactly matches its cold-copy
+source hash4313bb56..., confirming it was not edited during new-VM preparation.
+
 ## Verified inputs and evidence
 
 Core source6c3568178ba21136b8c21dd45597476c74ec31d1, Release/run40189441511;
