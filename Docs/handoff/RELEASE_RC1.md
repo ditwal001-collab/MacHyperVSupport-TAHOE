@@ -105,3 +105,10 @@ Once local access is available, verify current module identity, run the guarded
 Aux installer on the NEW system copy, then reboot normally and validate both
 Release components. The old pair supports full rollback by disk selection.
 Update this report with actual boot evidence before claiming Release acceptance.
+
+At12:09:22 UTC Hyper-V Worker event18508 reports a guest-requested shutdown.
+The earlier successful start is event18500 at12:03:53 UTC. No host stop/reset
+was issued after that start, and the new serial file remained empty. A preboot
+unlock timeout is plausible but not established. This event occurred before the
+obsolete-image cleanup at12:18 and must not be attributed to that cleanup.
+No clean Release kernel execution or SynIC regression is inferred from it.

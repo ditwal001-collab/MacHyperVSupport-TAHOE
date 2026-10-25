@@ -1,5 +1,12 @@
 # Tahoe SynIC development handoff
 
+LATEST EVENT CHECK: Worker18508 confirms guest-requested shutdown at2026-10-25
+12:09:22 UTC, after start18500 at12:03:53. It was not a host Stop/Reset and
+occurred BEFORE obsolete-image cleanup12:18. New serial file still empty;
+pre-kernel unlock timeout is only a hypothesis. No Release kernel boot claimed.
+Agent will restart target once for local unlock; re-query actual current state.
+No security setting or authentication bypass was introduced.
+
 PACKAGE / CLEANUP CHECKPOINT 2026-10-25 12:18 UTC: Hyper-V-only package
 evidence/packages/hyperv-maintainer-20261025T121628Z-40dd7327.zip,
 SHA2564348d3bae44d04f8b52d14d7ff440cdfe74349b7a1b9fe313d3d82ce8eefaf33;

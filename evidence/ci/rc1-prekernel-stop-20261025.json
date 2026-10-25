@@ -1,0 +1,15 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "stage": "Mixed preparation profile; before kernel/local unlock",
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_configuration_sha256": "f2b8dce68e686e349940192cb0f4a53a299e2f5f3b870ab2ceb6acec238fdc81",
+  "hyperv_successful_start_utc": "2026-10-25T12:03:53Z",
+  "start_event_id": 18500,
+  "hyperv_guest_requested_shutdown_utc": "2026-10-25T12:09:22Z",
+  "shutdown_event_id": 18508,
+  "host_stop_or_reset_after_start": false,
+  "new_kernel_serial_bytes": 0,
+  "hypothesis": "Pre-kernel local unlock timeout; not confirmed",
+  "assessment": "Not a Release kernel/runtime test; no SynIC regression inferred. Occurred before12:18 old-file cleanup."
+}

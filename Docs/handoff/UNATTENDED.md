@@ -1,5 +1,14 @@
 # Current state before unattended continuation
 
+## Guest-requested pre-kernel stop, 2026-10-25
+
+Hyper-V Worker18508 reports guest-requested shutdown12:09:22 UTC, following
+successful start18500 at12:03:53. New serial remained empty. Pre-kernel unlock
+timeout is plausible, not proven. This preceded cleanup12:18 and was not a
+host Stop/Reset or evidence of a clean Release kernel failure. Agent restarts
+target once for normal local unlock; re-query actual state, never inject shell
+commands at authentication. Release framebuffer installation/full tests pending.
+
 ## Package and cleanup checkpoint, 2026-10-25 12:18 UTC
 
 Hyper-V-only package hyperv-maintainer-20261025T121628Z-40dd7327.zip in
