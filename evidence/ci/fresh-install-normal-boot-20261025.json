@@ -42,7 +42,7 @@
   "setup_primary_language": "English (US)",
   "setup_region": "Switzerland",
   "migration": "Set up as new selected; no old user/system disk imported",
-  "vmconnect": "Black while direct Hyper-V thumbnail shows Setup Assistant; not resolved yet",
+  "vmconnect": "Automated PrintWindow captures black while direct Hyper-V thumbnail shows setup; user could interactively clear account fields, so client rendering failure is NOT established",
   "full_framebuffer_installation": false,
   "desktop_acceptance_complete": false,
   "final_sw_vers_verified": false,

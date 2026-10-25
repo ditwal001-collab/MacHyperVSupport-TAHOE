@@ -524,6 +524,7 @@ d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122
 | Werkzeug | Zweck | Veraendert es den Gast? |
 | --- | --- | --- |
 | capture-hyperv-serial.py | Explizit ausgewaehlte COM1-Pipe mitschneiden | Nein |
+| capture-hyperv-thumbnail.ps1 | Direkte Hyper-V-Bildabfrage bei schwarzer/staler automatisierter Konsolenaufnahme | Nein; neue lokale PNG-Datei |
 | snapshot-serial-log.py | Unveraenderlichen Log-Prefix samt Hash/Markerzaehlern sichern | Nein |
 | collect-hyperv-profile.ps1 | VM-Einstellungen gezielt und anonymisiert erfassen | Nein |
 | new-tahoe-test-vm.ps1 | Neuen VM-Aufbau planen; mit -Create ausschliesslich neue VM/Dateien anlegen | Neue VM wird angelegt und bleibt Off |

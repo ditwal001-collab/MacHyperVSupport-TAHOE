@@ -78,9 +78,12 @@ At18:35:27 the next boot had normal boot arguments, no installer-root or restore
 arguments, and mounted the new APFS System snapshot xid723. All14 VMBus channels
 were captured again. No -nobsdmgroot override was used in this fresh sequence.
 
-VMConnect showed black, but an independent direct Hyper-V framebuffer query at
+Automated VMConnect PrintWindow captures were black, but a direct Hyper-V query at
 18:38:41 showed the English Setup Assistant on the new system. This distinction
-is essential: the guest is displaying usable setup while that client is black.
+is essential: the guest is displaying usable setup despite black client captures.
+The user later reported clearing the password fields interactively, consistent
+with actual console access. A VMConnect rendering failure is therefore NOT
+established by these automated captures; the capture mechanism may be the limit.
 capture-hyperv-thumbnail.ps1 reproduces this read-only diagnostic and refuses
 to overwrite an existing image. The previous working VM remains Off.
 

@@ -24,10 +24,13 @@ DOCS = ('Docs/handoff/MAINTAINER_DELIVERY.md', 'Docs/handoff/HYPERV_SETUP.md',
         'Docs/handoff/RELEASE_RC1.md', 'Docs/handoff/CURSOR_WORKAROUND.md',
         'Docs/handoff/SYNIC_EOM_REPORT.md', 'Docs/handoff/GRAPHICS_REFRESH_REPORT.md',
         'Docs/handoff/TAHOE_BOOT_RESULT.md', 'Docs/handoff/TAHOE_INSTALL_STEP_BY_STEP_DE.md',
+        'Docs/handoff/FRESH_INSTALL_TEST.md',
         'REPRODUCE.md', 'evidence/RESULTS_LOG.md')
 TOOLS = ('BuildScripts/export-hyperv-maintainer.py', 'BuildScripts/verify-ci-delivery.py',
          'BuildScripts/collect-hyperv-profile.ps1', 'BuildScripts/summarize-efi-profile.py',
-         'BuildScripts/snapshot-serial-log.py', 'BuildScripts/capture-hyperv-serial.py')
+         'BuildScripts/snapshot-serial-log.py', 'BuildScripts/capture-hyperv-serial.py',
+         'BuildScripts/capture-hyperv-thumbnail.ps1', 'BuildScripts/new-tahoe-test-vm.ps1',
+         'BuildScripts/inspect-fresh-tahoe.command')
 
 
 def sha(data):

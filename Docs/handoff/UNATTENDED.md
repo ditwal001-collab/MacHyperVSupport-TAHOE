@@ -1,3 +1,15 @@
+LATEST 2026-10-25 18:52 UTC: local testadmin creation completed; Setup Assistant
+now at Sign In to Your Apple Account with EMPTY email field. User explicitly
+wants to sign in personally; informed user that page is ready. Automated input
+AND screenshots paused until user signals completion. No personal Apple account
+credentials collected, typed by agent or stored. Independent doc work may continue.
+Test credential DPAPI file still local only. Current helper/script state in Git.
+CORRECTION 2026-10-25 18:51 UTC: black PrintWindow captures DO NOT establish a
+VMConnect rendering failure. User could clear local password fields interactively;
+direct thumbnails show live Setup Assistant. Treat capture limitation/client
+freshness as unverified, not as a new confirmed driver bug. User returned control;
+agent refilled both test password fields and Continue shows Creating account.
+No interactive diagnosis viewer was started; direct WMI thumbnails suffice.
 LATEST 2026-10-25 18:47 UTC: user requested to sign into their Apple account.
 ALL automated keyboard/mouse input and GUI captures paused to avoid conflict or
 capturing authentication screens. Continue independent documentation only until
