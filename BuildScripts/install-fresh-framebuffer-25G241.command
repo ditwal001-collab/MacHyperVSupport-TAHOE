@@ -79,7 +79,7 @@ kmutil create -n aux -V release -a x86_64 -x \
 kmutil inspect -A "$backup/CanonicalAux.kc" -V release > "$backup/canonical-inspect.txt"
 awk '$1 ~ /^[A-Za-z0-9_-]+\./ {print $1, $2}' "$backup/canonical-inspect.txt" | sort > "$backup/canonical-versions.txt"
 cmp "$backup/canonical-versions.txt" "$backup/expected-candidate.txt"
-grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Library/Extensions/MacHyperVFramebuffer\.kext$' "$backup/canonical-inspect.txt"
+grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Library/Extensions/MacHyperVFramebuffer\.kext[[:space:]]*$' "$backup/canonical-inspect.txt"
 temp_aux="${aux}.fresh-$(date -u +%Y%m%dT%H%M%SZ)-$$"
 test ! -e "$temp_aux"
 cp -p "$backup/CanonicalAux.kc" "$temp_aux"

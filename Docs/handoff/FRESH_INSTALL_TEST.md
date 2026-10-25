@@ -1,5 +1,14 @@
 # Direct Tahoe installation on a new blank system disk
 
+**Final checkpoint 2026-10-25 20:17 UTC:** blank-disk Tahoe26.7.1/25G241 reached
+normal desktop with both verified Release UUIDs after a user-approved setup-stall
+restart and a canonical Aux bundle-path repair. HTTPS/Safari/Finder/input short
+smoke passed. This is one completed fresh installation with documented recovery
+steps, not proof of an unattended installer or repeated-boot stability. Exact
+provenance: evidence/ci/fresh-install-full-release-20261025.json. Earlier pending
+checkpoints below are chronological evidence and are superseded by this result.
+
+
 Status: IN PROGRESS, 2026-10-25. This test does not yet prove installation
 completion. User explicitly expanded the VM scope to one new fresh-install VM
 and requested that the existing working VM be shut down. That existing VM was
@@ -196,3 +205,56 @@ After ejecting that guest volume, a new DVD at SCSI0:3 exposed HVFRESHFB. A Set
 operation on the empty old DVD reported an object-not-found error; the system
 remained running, old0:2 is empty, and new0:3 is confirmed mounted. No disk-image
 write/mount or old-VM change was used to work around that media issue.
+
+
+## First framebuffer installation and canonical-path follow-up
+
+KDK DMG SHA9045a521... and its Apple Root CA package chain were rechecked inside
+this guest; installer reported success at19:54. The first guarded Aux install
+then completed, preserving the three original module versions and both original
+Boot/System collection hashes. It embedded the private probe bundle path.
+After a normal guest restart at19:56:30 the desktop returned, but kextstat did
+NOT show the framebuffer. This is a failed framebuffer activation test despite
+the successful install marker. The stored Aux did contain the expected4modules.
+Manual live kmutil load was rejected by automatic review and never executed.
+
+The separate repair helper requires that exact stage-path/4module/Release-binary
+state and builds a private replacement using the canonical installed bundle
+path. Its first invocation refused before mutation because kmutil inspect ends
+its path column with a tab. The path check was corrected to permit trailing
+whitespace while retaining its exact path/version checks. The second invocation
+completed at20:06 with CANONICAL_FRAMEBUFFER_AUX_INSTALLED, all module versions
+preserved and Boot/System hashes unchanged. A regular guest restart was then
+requested. Whether this path change resolves activation remains a hypothesis
+until the next loaded-UUID check; do not count the collection marker as proof.
+
+The first-install helper now keeps the initial private build as a no-mutation
+probe, then builds its final candidate against the canonical installed path.
+This combined revised helper has not yet been run end to end on another blank
+installation; its individual probe and canonical repair stages were exercised
+on this fresh guest. Existing backups are retained; no live-load/security bypass.
+
+
+## Full fresh Release desktop verified, 2026-10-25 20:17 UTC
+
+The canonical Aux repair completed with all4module versions unchanged. A normal
+restart20:07:18 followed by FileVault unlock reached the desktop. At20:12:02
+kextstat confirmed both exact original CI Release UUIDs; sw_vers confirmed
+26.7.1/25G241. This completes one fresh normal-system Release desktop test.
+The path correction is a successful procedural correction in this test; it does
+not independently isolate all loader-policy causes or establish boot reliability.
+The combined revised first-installer still needs a separate clean rerun.
+
+All14channels and software-cursor activation are present. The bounded198959-byte
+serial prefix SHA8424865566dcd9fd7958c1178b0ea88c8eed36a15fcbce57a1688682a31b5f2d
+has no captured panic/root-wait/cursor-conversion markers. Zero per-call EOM
+traces are expected in clean Release, not new CPU-locality measurements. Other
+Apple/IOVersatile/kernelmanager warnings exist; no error-free claim is made.
+
+HTTPS returned HTTP/2 200; Safari rendered Apple's site. Finder/Downloads and
+Desktop/Downloads sidebar clicks worked. Synthetic moves left a visible cursor
+in the final screenshot. This is a short automated smoke test, not a sustained
+human-input acceptance test. The display reports1152x864. All4temporary read-only
+DVD volumes were guest-ejected, then their SCSI0:3-6 devices removed. Only empty
+DVD0:2 remains. ISOs, old VM, rollback disks and all backups remain preserved.
+The new guest remains Running with serial receiver53008; the old guest remains Off.

@@ -1,3 +1,35 @@
+LATEST 2026-10-25 20:17 UTC: FIRST FULL FRESH TAHOE RELEASE DESKTOP CONFIRMED.
+26.7.1/25G241, loaded core UUID7CAF03F1-3631-33A9-AAAF-581270B665B0 and
+framebuffer UUID3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6 match CI run40189441511
+source6c35681. Canonical-path Aux repair completed; normal restart20:07:18,
+UUID check20:12. New system originally BLANK; no old system migration.
+HTTPS200/Safari and Finder/Downloads/mouse short smoke pass;14channels/software
+cursor marker;198959-byte prefix SHA84248655... no panic/root-wait/cursor failure.
+Exact hashes/limits: ci/fresh-install-full-release-20261025.json. Not repeat stability.
+All4 temporary DVD volumes guest-ejected, new SCSI0:3-6 DVD devices removed;
+only empty DVD0:2 remains. ISOs/backups preserved. New t_full_test Running,
+old srv-maos-devs11 Off. Serial53008 active, current log200718Z-c7b68ed1.
+Initial final-setup hang needed USER-APPROVED hard restart. Live kmutil load was
+REJECTED/not executed; no security bypass. Final first-install script includes
+private probe then canonical build; stages tested separately, combined second
+blank installation not rerun. No generic EFI-from-scratch template yet.
+LATEST 2026-10-25 20:03 UTC: first normal post-install framebuffer boot reached
+desktop but kextstat shows NO loaded framebuffer. Aux still contains4modules,
+framebuffer path points to private staging bundle; canonical-path hypothesis
+is being tested via separate guarded Repair.command. Do NOT claim full success.
+Manual live kmutil load was REJECTED by auto-review and NOT executed/retried.
+Safer documented Aux/reboot path only. Repair backup HVFreshPathRepair.KdmrduY5y
+(check exact name in console if needed); private build running at20:02.
+New media HVFBPATH at SCSI0:5; earlier HVFRESHFB0:3, matching KDK0:4, empty0:2.
+No security reduction. Old VM Off, serial53008 alive, current log195630Z-8d7014ce.
+LATEST 2026-10-25 19:56 UTC: matching KDK installed successfully after rechecking
+DMG SHA9045a521... and Apple package chain. First framebuffer installer succeeded:
+FRESH_FRAMEBUFFER_INSTALLED /Users/Shared/HVFreshFramebuffer.RA6Ywuz3.
+Release executable d8a079d4..., original3 Aux modules preserved plus FB0.9.10;
+Boot/System SHA checks passed before/after, Aux/kcditto backups retained.
+Normal guest sudo shutdown -r now requested for loaded UUID validation. Serial53008
+active. DO NOT count full framebuffer boot until actual loaded UUID confirmed.
+Fresh macOS26.7.1/25G241/core Release UUID verified; FileVault On. Old VM Off.
 LATEST 2026-10-25 19:44 UTC: USER EXPLICITLY APPROVED HARD RESTART of
 new t_full_test after final-setup stall. Restart-VM -Name t_full_test -Force
 executed approx19:40:54 UTC. Old guest remains Off; no disk mount/backup change.

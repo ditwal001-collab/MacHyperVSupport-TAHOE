@@ -1,0 +1,70 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "3c08709ccdb0fa227c614c7799cee0c156eda8ca7fba8d540909ea732ac5dc52",
+  "utc": "2026-10-25T20:16:54Z",
+  "product_version": "26.7.1",
+  "build": "25G241",
+  "loaded_core_uuid": "7CAF03F1-3631-33A9-AAAF-581270B665B0",
+  "loaded_framebuffer_uuid": "3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6",
+  "framebuffer_sha256": "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+  "canonical_aux_sha256": "d057f72f8bf9032c00270b9e61464f9656925597211c319e324754d83359d85e",
+  "boot_start_utc": "2026-10-25T20:07:18Z",
+  "loaded_identity_check_utc": "2026-10-25T20:12:02Z",
+  "channels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "normal_apfs_root": true,
+  "display": {
+    "width": 1152,
+    "height": 864
+  },
+  "filevault": "On; observed before framebuffer install",
+  "network": "curl HTTPS www.apple.com HTTP/2 200 and Safari page rendered",
+  "gui": "Finder/Downloads opened, Desktop/Downloads sidebar clicks and synthetic mouse moves; cursor visible in final capture",
+  "temporary_dvd_drives": "All four read-only volumes ejected in guest; temporary SCSI0:3-6 devices removed; original empty0:2 retained",
+  "previous_guest": "Off and preserved",
+  "serial_receiver_pid": 53008,
+  "outcome": "First complete fresh Tahoe Release desktop confirmed after setup restart and canonical Aux path repair",
+  "repeat_boot_stability": "Not established",
+  "combined_revised_first_installer": "Stages exercised separately; combined first-run path not yet rerun from a second blank installation",
+  "hypotheses": [
+    "Final Setup Assistant stall cause unresolved",
+    "Canonical bundle path correction followed by framebuffer activation; underlying loader cause not independently isolated"
+  ],
+  "snapshot": {
+    "utc": "2026-10-25T20:16:54.105316+00:00",
+    "source_log_name": "serial-20261025T200718Z-c7b68ed1.log",
+    "snapshot_name": "serial-prefix-20261025T201654Z-12ab5e97.log",
+    "prefix_bytes": 198959,
+    "snapshot_sha256": "8424865566dcd9fd7958c1178b0ea88c8eed36a15fcbce57a1688682a31b5f2d",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 1,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "evidence_sha256": {
+    "thumbnail-20261025T200638700Z.png": "0bb2c2b51cc1fc919203da88e125376100d59b5416d517b250a773909a1628cb",
+    "thumbnail-20261025T201202326Z.png": "5dbc12a957295c772696e1c3904f703ee4768423c5e0d42252e8ae298beaf574",
+    "thumbnail-20261025T201419840Z.png": "a161e1dccb2dcece88f3244a72b82ca6fcd6507c1c33109de111dbb166ca6fc8",
+    "thumbnail-20261025T201525059Z.png": "c57f178f3ebda7223aa05616ebe84d46a8b815d8fdf8c4c220cd44bfe32acea0",
+    "thumbnail-20261025T201557292Z.png": "c56e9aa168cc5e370a811eea584b4b7d2f8e5bdffd8003a4dfc806c0fceb40d6"
+  }
+}

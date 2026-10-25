@@ -31,7 +31,9 @@ TOOLS = ('BuildScripts/export-hyperv-maintainer.py', 'BuildScripts/verify-ci-del
          'BuildScripts/snapshot-serial-log.py', 'BuildScripts/capture-hyperv-serial.py',
          'BuildScripts/capture-hyperv-thumbnail.ps1', 'BuildScripts/new-tahoe-test-vm.ps1',
          'BuildScripts/inspect-fresh-tahoe.command',
-         'BuildScripts/install-fresh-framebuffer-25G241.command')
+         'BuildScripts/install-fresh-framebuffer-25G241.command',
+         'BuildScripts/repair-fresh-framebuffer-path-25G241.command',
+         'BuildScripts/make-fresh-framebuffer-media.py')
 
 
 def sha(data):

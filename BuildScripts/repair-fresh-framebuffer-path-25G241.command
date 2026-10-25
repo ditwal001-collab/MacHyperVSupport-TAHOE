@@ -16,7 +16,7 @@ cp -p "$aux" "$backup/OriginalAux.kc"
 cmp "$aux" "$backup/OriginalAux.kc"
 shasum -a 256 "$boot" "$system" > "$backup/base-before.sha256"
 kmutil inspect -A "$aux" -V release > "$backup/original-inspect.txt"
-grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Users/Shared/HVFreshFramebuffer\.[A-Za-z0-9]+/stage/MacHyperVFramebuffer\.kext$' "$backup/original-inspect.txt"
+grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Users/Shared/HVFreshFramebuffer\.[A-Za-z0-9]+/stage/MacHyperVFramebuffer\.kext[[:space:]]*$' "$backup/original-inspect.txt"
 awk '$1 ~ /^[A-Za-z0-9_-]+\./ {print $1, $2}' "$backup/original-inspect.txt" | sort > "$backup/original-versions.txt"
 printf '%s\n' 'com.apple.driver.AppleMobileDevice 4.0' 'com.highpoint-tech.kext.HighPointIOP 4.4.5' 'com.highpoint-tech.kext.HighPointRR 4.22.1' 'fish.goldfish64.MacHyperVFramebuffer 0.9.10' | sort > "$backup/expected.txt"
 cmp "$backup/original-versions.txt" "$backup/expected.txt"
@@ -28,7 +28,7 @@ kmutil create -n aux -V release -a x86_64 -x \
 kmutil inspect -A "$backup/CanonicalAux.kc" -V release > "$backup/canonical-inspect.txt"
 awk '$1 ~ /^[A-Za-z0-9_-]+\./ {print $1, $2}' "$backup/canonical-inspect.txt" | sort > "$backup/canonical-versions.txt"
 cmp "$backup/canonical-versions.txt" "$backup/expected.txt"
-grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Library/Extensions/MacHyperVFramebuffer\.kext$' "$backup/canonical-inspect.txt"
+grep -Eq '^fish\.goldfish64\.MacHyperVFramebuffer[[:space:]]+0\.9\.10[[:space:]]+/Library/Extensions/MacHyperVFramebuffer\.kext[[:space:]]*$' "$backup/canonical-inspect.txt"
 shasum -a 256 -c "$backup/base-before.sha256"
 restore() {
   trap - ERR

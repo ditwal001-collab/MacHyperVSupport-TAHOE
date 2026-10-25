@@ -124,3 +124,34 @@ rollback; validate hashes before boot. Never host-mount or edit an attached live
 disk, overwrite backups, format volumes, or power off during an active installer.
 The read-only profile collector takes an explicit VM name and refuses to overwrite
 its output; it exports no identifying values and performs no configuration change.
+
+
+## Separate blank-disk installation test, 2026-10-25
+
+Explicit user authorization expanded the previous single-guest scope to one new
+fresh-install guest. The original guest was user-shut down and remained Off with
+its working Release disk pair attached. No old system disk was cloned into the
+new guest. The only reused starting material was a cold-copied EFI, reidentified
+for the new guest; Apple Recovery files were freshly downloaded and verified.
+The protected Sequoia backup and other VMs were not modified.
+
+The new VM uses generation2/configuration11.0,8vCPU,24GiB fixed RAM, a new400GiB
+dynamic512/4096 system VHDX, a separate EFI VHDX, existing external switch, nested
+virtualization off, automatic checkpoints off, automatic start Nothing and stop
+Save. Secure Boot Off matches the existing tested OpenCore profile; no global
+host/network or security setting was changed. A new serial pipe and independent
+receiver were started before its first boot. The preparation profile and exact
+hashes are in fresh-install-hyperv-profile/fresh-install-preparation evidence.
+
+EFI config hash3c08709ccdb0fa227c614c7799cee0c156eda8ca7fba8d540909ea732ac5dc52.
+Only the new copy had its old recovery payload replaced, new identity applied,
+-nobsdmgroot removed, auxiliary picker entries exposed and timeout15 selected.
+Framebuffer OpenCore injection remains disabled. The guest installs it via its
+own Aux collection. Existing custom csr-active-config03000000 was retained.
+
+Temporary read-only tooling/KDK DVDs were used during validation; all4mounted
+volumes were guest-ejected after successful checks, then temporary SCSI0:3-6
+DVD devices removed. Only an empty DVD0:2 remains. No ISO, disk or backup was
+deleted. The new guest remains Running with serial logging. The original guest
+remains Off. See FRESH_INSTALL_TEST.md for setup recovery, canonical Aux-path
+correction and the one complete Release desktop result; no unattended guarantee.

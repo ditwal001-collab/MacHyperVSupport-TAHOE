@@ -6,6 +6,15 @@ HYPERV_SETUP.md and RELEASE_RC1.md. Check each ZIP/hash, source, run and runtime
 scope before installation. An11h07 Debug run is verified; clean Release build
 success alone is not a stable-release acceptance claim.
 
+A separate blank-disk installation now reached Tahoe26.7.1/25G241 desktop with
+both exact clean Release UUIDs,14channels, software cursor, HTTPS/Safari and a
+short Finder/input smoke test. It required recovery from a final Setup Assistant
+stall and a canonical Aux bundle-path correction. Read FRESH_INSTALL_TEST.md and
+TAHOE_INSTALL_STEP_BY_STEP_DE.md; this does not establish unattended installation,
+repeat-boot reliability or a generic EFI template. The combined revised first
+installer was assembled from stages exercised separately on that fresh guest;
+it has not been rerun end to end on a second blank installation.
+
 ## Project structure and changed files
 
 ```text

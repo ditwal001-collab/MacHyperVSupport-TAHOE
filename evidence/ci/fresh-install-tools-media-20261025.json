@@ -1,0 +1,15 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "release_zip_sha256": "162f47670ef9f4640bdfdefd8ba9495b1a039ca6828a52f5ec4498e9d3cb5d6c",
+  "framebuffer_sha256": "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+  "iso_sha256": "2c5910fdd243fc0f614e00c33961ad56f7cdf61d7cea543e36b18b0af0917e19",
+  "files": {
+    "Install.command": "118411a087fb93c93faa4f1682e2d789622d5bf182f480ce42260845457279b3",
+    "Inspect.command": "6fdf30fe84d3eb0155839b454420517e4d0ecc4b15128141b47291505edcfef6",
+    "Framebuffer.zip": "cd0c38597f83804923fa565e5fbd6906ceeadba191fea8fdb0dc0a302553e14b"
+  },
+  "verification": "PASS: pinned executable and all ISO files read back exactly",
+  "scope": "Only observed Intel25G241 three-module Aux inventory; no EFI, KDK or credentials",
+  "runtime_boundary": "Media read-back PASS; initial private probe and canonical repair were tested separately; combined revised first installation not rerun on second blank disk"
+}

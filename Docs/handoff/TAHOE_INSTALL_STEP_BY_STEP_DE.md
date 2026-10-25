@@ -5,17 +5,13 @@ Diese Datei ist eine Vorbereitung und Installations-Checkliste, kein bereits
 vollstaendig validierter Ein-Klick-Installer. Alle folgenden Befehle sind zum
 Nachlesen; beim Schreiben dieser Anleitung wurde keine VM angelegt oder geaendert.
 
-**Nachtrag zum laufenden Praxistest:** In einem spaeteren, ausdruecklich
-beauftragten Neuinstallationstest wurde eine neue VM angelegt. Apple-Tahoe-
-Recovery startete direkt, und die neue leere Systemplatte wurde initialisiert.
-Die neue Installation hat den normalen APFS-Systemstart und den englischen
-Einrichtungsassistenten erreicht. Dessen letzte Seite "Update Mac Automatically"
-hing; nach einem ausdruecklich genehmigten harten Neustart ist der Desktop mit
-26.7.1/25G241 und dem geprueften Release-Core bestaetigt. Der Framebuffer-
-Erstinstaller ist noch in Pruefung. Der tatsaechlich benutzte
-Windows-Recovery-Weg steht in Schritt6a und im [Testprotokoll](FRESH_INSTALL_TEST.md).
-Die urspruenglichen Vollinstaller-Schritte6 und die fertige Neuinstallation
-bleiben davon getrennt; noch keine Ende-zu-Ende-Erfolgsgarantie.
+**Ergebnis des Neuinstallationstests:** Eine neue leere Systemplatte wurde
+ueber Apple Recovery unter Windows direkt mit Tahoe26.7.1/25G241 installiert.
+Beide Release-Treiber sind am Desktop mit den originalen CI-UUIDs nachgewiesen.
+Der Test benoetigte einen genehmigten Neustart nach einem Setup-Haenger und eine
+Aux-Pfadkorrektur beim Framebuffer. Er ist kein Nachweis fuer einen vollautomatisch
+fehlerfreien Ablauf. Den tatsaechlichen Windows-Weg beschreibt Schritt6a;
+[das Testprotokoll](FRESH_INSTALL_TEST.md) dokumentiert alle Zwischenfehler.
 
 ## 1. Zuerst verstehen, was bereits funktioniert
 
@@ -24,15 +20,12 @@ Release-Core und Release-Framebuffer sind geladen; ihre UUIDs stimmen mit den
 originalen CI-Binaries ueberein. Ein vollstaendiger Release-Start ist nachgewiesen.
 Zuvor lief die instrumentierte Debug-Variante mehr als elf Stunden.
 
-**Eine direkte Neuinstallation von Tahoe auf eine komplett leere Hyper-V-Platte
-haben wir noch nicht von Anfang bis Ende getestet.** Die bestehende Installation
-entstand im Kontext eines Sequoia/Tahoe-Upgrades. Insbesondere eine allgemein
-verteilbare, startfertige EFI und ein universeller Framebuffer-Erstinstaller
-fehlen noch. Diese Luecken werden unten als Kontrollpunkte benannt.
-
-Du musst nicht zuerst Sequoia installieren, um den hier beschriebenen direkten
-Tahoe-Installationsweg zu versuchen. Das ist aber ein geplanter Installationsweg,
-kein durch unseren bisherigen Test bewiesenes Versprechen.
+Eine direkte Neuinstallation ist jetzt einmal bis zum vollstaendigen Release-
+Desktop getestet. Du musst dafuer nicht zuerst Sequoia installieren. Die getestete
+EFI stammt allerdings aus einer Kopie unserer bewaehrten EFI mit neuer Identitaet;
+eine allgemein verteilbare, startfertige EFI-Vorlage fehlt weiterhin. Der neue
+Framebuffer-Erstinstaller bildet die einzeln getesteten Schritte ab; sein kompletter
+kombinierter Ablauf wurde noch nicht auf einer zweiten leeren Platte wiederholt.
 
 Begriffe:
 
@@ -489,31 +482,62 @@ Build25G241 und genau vier bereits vorhandene Aux-Module. Eine frische
 Installation erfuellt diese Voraussetzungen typischerweise nicht. Seine
 Pruefungen nicht entfernen, um ihn zum Laufen zu zwingen.
 
-Fuer eine frische Installation muss der technische Installationsschritt deshalb
-zuerst an deren echten Zustand angepasst und getestet werden:
+Fuer unseren frischen Build25G241 gibt es jetzt einen eigenen bewachten Helfer.
+Er akzeptiert nur x86_64, genau AppleMobileDevice4.0, HighPointIOP4.4.5 und
+HighPointRR4.22.1 in der bisherigen Aux und noch keinen installierten Framebuffer.
+Bei abweichendem Bestand bricht er ab; dann den Zustand erfassen und die Anleitung
+technisch anpassen lassen. Seine Pruefungen erhalten.
 
-1. Vorhandene Kexts, Aux-Module, Boot/System-Collections und Sicherheitszustand
-   erfassen. Aktuelle Daten und EFI auf eigenen Rueckfallkopien sichern.
-2. Passendes Apple-signiertes KDK25G241 bereitstellen. Der private Aux-Build
-   der frischen Installation wurde ohne dieses KDK getestet und mit
-   **Missing Developer Kit** sicher abgebrochen. Seine Signatur mit
-   `pkgutil --check-signature` pruefen; keine unbekannten Pakete installieren.
-3. Release-Bundle und erwarteten Hash pruefen; Dateirechte root:wheel,
-   Ordner755, Dateien644, ausfuehrbare Datei755 korrekt setzen.
-4. Eine private neue Aux-Collection mit dem tatsaechlichen Modulbestand bauen;
-   alle bestehenden anderen Module erhalten. Unsere vier Testpfade sind keine
-   allgemeingueltige Liste fuer einen neuen Mac.
-5. Erst nach erfolgreichen Checks die gesicherten Aux-Ausgaben aktualisieren
-   und den passenden Apple-Staging-Schritt ausfuehren. Boot/System-Collections
-   unveraendert lassen. Bei Fehlern zurueckrollen und nicht neu starten.
-6. Wenn macOS **New system extensions require a restart** meldet, erst den
-   erfolgreichen Installer-Abschluss pruefen, dann normal neu starten.
+1. Aktuelle Daten/EFI auf eigenen Rueckfallkopien sichern. Version, geladene Treiber
+   und Aux mit `inspect-fresh-tahoe.command` erfassen.
+2. Das passende [Apple-signierte KDK25G241](https://github.com/dortania/KdkSupportPkg/releases/tag/25G241)
+   herunterladen. Erwarteter DMG-SHA256:
+   `9045a521c8ae362d4cb2cc54701b03462686e0069518a0b66cfe2028f87dfe9b`.
+   In den Gast uebertragen, DMG oeffnen, `KernelDebugKit.pkg` mit
+   `pkgutil --check-signature` pruefen (Apple Root CA), dann das Paket installieren.
+   Der Test ohne KDK wurde mit **Missing Developer Kit** sicher abgebrochen.
+3. Auf Windows das verifizierte Release-ZIP aus Actions40189441511 bereitstellen.
+   Python3.10+ und [pycdlib1.22.0](https://pypi.org/project/pycdlib/1.22.0/) verwenden.
+   Im Repository-Verzeichnis in PowerShell ausfuehren; die ZIP-Pfadangabe anpassen:
 
-Details: [Cursor-/Aux-Verfahren](CURSOR_WORKAROUND.md) und
-[Release-Protokoll](RELEASE_RC1.md). Fuer einen vollstaendig anfaengertauglichen
-Neuinstallationssatz fehlt hier noch ein validierter Erstinstaller. Nicht durch
-blindes `kmutil install --update-all`, EFI-Framebuffer-Injektion oder pauschales
-Abschalten von Sicherheitsfunktionen ersetzen.
+   ```powershell
+   py -3 -m pip install --target .\iso-python pycdlib==1.22.0
+   $env:PYTHONPATH = (Join-Path (Get-Location) 'iso-python')
+   py -3 BuildScripts/make-fresh-framebuffer-media.py --release-zip .\MacHyperVSupport-0.9.10-RELEASE.zip --output-directory .\fresh-framebuffer-media
+   ```
+
+   Der Ausgabeordner muss neu sein. Der Helfer prueft Release-ZIP und Binary,
+   erstellt `FreshFramebuffer.iso` und liest alle drei ISO-Dateien zum Vergleich
+   zurueck. `manifest.json` enthaelt ihre Pruefsummen. Keine EFI/KDK/Kennwoerter.
+4. In den Einstellungen **nur der neuen VM** ein leeres DVD-Laufwerk mit dieser
+   ISO verbinden. Bei unserem Hot-Media-Wechsel wurde die neue ISO nicht sofort
+   erkannt; nach Gast-Auswurf und einem neuen temporaeren DVD-Geraet erschien sie.
+   Wenn `/Volumes/HVFRESHFB` fehlt, nicht blind weitertippen.
+5. Im englischen Gast **Terminal** oeffnen und ausfuehren:
+
+   ```sh
+   sudo bash /Volumes/HVFRESHFB/Install.command
+   ```
+
+   Das eigene lokale Admin-Kennwort eingeben. Der Helfer sichert Aux/Preboot in
+   einem neuen Verzeichnis, prueft einen privaten Build, installiert das gepruefte
+   Bundle und baut die finale Aux mit dem richtigen `/Library/Extensions`-Pfad.
+   Alle anderen Modulversionen und Boot/System-Hashes muessen erhalten bleiben.
+6. Nur nach **FRESH_FRAMEBUFFER_INSTALLED** normal neu starten. Bei Fehlern nicht
+   neu starten; den angegebenen Sicherungs-/Logordner erhalten. Die fruehe
+   Meldung **PRIVATE_BUILD_FAILED** bedeutet: aktive Kext/Aux nicht geaendert.
+7. FileVault mit dem lokalen Kennwort entsperren. Anschliessend die geladenen
+   UUIDs pruefen. Eine macOS-Meldung ueber erforderlichen Neustart allein reicht
+   nicht als Erfolg.
+
+Im Praxistest wurden privater Erst-Build und korrigierter finaler Aux-Build als
+getrennte Schritte ausgefuehrt. Danach lud der Framebuffer mit richtiger UUID.
+Der oben zusammengefasste Helfer wurde noch nicht komplett auf einer zweiten
+leeren Installation durchlaufen. Der separate `repair-fresh-framebuffer-path-25G241.command`
+ist nur fuer unseren genau bewachten fruehen Staging-Pfad-Zustand gedacht.
+Keine pauschalen Cache-/Sicherheits-Aenderungen oder manuelles Live-Laden verwenden.
+Details: [Cursor-/Aux-Verfahren](CURSOR_WORKAROUND.md), [Release-Protokoll](RELEASE_RC1.md)
+und [Neuinstallationstest](FRESH_INSTALL_TEST.md).
 
 Nach dem korrekten Installationsschritt und Neustart:
 
@@ -538,6 +562,8 @@ d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122
 | snapshot-serial-log.py | Unveraenderlichen Log-Prefix samt Hash/Markerzaehlern sichern | Nein |
 | collect-hyperv-profile.ps1 | VM-Einstellungen gezielt und anonymisiert erfassen | Nein |
 | new-tahoe-test-vm.ps1 | Neuen VM-Aufbau planen; mit -Create ausschliesslich neue VM/Dateien anlegen | Neue VM wird angelegt und bleibt Off |
+| make-fresh-framebuffer-media.py | Geprueftes Release-ZIP in neue, zurueckgelesene Werkzeug-ISO packen | Nur neue lokale Ausgaben |
+| install-fresh-framebuffer-25G241.command | Bewachter Framebuffer-Erstinstaller fuer den gemessenen Drei-Modul-Bestand | Ja; nur Aux/Gast-Bundle, mit Sicherung und ohne automatischen Neustart |
 | inspect-fresh-tahoe.command | Nach Erststart Version, Treiber und Aux-Bestand in neuem lokalen Bericht erfassen | Nur neues Berichtsverzeichnis; keine Treiber-/Sicherheitsaenderung |
 | summarize-efi-profile.py | Gespeicherte EFI-Konfiguration zusammenfassen | Nein; keine Live-VHDX bearbeiten |
 | verify-ci-delivery.py | Download gegen originale CI-Provenance pruefen | Nein |
@@ -608,5 +634,6 @@ Testberichte sind die Quelle fuer die konkreten Referenzwerte und Hashes.
 
 Die zwei offenen Lieferteile fuer einen komplett vorbereiteten Neuinstallations-
 Satz sind: eine separat gepruefte, identitaetsbereinigte EFI-Vorlage samt
-personalisierbarer Konfiguration und ein validierter Framebuffer-Erstinstaller.
+personalisierbarer Konfiguration; der kombinierte Erstinstaller braucht ausserdem
+einen weiteren sauberen Wiederholungstest.
 Diese Anleitung behauptet nicht, dass sie schon im Maintainer-Paket liegen.
