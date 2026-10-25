@@ -1,3 +1,11 @@
+LATEST 2026-10-25 21:55 UTC: original512GiB clean install AUTO-RESTARTED
+21:53:05 into correct staged macOS Installer, Apple logo29min estimate. Serial25588
+reconnected as serial-20261025T215305Z-67de1a69.log;14channels/storage again.
+No host forced reset. Cryptex52percent phase counter only. DO NOT stop/reset while
+installation progresses. Normal system/account/combined framebuffer still pending.
+See SRV_CLEAN_INSTALL_512G.md and ci/srv-clean-install-512g-staged-20261025.json.
+Prepared fresh tools root/framebuffer-tools/FreshFramebuffer.iso, full read-back
+PASS, Install.command SHA118411a0..., matchingKDKISO available after build check.
 LATEST 2026-10-25 21:44 UTC: original-guest clean install DOWNLOAD STARTED
 on new512GiB Macintosh HD. New blank disk2 verified549.8GB before APFS creation;
 inherited Swiss German quotes caused label mismatch, corrected via ABC layout

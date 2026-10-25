@@ -46,3 +46,15 @@ This is installation progress, not a normal desktop success. No panic/root-wait
 marker was captured in the bounded Recovery prefix, but SRB STATUS84 and other
 warnings exist. Clean Release contains no per-call EOM CPU traces; their absence
 is not a new CPU-affinity measurement. Do not reset while installation progresses.
+
+
+## Staged installer, 2026-10-25 21:55 UTC
+
+The online stage requested an automatic guest restart at21:53:05. The intended
+macOS Installer entry started without manual picker input. Serial25588 reconnected
+and again captured channel14/storage; the screen shows Apple-logo installation.
+Cryptex patch progress52percent is only a phase counter, not overall completion.
+No captured panic/root-device-wait appears in the bounded prefixes. Exact source,
+core/config hashes and both prefix hashes are in ci/srv-clean-install-512g-staged-
+20261025.json. No forced reset, host disk mount or old disk change was performed.
+Final normal system and the combined first framebuffer installer remain pending.

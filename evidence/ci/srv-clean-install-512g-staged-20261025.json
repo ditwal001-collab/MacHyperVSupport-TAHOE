@@ -1,0 +1,60 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "98608f4eb7a10d1cdf5852d915c5abfbb2802c83d8b2348660d1f2ca75a32272",
+  "disk_bytes": 549755813888,
+  "utc": "2026-10-25T21:55:00Z",
+  "phase": "Staged macOS Installer; automatic restart21:53:05; not normal desktop",
+  "restart": "Guest automatic, no forced host intervention",
+  "serial_receiver_pid": 25588,
+  "channels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "gui": "Apple logo, installation29-minute initial stage estimate",
+  "snapshot_recovery": {
+    "utc": "2026-10-25T21:54:32.041500+00:00",
+    "source_log_name": "serial-20261025T213458Z-07006c99.log",
+    "snapshot_name": "serial-prefix-20261025T215432Z-dcb3723f.log",
+    "prefix_bytes": 1240009,
+    "snapshot_sha256": "c27f44e9a66fe24f253d9276d196800b902450396c72240a37d2fbd3abb936bf",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "snapshot_staged": {
+    "utc": "2026-10-25T21:54:27.057320+00:00",
+    "source_log_name": "serial-20261025T215305Z-67de1a69.log",
+    "snapshot_name": "serial-prefix-20261025T215427Z-cb7fe5f6.log",
+    "prefix_bytes": 611464,
+    "snapshot_sha256": "50da92305d16200f4a14b7509f86223101ecb62fe6258a50f8edbbda108556a8",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "limitations": [
+    "Cryptex patch progress52percent is a phase indicator, not overall installation percentage",
+    "No completed normal root or new CPU-locality measurement"
+  ]
+}
