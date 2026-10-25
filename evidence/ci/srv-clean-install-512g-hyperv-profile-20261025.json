@@ -1,0 +1,77 @@
+{
+    "collected_utc":  "2026-10-25T21:59:49.5805241Z",
+    "scope":  "Read-only current snapshot of one explicitly named test VM; not a historical before/after proof",
+    "generation":  2,
+    "configuration_version":  "11.0",
+    "state":  "Running",
+    "uptime_seconds":  402,
+    "cpu":  {
+                "count":  8,
+                "nested_virtualization":  false,
+                "migration_compatibility":  false,
+                "legacy_compatibility":  false,
+                "hardware_threads_per_core":  0,
+                "limit_percent":  100,
+                "reserve_percent":  0,
+                "relative_weight":  100
+            },
+    "memory":  {
+                   "dynamic":  false,
+                   "startup_bytes":  25769803776
+               },
+    "firmware":  {
+                     "secure_boot":  "Off",
+                     "network_boot_protocol":  "IPv4",
+                     "console_mode":  "Default"
+                 },
+    "display":  {
+                    "resolution_type":  "Maximum",
+                    "maximum_width":  1920,
+                    "maximum_height":  1080
+                },
+    "network":  [
+                    {
+                        "switch_type":  "External",
+                        "mac_spoofing":  "Off",
+                        "dhcp_guard":  "Off",
+                        "router_guard":  "Off"
+                    }
+                ],
+    "disks":  [
+                  {
+                      "controller_type":  "SCSI",
+                      "controller_number":  0,
+                      "controller_location":  0,
+                      "format":  "VHDX",
+                      "type":  "Dynamic",
+                      "capacity_bytes":  5367677440,
+                      "logical_sector_bytes":  512,
+                      "physical_sector_bytes":  4096
+                  },
+                  {
+                      "controller_type":  "SCSI",
+                      "controller_number":  0,
+                      "controller_location":  1,
+                      "format":  "VHDX",
+                      "type":  "Dynamic",
+                      "capacity_bytes":  549755813888,
+                      "logical_sector_bytes":  512,
+                      "physical_sector_bytes":  4096
+                  }
+              ],
+    "serial":  [
+                   {
+                       "port":  "COM 1",
+                       "configured":  true
+                   },
+                   {
+                       "port":  "COM 2",
+                       "configured":  false
+                   }
+               ],
+    "automatic_checkpoints":  false,
+    "checkpoint_type":  "Standard",
+    "automatic_start_action":  "StartIfRunning",
+    "automatic_stop_action":  "Save",
+    "privacy":  "No VM/host/switch names, IDs, MACs, addresses, disk/pipe paths or credentials exported"
+}

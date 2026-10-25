@@ -1,0 +1,89 @@
+{
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "98608f4eb7a10d1cdf5852d915c5abfbb2802c83d8b2348660d1f2ca75a32272",
+  "utc": "2026-10-25T22:13:00Z",
+  "phase": "First normal APFS root startup; GUI setup still pending",
+  "automatic_guest_boots": [
+    {
+      "utc": "2026-10-25T22:08:48Z",
+      "phase": "Apple restore environment"
+    },
+    {
+      "utc": "2026-10-25T22:10:22Z",
+      "phase": "APFS bootstrap with Apple -bsdmgroot, clean guest-requested reboot"
+    },
+    {
+      "utc": "2026-10-25T22:11:17Z",
+      "phase": "Normal APFS root disk2s4; no installer/restore/rootdmg flags"
+    }
+  ],
+  "channels": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14
+  ],
+  "serial_receiver_pid": 25588,
+  "desktop_verified": false,
+  "account_created": false,
+  "framebuffer_installed": false,
+  "normal_snapshot": {
+    "utc": "2026-10-25T22:12:31.850851+00:00",
+    "source_log_name": "serial-20261025T221117Z-47703b4d.log",
+    "snapshot_name": "serial-prefix-20261025T221231Z-5843ab6a.log",
+    "prefix_bytes": 150824,
+    "snapshot_sha256": "078cdcb96cd4fa9f9fe7d9a12594be27f744e636ed3a2a1256f465f1dd3570c2",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "staged_end_snapshot": {
+    "utc": "2026-10-25T22:10:18.290166+00:00",
+    "source_log_name": "serial-20261025T215305Z-67de1a69.log",
+    "snapshot_name": "serial-prefix-20261025T221018Z-ac9dba0a.log",
+    "prefix_bytes": 1364560,
+    "snapshot_sha256": "f0fd7230536d4b97bf0108820a9bcc8f55e6d3a9ffb50f2c23fa4ac3ba7f0150",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "restore_snapshot": {
+    "utc": "2026-10-25T22:10:18.461121+00:00",
+    "source_log_name": "serial-20261025T220848Z-9eef5e52.log",
+    "snapshot_name": "serial-prefix-20261025T221018Z-82beda1f.log",
+    "prefix_bytes": 263537,
+    "snapshot_sha256": "660e86165ac2a22f1e21f2b07657d2da112d917ea562997b2d57c2f2e459f1b1",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "limits": [
+    "loginwindow/AppleKeyStore warnings exist; no error-free claim",
+    "No per-call EOM CPU measurement in clean Release",
+    "Thumbnail still shows initial verbose text at this checkpoint; no GUI failure inferred"
+  ]
+}

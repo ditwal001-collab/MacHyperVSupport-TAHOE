@@ -1,3 +1,9 @@
+LATEST 2026-10-25 22:13 UTC: main512GiB install reached NORMAL APFS ROOT
+at22:11:17 (serial-20261025T221117Z-47703b4d.log).14channels, no installer/restore
+rootdmg args. Prior auto boots22:08:48 restore,22:10:22 bootstrap-bsdmgroot -> clean
+MACH Reboot. loginwindow active; thumbnail early verbose text, wait for GUI.
+No host reset. Serial25588 alive. Account/desktop/framebuffer not done yet.
+See ci/srv-clean-install-512g-normal-root-20261025.json and SRV_CLEAN_INSTALL_512G.md.
 LATEST 2026-10-25 21:55 UTC: original512GiB clean install AUTO-RESTARTED
 21:53:05 into correct staged macOS Installer, Apple logo29min estimate. Serial25588
 reconnected as serial-20261025T215305Z-67de1a69.log;14channels/storage again.

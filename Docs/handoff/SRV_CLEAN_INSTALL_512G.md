@@ -58,3 +58,17 @@ No captured panic/root-device-wait appears in the bounded prefixes. Exact source
 core/config hashes and both prefix hashes are in ci/srv-clean-install-512g-staged-
 20261025.json. No forced reset, host disk mount or old disk change was performed.
 Final normal system and the combined first framebuffer installer remain pending.
+
+
+## Normal APFS root, 2026-10-25 22:13 UTC
+
+Automatic guest starts occurred22:08:48 (Apple restore),22:10:22 (APFS bootstrap
+with Apple's-bsdmgroot argument), then22:11:17 (normal APFS disk2s4). The bootstrap
+log ends in orderly unmount and MACH Reboot. The normal boot has no installer,
+restore or rootdmg arguments and captures all14channels. loginwindow is active;
+AppleKeyStore warnings exist, but no captured panic/root-wait in the bounded
+150824-byte prefix SHA078cdcb96cd4fa9f9fe7d9a12594be27f744e636ed3a2a1256f465f1dd3570c2.
+The thumbnail still shows initial verbose text at this checkpoint; no new GUI
+failure is inferred. Setup/account, final sw_vers, loaded UUIDs and framebuffer
+first installation remain pending. See ci/srv-clean-install-512g-normal-root-
+20261025.json. No host reset or live disk mount was performed.
