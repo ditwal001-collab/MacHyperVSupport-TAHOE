@@ -1,3 +1,11 @@
+LATEST 2026-10-25 19:44 UTC: USER EXPLICITLY APPROVED HARD RESTART of
+new t_full_test after final-setup stall. Restart-VM -Name t_full_test -Force
+executed approx19:40:54 UTC. Old guest remains Off; no disk mount/backup change.
+Logger53008 reconnected: serial-20261025T194054Z-443f3939.log.
+FileVault preboot accepted local DPAPI test password after SLOW TypeText one
+character/250ms (8-character fast chunks failed; no password exposed).
+Normal Darwin boot now underway. Need desktop/sw_vers/core UUID/FileVault/Aux.
+Pre-restart384171-byte prefix SHA5974663f02f5e691674a3da2ab7f611ade286e5a995a670eb7f930558d6945f0.
 LATEST 2026-10-25 19:28 UTC: new test account created, Apple sign-in deferred
 with empty field; FileVault Turn On selected/key protected by DPAPI. Setup stalls
 on final Update Mac Automatically since approx19:11 UTC. Clock/mouse responsive,
