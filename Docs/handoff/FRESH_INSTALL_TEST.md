@@ -44,6 +44,14 @@ backups remain preserved. No other existing VM is part of this test.
 11. Quit Terminal and select Reinstall macOS Tahoe, then Continue. Installer
     phase, final version and first complete desktop still require observation.
 
+At18:09 UTC the installer accepted FullTest as the target and started downloading
+one Apple InstallAssistant.macOSTahoe package, reported18.381GB. By18:13 UTC the
+new VHDX had grown to13.93GB. This establishes download/write activity, not a
+percentage of completed OS installation. Initial GUI estimate3h20 is not a promise.
+The old VM was independently rechecked Off at18:10. No installer restart/reset
+was performed. A separate read-only inspection ISO is being prepared for the
+first desktop; it has not yet been attached or used to change guest kexts.
+
 ## Verified inputs and evidence
 
 Core source6c3568178ba21136b8c21dd45597476c74ec31d1, Release/run40189441511;
