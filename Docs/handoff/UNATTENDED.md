@@ -1,3 +1,9 @@
+LATEST 2026-10-25 22:31 UTC: user says resume, but automatic approval review
+REJECTED new screenshot because personal Apple sign-in completion is unknown.
+No new screenshot/input executed. A concise STATE clarification is pending:
+is sign-in complete / which page visible? Do not retry capture without new evidence.
+Read-only host state/serial checks allowed; logging25588 stays active. Account
+already created. Remaining final setup/FileVault/timezone/framebuffer/UUID checks.
 LATEST 2026-10-25 22:27 UTC: user is INTERACTIVELY SIGNING INTO APPLE ACCOUNT.
 STOP ALL guest keyboard/mouse input AND screenshots until user reports completion.
 A previously empty login field now had user-entered authentication data; no agent
