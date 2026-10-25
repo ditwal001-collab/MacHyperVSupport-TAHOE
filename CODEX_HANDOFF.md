@@ -1,3 +1,8 @@
+LOGGER CHECK 2026-10-25 18:57 UTC: new receiver PID53008 remains active and
+fresh VM Running; old VM Off. Old receiver PID48800 is no longer present.
+Old logs are preserved. Before any future old-VM start, restart its receiver
+on its original pipe; do not assume old PID liveness from historical notes.
+Apple-account UI remains user-owned; no additional screenshots or input issued.
 LATEST 2026-10-25 18:52 UTC: local testadmin creation completed; Setup Assistant
 now at Sign In to Your Apple Account with EMPTY email field. User explicitly
 wants to sign in personally; informed user that page is ready. Automated input
