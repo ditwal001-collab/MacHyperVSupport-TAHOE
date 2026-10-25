@@ -1,3 +1,14 @@
+LATEST 2026-10-25 22:27 UTC: user is INTERACTIVELY SIGNING INTO APPLE ACCOUNT.
+STOP ALL guest keyboard/mouse input AND screenshots until user reports completion.
+A previously empty login field now had user-entered authentication data; no agent
+Apple credential was supplied. Existing incidental auth-screen PNG encrypted with
+Windows DPAPI locally, decrypt/hash round-trip verified, exact plaintext removed.
+No auth values in Git/report/package. New local account creation completed,
+English/Switzerland setup; account exact user-provided values only private files.
+Original guest512GiB normal-root boot22:11:17, current serial221117Z-47703b4d,
+receiver25588 remains active. Optional Apple login currently user-owned.
+Continue independent docs only; do not blindly skip or type into active sign-in.
+FileVault/timezone/final setup/framebuffer first installer/UUIDs still pending.
 LATEST 2026-10-25 22:13 UTC: main512GiB install reached NORMAL APFS ROOT
 at22:11:17 (serial-20261025T221117Z-47703b4d.log).14channels, no installer/restore
 rootdmg args. Prior auto boots22:08:48 restore,22:10:22 bootstrap-bsdmgroot -> clean

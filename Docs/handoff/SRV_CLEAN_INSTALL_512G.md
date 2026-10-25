@@ -72,3 +72,18 @@ The thumbnail still shows initial verbose text at this checkpoint; no new GUI
 failure is inferred. Setup/account, final sw_vers, loaded UUIDs and framebuffer
 first installation remain pending. See ci/srv-clean-install-512g-normal-root-
 20261025.json. No host reset or live disk mount was performed.
+
+
+## Setup and private authentication checkpoint, 2026-10-25 22:27 UTC
+
+The normal-root boot reached English Setup Assistant; Switzerland and Set up as
+new were selected, without migration. User-specified local account creation
+completed. Names, account ID, password and raw account images remain private.
+At the optional Apple sign-in page, a previously empty field subsequently
+contained user-entered authentication data. Automated inputs and GUI captures
+were immediately paused; no personal Apple credentials were supplied by the
+agent. The incidental existing auth screenshot was protected with verified
+Windows DPAPI encryption and its exact plaintext copy removed. Authentication
+values are excluded from Git/maintainer evidence. Serial logging continues.
+Final setup, FileVault/time zone, sw_vers and first framebuffer installation
+remain pending; no completed main-guest desktop result is claimed yet.
