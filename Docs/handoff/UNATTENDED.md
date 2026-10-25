@@ -1,3 +1,18 @@
+LATEST TASK 2026-10-25 18:05 UTC: User explicitly authorized NEW VM t_full_test
+for a direct Tahoe blank-disk installation and requested old VM shutdown.
+Old srv-maos-devs11 user-shutdown confirmed Off; keep it Off and preserved.
+Branch test/tahoe-fresh-install, local root evidence/local-tests/full-install-20261025-01.
+New EFI copy: own identity, remove -nobsdmgroot, Apple Recovery26.6.2/25G83,
+core clean Release6c35681/run40189441511. New400GiB System.blank.vhdx ONLY.
+New VM first boot reached Tahoe Recovery/all14channels. New blank guest disk2
+429.5GB was explicitly verified then APFS/GPT FullTest initialized. Installer
+GUI now open. Installation NOT yet complete; do not interrupt it.
+Serial independent PID53008, pipe t_full_test_serial; directory root/serial.
+Old logger48800 preserved. Fresh keyboard target MUST be t_full_test, NOT oldVM.
+Capture helper root/capture-console.py selects only t_full_test VMConnect.
+Read Docs/handoff/FRESH_INSTALL_TEST.md and evidence/ci/fresh-install-preparation-20261025.json.
+No old system clone, other VM changes or backup overwrite. Scope expansion comes
+from the user's latest explicit request, superseding old one-VM-only restriction.
 LATEST 2026-10-25 13:37 UTC: FULL RELEASE DESKTOP BOOT VERIFIED. Loaded core and
 framebuffer UUIDs both match original run40189441511 Release binaries. User
 reports faster/satisfactory operation. Read rc1-release-boot-20261025.json and

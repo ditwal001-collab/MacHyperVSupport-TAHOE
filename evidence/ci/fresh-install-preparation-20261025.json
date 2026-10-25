@@ -1,0 +1,51 @@
+{
+  "utc": "2026-10-25T18:04:00Z",
+  "scope": "Fresh blank-disk installation test explicitly requested by user; no old system disk copied",
+  "existing_system": "User shut down existing VM; confirmed Off before new test",
+  "source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "run": 40189441511,
+  "core_sha256": "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+  "efi_config_sha256": "3c08709ccdb0fa227c614c7799cee0c156eda8ca7fba8d540909ea732ac5dc52",
+  "recovery_version": "26.6.2",
+  "recovery_build": "25G83",
+  "recovery_files": {
+    "BaseSystem.chunklist": "06f7c498f856341f467ba1faedf2717fb2c172ae0aff4658a1467cbf46b711f9",
+    "BaseSystem.dmg": "edddd0d5869caaa12e29e6996a04f11590280580976a119dbd42c24fa62fe18e"
+  },
+  "macrecovery_source": "78d5ff824992d5b227f842e34d8221eb8f31baf1",
+  "hyperv": {
+    "generation": 2,
+    "processors": 8,
+    "fixed_memory_gib": 24,
+    "blank_system_gib": 400,
+    "separate_pipe": true
+  },
+  "results": [
+    "Apple chunklist/image verification passed",
+    "ocvalidate1.0.6 passed",
+    "All14 VMBus channels in Recovery serial",
+    "Recovery GUI Reinstall macOS Tahoe reached",
+    "New empty physical disk identified as disk2 429.5GB; GPT/APFS FullTest initialization succeeded"
+  ],
+  "serial_prefix": {
+    "utc": "2026-10-25T18:00:57.584569+00:00",
+    "source_log_name": "serial-20261025T180004Z-ddd1f2ad.log",
+    "snapshot_name": "serial-prefix-20261025T180057Z-5c1868c3.log",
+    "prefix_bytes": 455279,
+    "snapshot_sha256": "b0ba33d9025a3dcb71c90ba56f76550d447883528dccfe116009a46eaf3c3b7b",
+    "complete_eom_writes": 0,
+    "mismatched_eom_writes": 0,
+    "cursor_conversion_failures": 0,
+    "panic_markers": 0,
+    "root_wait_markers": 0,
+    "software_cursor_activation_markers": 0,
+    "scope": "bounded captured prefix; absence of a marker is not stability proof"
+  },
+  "installation_complete": false,
+  "framebuffer_first_install_validated": false,
+  "limitations": [
+    "Recovery version is not final installed version",
+    "Clean Release has no per-call EOM CPU traces",
+    "EFI derived from existing configuration with new identity; not a from-Sample.plist rebuild"
+  ]
+}

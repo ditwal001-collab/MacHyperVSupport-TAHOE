@@ -5,6 +5,14 @@ Diese Datei ist eine Vorbereitung und Installations-Checkliste, kein bereits
 vollstaendig validierter Ein-Klick-Installer. Alle folgenden Befehle sind zum
 Nachlesen; beim Schreiben dieser Anleitung wurde keine VM angelegt oder geaendert.
 
+**Nachtrag zum laufenden Praxistest:** In einem spaeteren, ausdruecklich
+beauftragten Neuinstallationstest wurde eine neue VM angelegt. Apple-Tahoe-
+Recovery startete direkt, und die neue leere Systemplatte wurde initialisiert.
+Die Installation ist noch nicht abgeschlossen. Der tatsaechlich benutzte
+Windows-Recovery-Weg steht in Schritt6a und im [Testprotokoll](FRESH_INSTALL_TEST.md).
+Die urspruenglichen Vollinstaller-Schritte6 und die fertige Neuinstallation
+bleiben davon getrennt; noch keine Ende-zu-Ende-Erfolgsgarantie.
+
 ## 1. Zuerst verstehen, was bereits funktioniert
 
 Unser Intel-Testsystem startet macOS Tahoe 26.7.1, Build 25G241. Der bereinigte
@@ -229,6 +237,43 @@ Windows-Alternative: [OpenCore macrecovery](https://github.com/acidanthera/OpenC
 laedt Apple-Recovery-Material. Es ist kein fertiges Hyper-V-Tahoe-Installations-
 image. Ohne nachgewiesene Tahoe-Auswahl und korrektes Image-Layout ist dies hier
 kein Ersatz fuer den Vollinstaller-Weg. Keine erfundene Board-ID kopieren.
+
+## 6a. Im Praxistest benutzter direkter Recovery-Weg unter Windows
+
+Damit brauchst du fuer den Download keinen zweiten Mac und kein QEMU. Die
+Apple-Dateien kommen auf eine vorbereitete EFI-Arbeitskopie. Das ist ein
+alternativer Weg zu Schritt6, kein zusaetzlich benoetigtes Vollinstaller-Medium.
+
+1. Den offiziellen Downloader aus festem
+   [OpenCore-Commit78d5ff8](https://github.com/acidanthera/OpenCorePkg/tree/78d5ff824992d5b227f842e34d8221eb8f31baf1/Utilities/macrecovery)
+   laden: macrecovery.py, boards.json und README.md.
+2. In einem neuen lokalen Downloadordner ausfuehren:
+
+   ```powershell
+   py -3 .\macrecovery.py -b Mac-CFF7D910A743CAAF -m 00000000000000000 -os latest -o .\recovery download
+   ```
+
+3. **Image verification complete!** abwarten. Bei uns lieferte Apple die Recovery
+   26.6.2/build25G83. Das ist nicht automatisch die endgueltig installierte Version.
+   Downloadangebot kann sich aendern.
+4. Vorbereitete eigene EFI-Kopie nur offline und keiner VM zugeordnet mounten.
+   BaseSystem.dmg und BaseSystem.chunklist in `com.apple.recovery.boot` auf dem
+   FAT32-Volume ablegen. Vorhandenes Recovery-Verzeichnis der Kopie vorher
+   ausserhalb des Images sichern; keine Dateien einer laufenden EFI ersetzen.
+5. `-nobsdmgroot` in dieser Installationskopie entfernen, falls aus dem alten
+   Laborprofil vorhanden. HideAuxiliary=false und ShowPicker=true setzen.
+   Eigenes SMBIOS und gepruefte Release-Core-Kext wie in Schritt7 vorbereiten.
+6. EFI auf dem Host auswerfen. Neue VM wie in Schritt8 anlegen, aber nur zwei
+   Platten: EFI/Recovery an0:0 und neue leere Systemplatte an0:1. Keine dritte
+   Installer-VHDX erforderlich. Serial-Logger zuerst starten.
+7. In OpenCore **EFI (dmg)** auswaehlen. Im Test erreichte dies unmittelbar
+   **Reinstall macOS Tahoe**, ohne vorher Sequoia zu installieren.
+8. Neue leere Zielplatte eindeutig nach Groesse und Host-Dateizuordnung erkennen,
+   dann nur diese mit APFS/GPT initialisieren. Bei uns war dies disk2/429.5GB und
+   der Volumename FullTest. Die Nummer ist fuer andere Versuche nicht garantiert.
+9. **Reinstall macOS Tahoe > Continue**. Der Installer laedt die Installations-
+   informationen online; deshalb ist Gast-Netzwerk erforderlich. Weitere Phasen
+   werden erst nach tatsaechlicher Beobachtung als bestaetigt protokolliert.
 
 ## 7. EFI/OpenCore vorbereiten: der entscheidende Kontrollpunkt
 
