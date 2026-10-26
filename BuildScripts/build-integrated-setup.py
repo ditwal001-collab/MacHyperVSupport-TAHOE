@@ -91,11 +91,58 @@ def main():
     }
     for label, properties in plists.items():
         (stage / (label + '.plist')).write_bytes(plistlib.dumps({'Label': label, **properties}))
+    # Apple's fresh installer discarded files seeded into the initially blank
+    # volume. Deliver the exact same payload as a product archive instead, for
+    # the installer's --installpackage phase after it creates the Data volume.
+    pkgroot = output / 'package-root'
+    support = pkgroot / 'Library/Application Support/MacHyperVSetup'
+    support.mkdir(parents=True)
+    shutil.copytree(payload, support / 'Payload')
+    shutil.copyfile(stage / 'bootstrap.command', support / 'bootstrap.command')
+    shutil.copytree(app.parent, pkgroot / 'Applications/MacHyperVSetup.app')
+    shutdown = pkgroot / 'Library/Application Support/MacHyperVSupport/hvshutdownd'
+    shutdown.parent.mkdir(parents=True)
+    shutil.copyfile(daemon, shutdown)
+    mappings = {'bootstrap.command': support / 'bootstrap.command',
+                'hvshutdownd': shutdown}
+    for name, folder in (('fish.goldfish64.hvshutdownd.plist', 'LaunchDaemons'),
+                         ('fish.goldfish64.hyperv-setup.plist', 'LaunchDaemons'),
+                         ('fish.goldfish64.hyperv-setup-ui.plist', 'LaunchAgents')):
+        destination = pkgroot / 'Library' / folder / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(stage / name, destination)
+        mappings[name] = destination
+    executables = {support / 'bootstrap.command', shutdown,
+                   pkgroot / 'Applications/MacHyperVSetup.app/Contents/MacOS/MacHyperVSetup'}
+    for path in pkgroot.rglob('*'):
+        path.chmod(0o755 if path.is_dir() or path in executables else 0o644)
+    components = output / 'components.plist'
+    subprocess.run(['pkgbuild', '--analyze', '--root', str(pkgroot), str(components)], check=True)
+    component_info = plistlib.loads(components.read_bytes())
+    for entry in component_info:
+        entry['BundleIsRelocatable'] = False
+    components.write_bytes(plistlib.dumps(component_info))
+    component = output / 'MacHyperVSetup.component.pkg'
+    subprocess.run(['pkgbuild', '--root', str(pkgroot), '--component-plist', str(components),
+                    '--identifier', 'fish.goldfish64.hyperv-setup', '--version', '1.0',
+                    '--install-location', '/', '--ownership', 'recommended', str(component)], check=True)
+    product = stage / 'MacHyperVSetup.pkg'
+    subprocess.run(['productbuild', '--package', str(component), str(product)], check=True)
+    expanded = output / 'package-check'
+    subprocess.run(['pkgutil', '--expand-full', str(product), str(expanded)], check=True)
+    expanded_roots = [p for p in expanded.rglob('Payload') if (p / 'Applications/MacHyperVSetup.app').is_dir()]
+    assert len(expanded_roots) == 1, 'Expected exactly one setup package payload'
+    recovered = expanded_roots[0]
+    source_files = {p.relative_to(pkgroot) for p in pkgroot.rglob('*') if p.is_file()}
+    assert {p.relative_to(recovered) for p in recovered.rglob('*') if p.is_file()} == source_files
+    for name in source_files:
+        assert (recovered / name).read_bytes() == (pkgroot / name).read_bytes(), str(name)
     source = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip()
     provenance = {'setup_source': source, 'driver_source': '6c3568178ba21136b8c21dd45597476c74ec31d1',
                   'driver_run': 40189441511, 'driver_release_sha256': RELEASE_SHA,
                   'framebuffer_sha256': FB_SHA, 'target_build': '25G241',
                   'target_resolution': [1920, 1080], 'run': os.environ.get('GITHUB_RUN_ID'),
+                  'installation_transport': 'productbuild archive for startosinstall --installpackage; runtime validation pending',
                   'xcode': subprocess.check_output(['xcodebuild', '-version'], text=True).strip(),
                   'sdk': subprocess.check_output(['xcrun', '--show-sdk-version'], text=True).strip()}
     for binary in (app / 'MacOS/MacHyperVSetup', daemon):
