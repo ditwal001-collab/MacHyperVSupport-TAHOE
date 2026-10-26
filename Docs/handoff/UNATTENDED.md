@@ -1,3 +1,17 @@
+LATEST 2026-10-26 00:33 UTC: user explicitly confirms page Update Mac
+Automatically. Earlier Apple-auth ambiguity RESOLVED; authorized capture succeeded
+and confirms final setup spinner/disabled Continue. Pre-action2416158-byte serial
+prefix SHA8ad00367a0eb6736ac05feed100dc424f82d870a726a56087e39f796c8a788cf
+has no captured panic/root-wait/cursor conversion failure. Apple-menu click did
+not open a menu. NON-FORCED guest shutdown was REJECTED by auto-review because
+specific lifecycle authorization required/possible setup-encryption interruption.
+No shutdown/restart executed. Do not bypass through hard reset/other lifecycle API.
+Explicit approval for restart of srv-maos-devs11 (including hard if necessary)
+is now pending. Original rollback pair preserved, new512GiB system only attached,
+receiver25588 remains capture target. After explicit approval reboot only main
+VM, unlock with local DPAPI account-private.clixml, complete first framebuffer
+installer from root/framebuffer-tools (Install SHA118411a0...), matchingKDK25G241
+only after sw_vers. No plaintext user/account credentials in reports.
 LATEST 2026-10-26 local (23:57 UTC25Oct): user reports stalled setup/update
 and asks intervention. VM Running~1h45/13percent CPU; receiver25588 alive.
 1891907-byte prefix SHAcca3949b... no captured panic/root-wait/cursor failure.

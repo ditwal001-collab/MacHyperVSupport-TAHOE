@@ -90,3 +90,6 @@ remain pending; no completed main-guest desktop result is claimed yet.
 
 
 At23:57 UTC (26Oct local), the user reported stalled setup/update. VM Running, receiver25588 alive,1891907-byte prefix SHAcca3949b... with no captured panic/root-wait. Automatic review again rejected a new capture because current Apple-auth completion/page is unknown. No capture/input/reset was executed. Current-page title clarification is pending; a final automatic-update setup stall remains a hypothesis. See ci/srv-clean-install-512g-stall-check-20261025.json.
+
+
+At00:31 UTC26Oct the user confirmed Update Mac Automatically. A newly permitted direct capture confirmed the final setup spinner/disabled Continue. Authentication ambiguity was thereby resolved. A non-forced guest shutdown request was rejected by automatic review for missing specific lifecycle authorization and potential setup/encryption interruption; it was not executed. No restart/reset was attempted as a workaround. Explicit target-only restart authorization is pending. Pre-action2416158-byte prefix SHA8ad00367a0eb6736ac05feed100dc424f82d870a726a56087e39f796c8a788cf has no captured panic/root-wait/cursor-conversion markers.
