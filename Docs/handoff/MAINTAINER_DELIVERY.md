@@ -1,24 +1,25 @@
 # Maintainer delivery and project map
 
-This Hyper-V-only delivery includes clean source patches, original CI binary
-ZIPs, anonymized VM/EFI setup and a technical test record. Start with this guide,
-HYPERV_SETUP.md and RELEASE_RC1.md. Check each ZIP/hash, source, run and runtime
-scope before installation. An11h07 Debug run is verified; clean Release build
-success alone is not a stable-release acceptance claim.
+Start with **HOW_TO_TAHOE_DE.md** in the full-install delivery root. It is the
+single end-user installation guide, assuming Hyper-V is already installed and
+working. It covers a fresh512-GiB installation, all downloads, EFI requirements,
+VM settings, serial capture, setup product and final acceptance checks. It does
+not require reading historical test reports to follow the installation steps.
 
-A separate blank-disk installation now reached Tahoe26.7.1/25G241 desktop with
-both exact clean Release UUIDs,14channels, software cursor, HTTPS/Safari and a
-short Finder/input smoke test. It required recovery from a final Setup Assistant
-stall and a canonical Aux bundle-path correction. Read FRESH_INSTALL_TEST.md and
-TAHOE_INSTALL_STEP_BY_STEP_DE.md; this does not establish unattended installation,
-repeat-boot reliability or a generic EFI template. The combined revised first
-installer was subsequently exercised on the second fresh 512-GiB installation.
-The newer integrated product was also tested through Apple's full erase-install
-phase: automatic KDK/framebuffer and 1920x1080 passed, including a further normal
-reboot. Its final Apple setup page still needed a regular guest shutdown/start;
-no forced power-off was used in that latest cycle. Previous extension approval
-may persist with the retained VM firmware/identity. See INTEGRATED_SETUP.md and
-INTEGRATED_SETUP_REPRODUCE.md for exact qualified results and all failed attempts.
+The full-install delivery additionally contains changed-files/ with actual source
+files in project layout, installer/ with the original setup product and verified
+DVD image, drivers/ with the original Release archive, and maintainer/ with
+patches, provenance and technical evidence. WO_IST_WAS.md explains these paths.
+No private EFI, VM disks, account secrets or development environment is included.
+
+The final fresh installation passed desktop, exact Release UUIDs, automatic
+1920x1080 and a further normal reboot. The user personally confirmed Apple login.
+Final Match Settings required a regular guest shutdown/start; account metadata
+and time zone needed correction. This is qualified acceptance, not a fully
+unattended or universal blank-VM installer. A usable personalized EFI remains an
+external prerequisite. See final-setup-acceptance-result-20261026.json for the
+bounded final result. Historical technical evidence is retained separately for
+review; it is not part of the installation instructions.
 
 ## Project structure and changed files
 
@@ -128,11 +129,6 @@ Aux-only procedure, pinned to this candidate's hashes. Its runtime installation
 status is recorded in RELEASE_RC1.md. It refuses different build/module hashes
 or a different Aux inventory. Inspect/adapt those preconditions for another
 machine; full private EFI configurations, VM images and KDK payloads are omitted.
-
-The lab's `-nobsdmgroot` flag bypassed a residual installer BaseSystem selection
-on isolated copies. It is not part of the SynIC/cursor patch and is not a general
-upgrade repair. The original disk remains preserved; original migration completion
-is still unproven. Maintain that distinction when reviewing the reports.
 
 ## Acceptance boundary
 

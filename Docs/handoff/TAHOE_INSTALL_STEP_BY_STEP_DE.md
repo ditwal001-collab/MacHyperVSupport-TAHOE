@@ -1,663 +1,351 @@
-# Tahoe auf Hyper-V: Schritt fuer Schritt
+# HOW-TO: macOS Tahoe direkt auf Hyper-V installieren
 
-Stand: 26.10.2026. Erklaerungen auf Deutsch; Menuebezeichnungen auf Englisch.
-Diese Datei ist eine Vorbereitung und Installations-Checkliste, kein bereits
-vollstaendig validierter Ein-Klick-Installer. Alle folgenden Befehle sind zum
-Nachlesen; beim Schreiben dieser Anleitung wurde keine VM angelegt oder geaendert.
+Stand: 26.10.2026. Voraussetzung: Hyper-V ist installiert und funktioniert.
+Die Windows-Menues koennen deutsch sein; die macOS-Menues sind hier auf Englisch.
+Diese Anleitung beschreibt eine Vollinstallation auf einer neuen leeren Platte.
+Sie veraendert keine vorhandene VM. Befehle sind zum bewussten Nachmachen bestimmt.
 
-**Ergebnis des Neuinstallationstests:** Eine neue leere Systemplatte wurde
-ueber Apple Recovery unter Windows direkt mit Tahoe26.7.1/25G241 installiert.
-Beide Release-Treiber sind am Desktop mit den originalen CI-UUIDs nachgewiesen.
-Der Test benoetigte einen genehmigten Neustart nach einem Setup-Haenger und eine
-Aux-Pfadkorrektur beim Framebuffer. Er ist kein Nachweis fuer einen vollautomatisch
-fehlerfreien Ablauf. Den tatsaechlichen Windows-Weg beschreibt Schritt6a;
-[das Testprotokoll](FRESH_INSTALL_TEST.md) dokumentiert alle Zwischenfehler.
+## 1. Was am Ende vorhanden ist
 
-## 1. Zuerst verstehen, was bereits funktioniert
+Eine Generation-2-VM mit 8 virtuellen CPUs, 24 GiB festem RAM, einer dynamischen
+512-GiB-Systemplatte und macOS Tahoe 26.7.1 / Build 25G241. Dazu gehoeren unser
+Release-Hyper-V-Treiber, der Framebuffer mit Software-Cursor und 1920 x 1080.
+Sprache: English; Region: Switzerland; Tastatur: Swiss German; Zeitzone: Zurich.
+Die persoenliche Apple-Anmeldung erfolgt ausschliesslich durch den Benutzer.
 
-Unser Intel-Testsystem startet macOS Tahoe 26.7.1, Build 25G241. Der bereinigte
-Release-Core und Release-Framebuffer sind geladen; ihre UUIDs stimmen mit den
-originalen CI-Binaries ueberein. Ein vollstaendiger Release-Start ist nachgewiesen.
-Zuvor lief die instrumentierte Debug-Variante mehr als elf Stunden.
+Der nachvollziehbar gepruefte Ablauf hat zwei Abschnitte: Eine leere VM bekommt
+zuerst Tahoe ueber Apple Recovery. Dieses frisch eingerichtete, entbehrliche Tahoe
+startet danach Apples Vollinstaller mit unserem Setup-Paket. Dabei wird das
+System erneut geloescht und frisch angelegt; das temporaere Konto wird verworfen.
+Dieser zweite Durchlauf ist noetig, um den tatsaechlich geprueften Transport des
+integrierten Setup-Pakets nachzubauen. Einfaches Kopieren des Pakets in Recovery
+ist kein Ersatz. Eine einzige Installation auf voellig leerer VM mit automatisch
+vorinstalliertem Setup-Paket haben wir nicht als vollstaendigen Ablauf validiert.
 
-Eine direkte Neuinstallation ist jetzt einmal bis zum vollstaendigen Release-
-Desktop getestet. Du musst dafuer nicht zuerst Sequoia installieren. Die getestete
-EFI stammt allerdings aus einer Kopie unserer bewaehrten EFI mit neuer Identitaet;
-eine allgemein verteilbare, startfertige EFI-Vorlage fehlt weiterhin. Der neue
-Framebuffer-Erstinstaller wurde inzwischen auch als kompletter kombinierter Ablauf
-auf der zweiten frischen512-GiB-Installation ausgefuehrt. Danach wurde die native
-macOS-Freigabe samt Neustart ausgefuehrt; der erwartete Framebuffer und1920x1080
-sind nachgewiesen. Die neue Integration direkt in den Setup-Ablauf wurde nun
-ebenfalls auf frisch geloeschtem APFS getestet: Treiber und1920x1080 kommen
-automatisch; auch nach einem weiteren normalen Neustart bleibt1920x1080 erhalten.
-Der letzte Apple-Setup-Dialog wartete weiterhin und erforderte einen regulaeren
-Gast-Shutdown/Start; hartes Ausschalten war diesmal nicht noetig. Deshalb ist dies
-ein qualifizierter Erfolg, kein vollautomatisch fehlerfreier Ein-Klick-Installer.
-Der exakte Weg mit Apples Vollinstaller und Produktpaket steht unter
-[Setup reproduzieren](INTEGRATED_SETUP_REPRODUCE.md), alle Grenzen und Fehlversuche
-unter [Integrated setup](INTEGRATED_SETUP.md). Der alte Recovery-Seed-Weg ist
-fehlgeschlagen und darf nicht verwendet werden.
+Bestaetigt sind die einzelnen Recovery- und Vollinstaller-Durchlaeufe, die
+Release-Treiber, die automatische Aufloesung, ein weiterer normaler Neustart und
+die vom Benutzer bestaetigte Apple-Anmeldung. Der letzte Apple-Dialog
+**Match Settings** benoetigte einen regulaeren Shutdown/Start. Deshalb ist dies
+kein vollstaendig unbeaufsichtigter Ein-Klick-Installer. Die neue Windows-VM-
+Erstellung ist getrennt von der zuletzt getesteten Installation auf bestehender
+VM-Firmware geprueft. Eine neue Freigabehistorie kann weitere Apple-Dialoge zeigen.
 
-Begriffe:
+## 2. Das Uebergabepaket entpacken
 
-| Begriff | Bedeutung |
+Die Datei mit dem Namen `Tahoe-FullInstall-Handoff-....zip` vollstaendig entpacken.
+Nicht direkt aus dem ZIP arbeiten. Im entpackten Ordner liegt diese Datei als
+`HOW_TO_TAHOE_DE.md`; `WO_IST_WAS.md` erklaert alle Unterordner.
+
+| Ordner | Inhalt |
 | --- | --- |
-| Host | Der Windows-Rechner mit Hyper-V |
-| Gast / VM | Der virtuelle Mac |
-| VHDX | Eine Datei, die Hyper-V als Festplatte verwendet |
-| EFI / OpenCore | Der Bootloader, der macOS in dieser VM starten hilft |
-| Kext | Ein macOS-Kerneltreiber |
-| Core | Unser Hyper-V-Treiber fuer Bus, Storage, Netzwerk und Eingabe |
-| Framebuffer | Der separate Bildschirmtreiber |
-| Serial-Log | Bootprotokoll auf dem Windows-Host, auch wenn das Bild schwarz ist |
+| changed-files/ | Geaenderte C++-, Header-, Setup-, Build- und Dokumentationsdateien mit Projektpfaden |
+| installer/ | MacHyperVSetup.pkg, SetupMedia.zip und die dazugehoerige Provenance |
+| installer/IntegratedSetup.iso | Fertiges DVD-Abbild des geprueften Setup-Produkts |
+| drivers/ | Originales Release-Treiber-ZIP und Provenance |
+| maintainer/ | Patchserie, technische Berichte, anonymisierte Nachweise und Hilfswerkzeuge |
 
-## 2. Was du brauchst
+Das Setup-Paket ist fuer Intel Tahoe **25G241** bestimmt. Es installiert keinen
+macOS-Vollinstaller. Apple-Installer, KDK, persoenliche EFI und VM-Platten sind
+nicht Teil des Pakets. Entwicklertools und persoenliche Kontodaten ebenfalls nicht.
 
-Fuer einen moeglichst nahen Vergleich mit unserem Aufbau:
+## 3. Werkzeuge und Downloads bereitlegen
 
-1. Intel-x64-Windows-Rechner mit aktivierter Hardwarevirtualisierung und Hyper-V.
-2. Genug Arbeitsspeicher fuer Windows plus 24 GiB festen VM-Speicher.
-3. Acht virtuelle Prozessoren fuer die VM.
-4. Eine neue dynamische512-GiB-Systemplatte. Die Datei waechst mit der Belegung;
-   512 GiB sind die virtuelle Obergrenze, keine sofortige Reservierung.
-5. Zusaetzlichen Platz fuer Installer, EFI und eine vollstaendige Rueckfallkopie.
-6. Internet und einen vorhandenen passenden virtuellen Netzwerk-Switch.
-7. Nur fuer den alternativen Apple-Vollinstaller-Weg in Schritt6: Zugriff auf einen Mac.
-   Unser bereits laufender Mac kann Material vorbereiten; sein Systemlaufwerk
-   darf dabei nicht geloescht oder als Installerziel verwendet werden.
+Oeffne die Links und lade die angegebenen Werkzeuge. GitHub-Artefakte koennen eine
+Anmeldung benoetigen oder ablaufen; die geprueften Originaldateien liegen deshalb
+auch im Uebergabepaket. Die Versionsnummern hier gehoeren zum getesteten Aufbau.
 
-Der im Praxistest benutzte Windows-Recovery-Weg in Schritt6a benoetigt keinen
-vorher laufenden Mac. Er benoetigt eine passend vorbereitete EFI; unser Test
-verwendete eine Kopie der bestehenden EFI mit neuer Identitaet. Das ist noch
-keine allgemein verteilbare EFI-Vorlage fuer einen Aufbau ganz von vorn.
-
-Intel ist unsere getestete Plattform. AMD- und ARM-Hosts sind durch diese Arbeit
-nicht validiert. Ein Hyper-V-Haken emuliert keinen Apple-M-Chip.
-
-## 3. Downloadliste: diese Links verwenden
-
-Bei GitHub: Seite oeffnen, gegebenenfalls **Assets** ausklappen, Datei laden.
-Bei Werkzeugen ohne feste Version: Version und Download-Pruefsumme fuer deinen
-Versuch notieren. Nicht mitten im ersten Vergleich alle Komponenten aktualisieren.
-
-| Download / Werkzeug | Link | Wofuer? |
+| Werkzeug / Download | Link | Verwendung |
 | --- | --- | --- |
-| Unser Projekt | [MacHyperVSupport-TAHOE](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE) | Quellcode und Dokumentation |
-| Unser gepruefter Build | [Actions-Lauf 40189441511](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/actions/runs/40189441511) | Artefakte **Artifacts** und **Provenance**; ggf. GitHub-Anmeldung erforderlich |
-| Unser Release-Quellstand | [Commit 6c356817](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/tree/6c3568178ba21136b8c21dd45597476c74ec31d1) | Exakter Treiberstand |
-| Anleitung und Hilfswerkzeuge | [Neuinstallationstest-Branch](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/tree/test/tahoe-fresh-install) | Diese Anleitung und BuildScripts |
-| Alle Hilfswerkzeuge als ZIP | [Test-Branch herunterladen](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/archive/refs/heads/test/tahoe-fresh-install.zip) | Entpacken; fuer die Befehle den enthaltenen Repository-Ordner oeffnen |
-| Apple macOS-Download | [Apple: macOS laden/installieren](https://support.apple.com/102662) | Originalinstaller; dort Tahoe waehlen, nicht automatisch das neueste andere macOS |
-| Apple Installationsmedium | [Apple: bootfaehiges Installationsprogramm](https://support.apple.com/101578) | Erklaerung zu createinstallmedia |
-| Hyper-V | [Microsoft: Hyper-V installieren](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/get-started/install-hyper-v) | Windows-Voraussetzungen und Installation |
-| OpenCore 1.0.6 | [Release 1.0.6](https://github.com/acidanthera/OpenCorePkg/releases/tag/1.0.6) | Historisch berichtete EFI-Version; RELEASE-ZIP, X64-Verzeichnis |
-| Lilu 1.7.2 | [Release 1.7.2](https://github.com/acidanthera/Lilu/releases/tag/1.7.2) | Lilu.kext; Versionsreferenz unseres Aufbaus |
-| VirtualSMC 1.3.7 | [Release 1.3.7](https://github.com/acidanthera/VirtualSMC/releases/tag/1.3.7) | VirtualSMC.kext; historische Versionsreferenz |
-| Hyper-V-EFI-Anforderungen | [Upstream MacHyperVSupport README](https://github.com/acidanthera/MacHyperVSupport#opencore-configuration) | ACPI und Hyper-V-spezifische OpenCore-Vorgaben |
-| OpenCore-Anleitung | [Dortania](https://dortania.github.io/OpenCore-Install-Guide/) | Aufbau und Erklaerung der EFI |
-| ProperTree | [Projekt und Download ZIP](https://github.com/corpnewt/ProperTree) | config.plist bearbeiten; ZIP ueber Code > Download ZIP |
-| GenSMBIOS | [Projekt](https://github.com/corpnewt/GenSMBIOS) | Eigene virtuelle Mac-Identitaet erstellen |
-| Python | [Windows-Downloads](https://www.python.org/downloads/windows/) | Unsere Log-/Pruefwerkzeuge und ProperTree |
-| Git | [Git fuer Windows](https://git-scm.com/download/win) | Repository laden; fuer reine Binaerinstallation optional |
-| GitHub CLI | [Download](https://cli.github.com/) | Artefakte per gh laden; alternativ Browser |
-| QEMU / qemu-img | [Offizielle Downloadseite](https://www.qemu.org/download/#windows) | Offline-Image-Konvertierung; Windows-Builds sind dort verlinkt |
-| QEMU-Befehlsreferenz | [qemu-img](https://www.qemu.org/docs/master/tools/qemu-img.html) | Imageformate und Konvertierung |
-| Apple KDK | [Apple Developer Downloads](https://developer.apple.com/download/all/) | Passendes Kernel Development Kit; ggf. Anmeldung |
-| KDK fuer unseren exakten Build | [25G241](https://github.com/dortania/KdkSupportPkg/releases/tag/25G241) | Apple-signiertes KDK, das in unserem Testgast installiert war |
+| Projekt | [MacHyperVSupport-TAHOE](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE) | Quellen und Anleitungen |
+| Release-Treiber | [Actions 40189441511](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/actions/runs/40189441511) | Originale Artifacts und Provenance |
+| Setup-Installer | [Actions 40269870810](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/actions/runs/40269870810) | IntegratedSetup mit SetupMedia.zip |
+| Python fuer Windows | [python.org](https://www.python.org/downloads/windows/) | Log- und Pruefwerkzeuge; Launcher `py` mitinstallieren |
+| OpenCore 1.0.6 | [Release](https://github.com/acidanthera/OpenCorePkg/releases/tag/1.0.6) | X64-Bootloader und passendes ocvalidate.exe |
+| Apple-Recovery-Downloader | [macrecovery, festes Commit](https://github.com/acidanthera/OpenCorePkg/tree/78d5ff824992d5b227f842e34d8221eb8f31baf1/Utilities/macrecovery) | macrecovery.py, boards.json, README.md |
+| Hyper-V-EFI-Vorgaben | [Upstream README](https://github.com/acidanthera/MacHyperVSupport#opencore-configuration) | Erforderliche ACPI-/OpenCore-Einstellungen |
+| OpenCore-Grundlagen | [Dortania](https://dortania.github.io/OpenCore-Install-Guide/) | Eigene EFI erstellen |
+| ProperTree | [Projekt](https://github.com/corpnewt/ProperTree) | config.plist bearbeiten |
+| GenSMBIOS | [Projekt](https://github.com/corpnewt/GenSMBIOS) | Eigene konsistente Mac-Identitaet |
+| Lilu 1.7.2 | [Release](https://github.com/acidanthera/Lilu/releases/tag/1.7.2) | EFI-Komponente |
+| VirtualSMC 1.3.7 | [Release](https://github.com/acidanthera/VirtualSMC/releases/tag/1.3.7) | EFI-Komponente |
+| Apple-Vollinstaller | [Apple Download-Hilfe](https://support.apple.com/102662) | Originales macOS; Download im Gast siehe Schritt 8 |
+| KDK 25G241 | [Signiertes Apple-KDK](https://github.com/dortania/KdkSupportPkg/releases/tag/25G241) | Vom Setup automatisch mit Hash-/Signaturpruefung geladen |
+| Git / GitHub CLI | [Git](https://git-scm.com/download/win), [gh](https://cli.github.com/) | Nur fuer Quellen und eigene Builds erforderlich |
 
-Das Maintainer-ZIP bekommst du momentan als Datei vom Projektersteller. Es gibt
-noch keinen veroeffentlichten GitHub-Release-Download dieses ZIPs. Actions-
-Artefakte koennen ablaufen. Fehlt der Lauf, das archivierte Paket verwenden;
-nicht irgendeinen aehnlich benannten Build ersetzen. OpenCore/Lilu/VirtualSMC
-sind eigenstaendige Komponenten, nicht unser neuer SynIC-Fix.
+Keine Installation von Hyper-V oder Aenderung vorhandener Host-Switches noetig.
+Du brauchst einen vorhandenen passenden Switch und Internetzugang fuer die VM.
+Der Host benoetigt zusaetzlich zu seinem eigenen Bedarf 24 GiB freien RAM und
+freien Speicher fuer die wachsende Systemplatte, EFI und Downloads. 512 GiB ist
+die virtuelle Plattengroesse, keine sofortige Reservierung aller 512 GiB.
 
-## 4. Unseren richtigen Treiber auswaehlen
+## 4. Eigene EFI vorbereiten - zwingende Voraussetzung
 
-Im Maintainer-Paket:
+**Das Paket enthaelt keine startfertige EFI.vhdx und keine vollstaendige config.plist.**
+Du benoetigst eine unabhaengig gepruefte, eigene Intel-Hyper-V-EFI. Ohne sie hier
+anhalten: Ein OpenCore-Download allein macht noch keine bootfaehige VM. Dieser
+Teil bleibt technische Vorarbeit; eine universelle Anfaenger-EFI liefern wir nicht.
+
+Das Layout auf einem separaten FAT32-EFI-Datentraeger muss unter anderem enthalten:
 
 ```text
-binaries/clean-rc1/MacHyperVSupport-0.9.10-RELEASE.zip
+EFI/BOOT/BOOTx64.efi
+EFI/OC/OpenCore.efi
+EFI/OC/config.plist
+EFI/OC/ACPI/SSDT-HV-VMBUS.aml
+EFI/OC/ACPI/SSDT-HV-DEV.aml
+EFI/OC/ACPI/SSDT-HV-PLUG.aml
+EFI/OC/Drivers/OpenRuntime.efi
+EFI/OC/Kexts/Lilu.kext/
+EFI/OC/Kexts/VirtualSMC.kext/
+EFI/OC/Kexts/MacHyperVSupportMonterey.kext/
 ```
 
-Entpacken. Darin unter `Kexts`:
+ACPI aus den Upstream-Vorgaben kompilieren, nicht .dsl in .aml umbenennen.
+Sample.plist, Treiber und ocvalidate muessen zur OpenCore-Version passen.
+Core aus `drivers/MacHyperVSupport-0.9.10-RELEASE.zip` verwenden, nicht die
+Legacy-Kext und nicht Debug-Dateien. Den Framebuffer **nicht** per OpenCore laden.
+Er wird spaeter im Gast installiert. Eine eigene SMBIOS-Identitaet verwenden;
+keine fremden Seriennummern oder identische Identitaeten fuer parallele VMs.
 
-| Datei | Verwendung bei Tahoe |
-| --- | --- |
-| MacHyperVSupportMonterey.kext | Core-Treiber fuer Tahoe; Name Monterey ist richtig |
-| MacHyperVFramebuffer.kext | Separat im Gast installieren, siehe Schritt 12 |
-| MacHyperVSupport.kext | Legacy-Treiber; nicht als Tahoe-Core einsetzen |
+Im beobachteten Profil: ProvideCurrentCpuInfo=true, passende Hyper-V-ACPI-Patches,
+AvoidRuntimeDefrag/ProvideCustomSlide und DisableSecurityPolicy gemaess Upstream.
+CPU-Spoofing ist hostabhaengig. Der gepruefte Bestand hatte csr-active-config
+03000000; unsere Helfer schalten SIP/Gatekeeper nicht um. Andere Sicherheits-
+oder Hardwareprofile sind durch diesen Test nicht validiert.
 
-Das ganze `.kext`-Verzeichnis zusammenhalten. Es ist ein Bundle mit Info.plist
-und ausfuehrbarer Datei, kein einzelnes Windows-Programm.
+Fuer Apple-Dienste muessen beide vorhandenen, zusammengehoerigen Kernel-Patches des
+VM-Erkennungs-Workarounds aktiv sein. Unser `prepare-tahoe-efi.ps1` prueft deren
+exakte Form, aktiviert nur den fehlenden Teil auf einer neuen Offline-Kopie und
+fuehrt ocvalidate aus. Er erzeugt keine vollstaendige EFI und ergaenzt keine fehlenden
+Patchvorlagen. Die Quelle muss ungemountet, unabhaengig und keiner VM zugeordnet sein.
 
-Release-ZIP SHA256:
-
-```text
-162f47670ef9f4640bdfdefd8ba9495b1a039ca6828a52f5ec4498e9d3cb5d6c
-```
-
-Windows PowerShell im Ordner der ZIP-Datei:
-
-```powershell
-Get-FileHash -Algorithm SHA256 .\MacHyperVSupport-0.9.10-RELEASE.zip
-```
-
-Die ausgegebene Zeichenfolge muss uebereinstimmen. Gross-/Kleinschreibung ist egal.
-Keine Debug-Dateien aus den historischen Referenzordnern beimischen.
-
-Optional per GitHub CLI statt Browser:
-
-```powershell
-gh auth login
-gh run download 40189441511 --repo ditwal001-collab/MacHyperVSupport-TAHOE --dir .\downloaded-build
-```
-
-Zielordner neu waehlen. Anschliessend Paket und Provenance pruefen. Zum normalen
-Installieren sind weder eigener Xcode-Build noch neuer Actions-Lauf notwendig.
-
-## 5. Ordner anlegen und bestehende Installation schuetzen
-
-Auf Windows einen **neuen**, eindeutig benannten Arbeitsordner anlegen:
-
-```text
-Tahoe-NewInstall/
-  Downloads/
-  EFI/EFI.vhdx
-  Installer/TahoeInstaller.vhdx
-  Disks/System.vhdx
-  Logs/
-  Backups/
-```
-
-EFI = Bootloader, Installer = Apple-Installationsmedium, System = Zielplatte.
-Diese drei Dateien haben verschiedene Aufgaben. Keinen alten Datentraeger
-umbenennen und als neue leere Systemplatte ausgeben. Bereits existierende
-VMs/Backups bleiben unveraendert. Die folgende Anleitung erstellt keine
-zusaetzliche VM automatisch; sie ist fuer einen spaeteren bewussten Neuaufbau.
-
-## 6. Apple-Tahoe-Installer vorbereiten
-
-1. Auf dem vorbereitenden Mac den vollstaendigen **Install macOS Tahoe.app**
-   von Apple laden. Eine Recovery mit **Reinstall macOS Sequoia** ist falsch.
-2. Liegt die App in **Applications**, einen automatisch geoeffneten Installer
-   beenden. Noch nichts auf diesem Mac installieren.
-3. Im Terminal die verfuegbaren Installer anzeigen:
-
-   ```sh
-   softwareupdate --list-full-installers
-   ```
-
-4. Wenn Apple exakt 26.7.1 anbietet, kann sie gezielt geladen werden:
-
-   ```sh
-   softwareupdate --fetch-full-installer --full-installer-version 26.7.1
-   ```
-
-   Ist die Version nicht verfuegbar, keine fremde ISO verwenden. Eine andere
-   Tahoe-Version bedeutet einen neuen, separat zu pruefenden Versionsstand.
-5. Neues, ausschliesslich fuer den Installer bestimmtes Image erstellen. Die
-   folgenden Befehle sind ein **noch nicht im Projekt durchgetesteter** Weg
-   mit Apples createinstallmedia und anschliessender RAW/VHDX-Konvertierung.
-   Sie werden auf dem vorbereitenden Mac ausgefuehrt:
-
-   ```sh
-   work=$(mktemp -d /Users/Shared/TahoeMedia.XXXXXXXX)
-   test ! -e /Volumes/TahoeInstallWork
-   test ! -e '/Volumes/Install macOS Tahoe'
-   hdiutil create -size 32g -layout GPTSPUD -fs HFS+J -volname TahoeInstallWork -type UDRW -o "$work/TahoeInstaller.dmg"
-   hdiutil attach "$work/TahoeInstaller.dmg" -nobrowse
-   ```
-
-6. **Vor dem folgenden Befehl** mit `diskutil info /Volumes/TahoeInstallWork`
-   pruefen: Das Volume muss zu dem gerade erzeugten Disk-Image gehoeren.
-   createinstallmedia loescht sein Zielvolume. Es darf ausschliesslich dieses
-   neue temporaere Image sein, niemals die Systemplatte oder ein Backup.
-
-   ```sh
-   sudo '/Applications/Install macOS Tahoe.app/Contents/Resources/createinstallmedia' --volume /Volumes/TahoeInstallWork
-   ```
-
-7. Die Loeschbestaetigung gilt nur fuer dieses neue Installationsmedium.
-   Vollstaendigen Abschluss abwarten. Den von Apple ausgegebenen Volumenamen
-   kontrollieren. Anschliessend das Image sauber auswerfen:
-
-   ```sh
-   hdiutil detach '/Volumes/Install macOS Tahoe'
-   hdiutil convert "$work/TahoeInstaller.dmg" -format UDTO -o "$work/TahoeInstaller"
-   ```
-
-8. Die entstandene `TahoeInstaller.cdr` nach Windows in den neuen Installer-
-   Ordner kopieren. `UDTO` liefert hier das RAW-CD/DVD-Master-Abbild; die
-   folgende Konvertierung darf **nicht** blind auf irgendeine komprimierte
-   heruntergeladene DMG angewandt werden.
-9. Auf Windows im neuen Installer-Ordner, mit installiertem qemu-img:
-
-   ```powershell
-   if (Test-Path .\TahoeInstaller.vhdx) { throw 'Zieldatei existiert bereits' }
-   qemu-img convert -p -f raw -O vhdx .\TahoeInstaller.cdr .\TahoeInstaller.vhdx
-   qemu-img info .\TahoeInstaller.vhdx
-   Get-FileHash -Algorithm SHA256 .\TahoeInstaller.vhdx
-   ```
-
-   Wenn qemu-img nicht gefunden wird, den vollstaendigen Pfad zu qemu-img.exe
-   verwenden. Installer ist eine weitere SCSI-Festplatte, keine normale ISO-DVD.
-   Konvertierungen nur offline; niemals ein laufendes Image bearbeiten.
-
-**Kontrollpunkt A:** Apple-Installer stammt aus bekannter Quelle; Tahoe statt
-Sequoia; neue Installer-VHDX fertig; keine bestehende Platte geloescht.
-
-Windows-Alternative: [OpenCore macrecovery](https://github.com/acidanthera/OpenCorePkg/tree/master/Utilities/macrecovery)
-laedt Apple-Recovery-Material. Es ist kein fertiges Hyper-V-Tahoe-Installations-
-image. Ohne nachgewiesene Tahoe-Auswahl und korrektes Image-Layout ist dies hier
-kein Ersatz fuer den Vollinstaller-Weg. Keine erfundene Board-ID kopieren.
-
-## 6a. Im Praxistest benutzter direkter Recovery-Weg unter Windows
-
-Damit brauchst du fuer den Download keinen zweiten Mac und kein QEMU. Die
-Apple-Dateien kommen auf eine vorbereitete EFI-Arbeitskopie. Das ist ein
-alternativer Weg zu Schritt6, kein zusaetzlich benoetigtes Vollinstaller-Medium.
-
-1. Den offiziellen Downloader aus festem
-   [OpenCore-Commit78d5ff8](https://github.com/acidanthera/OpenCorePkg/tree/78d5ff824992d5b227f842e34d8221eb8f31baf1/Utilities/macrecovery)
-   laden: macrecovery.py, boards.json und README.md.
-2. In einem neuen lokalen Downloadordner ausfuehren:
-
-   ```powershell
-   py -3 .\macrecovery.py -b Mac-CFF7D910A743CAAF -m 00000000000000000 -os latest -o .\recovery download
-   ```
-
-3. **Image verification complete!** abwarten. Bei uns lieferte Apple die Recovery
-   26.6.2/build25G83. Das ist nicht automatisch die endgueltig installierte Version.
-   Downloadangebot kann sich aendern.
-4. Vorbereitete eigene EFI-Kopie nur offline und keiner VM zugeordnet mounten.
-   BaseSystem.dmg und BaseSystem.chunklist in `com.apple.recovery.boot` auf dem
-   FAT32-Volume ablegen. Vorhandenes Recovery-Verzeichnis der Kopie vorher
-   ausserhalb des Images sichern; keine Dateien einer laufenden EFI ersetzen.
-5. `-nobsdmgroot` in dieser Installationskopie entfernen, falls aus dem alten
-   Laborprofil vorhanden. HideAuxiliary=false und ShowPicker=true setzen.
-   Eigenes SMBIOS und gepruefte Release-Core-Kext wie in Schritt7 vorbereiten.
-6. EFI auf dem Host auswerfen. Neue VM wie in Schritt8 anlegen, aber nur zwei
-   Platten: EFI/Recovery an0:0 und neue leere Systemplatte an0:1. Keine dritte
-   Installer-VHDX erforderlich. Serial-Logger zuerst starten.
-7. In OpenCore **EFI (dmg)** auswaehlen. Im Test erreichte dies unmittelbar
-   **Reinstall macOS Tahoe**, ohne vorher Sequoia zu installieren.
-8. Neue leere Zielplatte eindeutig nach Groesse und Host-Dateizuordnung erkennen,
-   dann nur diese mit APFS/GPT initialisieren. Bei uns war dies disk2/429.5GB und
-   der Volumename FullTest. Die Nummer ist fuer andere Versuche nicht garantiert.
-9. **Reinstall macOS Tahoe > Continue**. Der Installer laedt die Installations-
-   informationen online; deshalb ist Gast-Netzwerk erforderlich. Weitere Phasen
-   werden erst nach tatsaechlicher Beobachtung als bestaetigt protokolliert.
-
-## 7. EFI/OpenCore vorbereiten: der entscheidende Kontrollpunkt
-
-Unser Maintainer-Paket enthaelt **keine startfertige EFI.vhdx und keine komplette
-config.plist**. Es enthaelt Treiber, Patches und anonymisierte Einstellungsprofile.
-Ein OpenCore-Download allein reicht deshalb nicht fuer einen startfaehigen Mac.
-
-Fuer einen einfachen privaten Wiederaufbau benoetigst du eine separat
-vorbereitete und gepruefte EFI-Arbeitskopie. Fuer eine neue VM braucht sie eine
-eigene konsistente SMBIOS-Identitaet. Seriennummern/UUIDs nicht veroeffentlichen
-oder gleichzeitig fuer mehrere Macs verwenden.
-
-Ohne eine solche EFI muss dieser Teil zuerst fertiggestellt werden:
-
-1. OpenCore-X64-Layout auf einem eigenen FAT32-EFI-Volume anlegen:
-
-   ```text
-   EFI/
-     BOOT/BOOTx64.efi
-     OC/OpenCore.efi
-     OC/config.plist
-     OC/ACPI/SSDT-HV-VMBUS.aml
-     OC/ACPI/SSDT-HV-DEV.aml
-     OC/ACPI/SSDT-HV-PLUG.aml
-     OC/Drivers/OpenRuntime.efi
-     OC/Drivers/[zum Profil passender HFS-Treiber]
-     OC/Kexts/Lilu.kext/
-     OC/Kexts/VirtualSMC.kext/
-     OC/Kexts/MacHyperVSupportMonterey.kext/
-   ```
-
-2. OpenCore **Sample.plist derselben Version** als Ausgangspunkt benutzen;
-   Hyper-V-Vorgaben aus dem oben verlinkten Upstream-README einarbeiten.
-   Eine Sample.plist ist noch keine fertige Konfiguration.
-3. ACPI-Quellen aus OpenCore verwenden; die Kommentare in
-   [SSDT-HV-VMBUS.dsl](https://github.com/acidanthera/OpenCorePkg/blob/master/Docs/AcpiSamples/Source/SSDT-HV-VMBUS.dsl)
-   enthalten zusaetzlich erforderliche ACPI-Patches. `.dsl` muss mit passendem
-   `iasl` zu `.aml` kompiliert werden; blosses Umbenennen funktioniert nicht.
-   [ACPICA Downloads](https://github.com/acpica/acpica/releases).
-4. ProperTree fuer plist-Bearbeitung und Kext-Eintraege verwenden. Pruefen,
-   dass alle benoetigten Kexts aktiviert sind; keine doppelten Core-Treiber.
-5. Eigenes Tahoe-kompatibles Intel-SMBIOS nach OpenCore-Anleitung einrichten.
-   Ein zufaelliger Modellname oder ein ARM-Modell ist kein Ersatz.
-6. Mit `ocvalidate` aus **derselben OpenCore-Version** pruefen. Null Meldungen
-   bedeutet Schema-Konsistenz, nicht nachgewiesene Bootfaehigkeit.
-7. Image nur bei ausgeschalteter VM und abgehaengt bearbeiten. Danach auf dem
-   Host auswerfen, Hash notieren und erst dann in Hyper-V anhaengen.
-
-**Apple-Anmeldung schon vor der Installation vorbereiten:** Unser bisheriges
-EFI hatte nur eine Haelfte des vorhandenen VM-Erkennungs-Workarounds aktiviert.
-Beide zusammengehoerigen Kernel-Patches muessen aktiv sein. Nach der Korrektur
-hat der Benutzer die erfolgreiche Apple-Anmeldung bestaetigt. Der neue Helfer
-`BuildScripts/prepare-tahoe-efi.ps1` prueft/korrigiert dies auf einer **neuen
-offline EFI-Kopie**, validiert sie mit ocvalidate und bewahrt die Quelle.
-Anleitung und genaue Grenzen: [Apple-Account-EFI](APPLE_ACCOUNT_EFI.md).
-Keine Seriennummern anderer Macs uebernehmen und keine NVRAM-/Keychain-Loeschung.
-
-Wichtige Orientierung aus unserem getesteten Profil:
-
-| Einstellung | Beobachtung / Anwendung |
-| --- | --- |
-| Kernel > Quirks > ProvideCurrentCpuInfo | true |
-| UEFI > Quirks > DisableSecurityPolicy | Upstream-Hyper-V-Anforderung; in neuer EFI pruefen |
-| Booter > Quirks > AvoidRuntimeDefrag / ProvideCustomSlide | Upstream-Hyper-V-Anforderungen |
-| CPU-Spoof | Getesteter Intel-Host: Data 55060a00000000000000000000000000, Mask ffffffff000000000000000000000000; keine universelle CPU-Einstellung |
-| ACPI-Reihenfolge | Upstream: VMBUS/DEV/PLUG; unser geerbtes Profil: DEV/PLUG/VMBUS. Neue Reihenfolge ist noch separat zu validieren |
-| Core | MacHyperVSupportMonterey.kext, ab Darwin 21.0.0 |
-| Framebuffer | Nicht per OpenCore injizieren; separat in /Library/Extensions |
-| SIP | Bestehendes Profil hat csr-active-config 03000000; wurde bei uns nicht neu gesetzt. Kein pauschales Abschalten empfehlen |
-
-**Kontrollpunkt B:** Gepruefte, eigene, bootfaehige EFI liegt vor. Wenn sie fehlt,
-hier anhalten: Das ist eine reale fehlende Voraussetzung, kein Schritt, den ein
-Anfaenger durch Raten ersetzen sollte. Das Projekt liefert diesen privaten
-Bootdatentraeger derzeit nicht als oeffentliches Downloadpaket aus.
-
-## 8. Neue VM im Hyper-V Manager anlegen
-
-Diese Schritte beschreiben einen spaeteren Neuaufbau, keine Aenderung der aktuell
-funktionierenden VM. Im Hyper-V Manager immer den vorgesehenen Namen pruefen.
-
-Zum Wiederholen gibt es inzwischen auch `BuildScripts/new-tahoe-test-vm.ps1`.
-Es bildet die im Praxistest manuell benutzten Hardwarebefehle ab, startet die VM
-aber nicht. Standardmaessig zeigt es nur einen Plan; `-Create` erstellt explizit
-eine neue VM. Existiert der Zielname oder eine Ausgabedatei bereits, bricht es ab.
-Mit `-Create` ist jetzt `-OCValidatePath` erforderlich; vor dem VM-Anlegen wird
-automatisch eine neue `EFI.setup.vhdx` mit geprueftem Apple-Anmelde-Patchpaar
-vorbereitet. Die uebergebene private EFI-Quelle bleibt erhalten. Standardwerte
-sind512GiB Systemdisk und Single1920x1080. Es ersetzt keine vollstaendige eigene
-EFI-Vorlage oder die Apple-Installation. Die Offline-Vorbereitung und Schutz-
-pruefungen sind getestet; der komplette neue Erstellungs-/Installationsablauf
-ist noch nicht erneut als Gesamttest ausgefuehrt.
-Falls lokale Skriptrichtlinien die Ausfuehrung blockieren, diese nicht global
-abschalten; die oben beschriebenen Manager-Schritte bleiben verfuegbar.
-
-1. **New > Virtual Machine**.
-2. Eindeutiger neuer Name, zum Beispiel **Tahoe-NewInstall**.
-3. **Generation 2**.
-4. **Startup memory: 24576 MB**; **Use Dynamic Memory** abwaehlen.
-5. Vorhandenen vorgesehenen External-Switch auswaehlen. Bestehende Host-Switches
-   nicht fuer diesen Versuch umbauen.
-6. Neue System-VHDX mit **512 GiB** erzeugen. Noch kein Betriebssystem starten.
-7. **Settings > Processor: 8**.
-8. **Settings > Security**: Unser bestehender Aufbau hat **Enable Secure Boot**
-   nicht aktiviert. Bei einer neuen VM ist das eine bewusste VM-spezifische
-   Voraussetzung, keine Aufforderung, Schutzfunktionen des Hosts auszuschalten.
-9. Automatische Checkpoints fuer diesen Aufbau nicht benutzen.
-10. Unter **SCSI Controller** drei getrennte Festplatten zuordnen:
-
-    | Position | Datei |
-    | --- | --- |
-    | 0 | Eigene vorbereitete EFI.vhdx |
-    | 1 | Neue leere System.vhdx,512 GiB |
-    | 2 | TahoeInstaller.vhdx |
-
-11. **Firmware > Boot order**: EFI-Festplatte zuerst. Network Boot nicht davor.
-12. Aufloesung zunaechst 1920x1080 entsprechend unserem beobachteten Profil;
-    keine weitere Display-Optimierung im ersten Versuch.
-
-**Kontrollpunkt C:** EFI, Installer und leere Systemplatte sind eindeutig
-unterscheidbar. Keine Originalplatte oder Backup-Datei haengt als Installationsziel.
-
-## 9. Serial-Logging vor dem Start einschalten
-
-Hierfuer gibt es unser Host-Werkzeug
-[capture-hyperv-serial.py](https://github.com/ditwal001-collab/MacHyperVSupport-TAHOE/blob/maintainer/hyperv-release-delivery/BuildScripts/capture-hyperv-serial.py).
-Es installiert nichts im Gast, veraendert keine VM und legt neue Logdateien an.
-Jede VM benoetigt einen eigenen Pipe-Namen; nie einen zweiten Empfaenger auf
-die bereits benutzte Pipe der laufenden Testmaschine setzen.
-
-Fuer die **neue, noch ausgeschaltete** VM COM1 beispielsweise auf
-`\\.\pipe\TahoeNewInstall` setzen. Nur im bewusst gewaehlten neuen VM-Kontext:
-
-```powershell
-Set-VMComPort -VMName 'Tahoe-NewInstall' -Number 1 -Path '\\.\pipe\TahoeNewInstall'
-```
-
-OpenCore-Bootargumente fuer die Installationsdiagnose:
+Bootargumente fuer die Installation:
 
 ```text
 -v keepsyms=1 debug=0x12a serial=5 msgbuf=1048576 -hvgfxfbswcursor
 ```
 
-Das ist ein vorgeschlagener Startsatz, nicht der byte-identische Bestandstest.
-Unser getestetes Profil hat zusaetzliche Debug-Argumente und `-nobsdmgroot`.
-**-nobsdmgroot nicht vorab in eine neue Installation uebernehmen:** Es war ein
-gezielter Workaround fuer unseren zurueckgebliebenen Installer-Bootpfad.
-**-hvstormsgdbg nicht hinzufuegen:** Es erzeugte bei uns extreme Paket-Logmengen.
+Kein `-hvstormsgdbg` hinzufuegen. Einen vorhandenen `-nobsdmgroot`-Eintrag in der
+Installationskopie entfernen. ShowPicker=true, HideAuxiliary=false verwenden.
+Mit ocvalidate pruefen und das Image auf Windows sauber auswerfen.
 
-In einem zweiten PowerShell-Fenster im Repository-Hauptordner:
+## 5. Apple Recovery auf die EFI-Arbeitskopie laden
+
+1. Einen neuen lokalen Arbeitsordner anlegen, beispielsweise `Tahoe-NewInstall`.
+2. Darin `Recovery`, `Logs` und `Downloads` anlegen. Die eigene ungemountete
+   EFI-Kopie unter `EFI.source.vhdx` ablegen. Vorhandene Dateien nie ueberschreiben.
+3. macrecovery.py und boards.json in `Downloads` speichern. PowerShell dort oeffnen:
+
+   ```powershell
+   py -3 ./macrecovery.py -b Mac-CFF7D910A743CAAF -m 00000000000000000 -os latest -o ../Recovery download
+   ```
+
+4. **Image verification complete!** abwarten. Im Test lieferte Apple Recovery
+   26.6.2/25G83; das ist nicht die endgueltige installierte OS-Version. Apples
+   Angebot kann sich aendern; diese Anleitung prueft nicht live dessen Verfuegbarkeit.
+5. Nur die unzugeordnete EFI-Arbeitskopie mounten. BaseSystem.dmg und
+   BaseSystem.chunklist nach `com.apple.recovery.boot` auf dem FAT32-Volume kopieren.
+   Dann Image sauber auswerfen. Keine laufende EFI und keine Backup-Datei bearbeiten.
+
+## 6. Neue VM anlegen
+
+PowerShell mit den fuer Hyper-V noetigen Rechten oeffnen. Verwende einen neuen
+VM-Namen und einen vorhandenen Switch. Die folgenden Pfade sind Beispiele;
+`PFAD_ZUM_PAKET`, `PFAD_ZUM_ARBEITSORDNER`, `SWITCHNAME` und `PFAD_ZU_OCVALIDATE`
+muessen durch die eigenen Werte ersetzt werden. Nichts auf bestehende VMs anwenden.
 
 ```powershell
-py -3 .\BuildScripts\capture-hyperv-serial.py --pipe '\\.\pipe\TahoeNewInstall' --output .\evidence\local-tests\new-install-serial-01
+$tools = 'PFAD_ZUM_PAKET/maintainer/tools'
+$work = 'PFAD_ZUM_ARBEITSORDNER'
+& "$tools/new-tahoe-test-vm.ps1" -VMName 'Tahoe-NewInstall' -Directory $work -PreparedEFI "$work/EFI.source.vhdx" -SwitchName 'SWITCHNAME' -SerialPipe '\\.\pipe\TahoeNewInstall' -OCValidatePath 'PFAD_ZU_OCVALIDATE/ocvalidate.exe'
 ```
 
-Fenster offen lassen. Fuer einen neuen Versuch einen neuen Ausgabeordner waehlen.
-Bei **Connected** schreibt das Werkzeug. Es verbindet sich nach Gast-Neustarts
-erneut. Ctrl+C beendet nur den Empfaenger, nicht die VM.
+Das zeigt zunaechst nur den Plan. Stimmen alle Angaben, denselben Befehl mit
+zusaetzlichem `-Create` ausfuehren. Existierende VM-Namen oder Ausgaben werden
+abgelehnt. Keine globale Skriptrichtlinie abschalten, wenn Windows das Skript
+blockiert; dann technisch klaeren, wie es unter der bestehenden Richtlinie laeuft.
 
-## 10. Tahoe direkt installieren
+Der Helfer bereitet eine neue `EFI.setup.vhdx` vor und legt die VM ausgeschaltet
+an: Generation 2, 8 CPUs, 24 GiB fester RAM, dynamische512-GiB-Systemplatte,
+Single1920x1080, Secure Boot nur an dieser neuen VM aus, automatische Checkpoints
+aus. Er veraendert keinen vorhandenen Switch und startet die VM nicht.
 
-1. Erst jetzt **Start > Connect** fuer die neue VM.
-2. OpenCore erscheint. Falls noetig Leertaste fuer ausgeblendete Eintraege.
-3. **Install macOS Tahoe** vom vorbereiteten Installer waehlen.
-4. Im Installer Sprache waehlen, dann **Disk Utility**.
-5. **View > Show All Devices**. Ausschliesslich die neue512-GiB-Systemplatte
-   aus Schritt 8 identifizieren. EFI-/Installer-Disk nicht anfassen.
-6. Nur diese **neue, leere Zielplatte** initialisieren: Name **Macintosh HD**,
-   Format **APFS**, Scheme **GUID Partition Map**. Wenn Zuordnung oder Inhalt
-   unklar sind, abbrechen. Dieser Schritt ist niemals fuer die laufende
-   Projekt-VM oder erhaltene Platten gedacht.
-7. Disk Utility schliessen; **Install macOS Tahoe** starten; **Macintosh HD**
-   als Ziel waehlen.
-8. Installation arbeiten lassen. Automatische Neustarts sind normal.
-9. Nach Neustarts in OpenCore die begonnene Installation auf der Zielplatte
-   fortsetzen; den **macOS Installer**-Eintrag waehlen, solange die Installation
-   ihn benoetigt. Nicht jedes Mal die externe Erstinstallation neu beginnen.
-10. Wenn die Installation abgeschlossen ist, **Macintosh HD** starten und
-    Setup Assistant durchlaufen. **English** als Systemsprache waehlen, wenn
-    du wie bei unserem System englische Oberflaeche willst. Tastaturlayout
-    entsprechend der echten Tastatur einstellen.
+Im Hyper-V Manager vor dem Start kontrollieren:
 
-Keine feste Minutenangabe ist zuverlaessig. Neue Serial-Ausgaben und wechselnde
-Installationsphasen sind Fortschrittsindikatoren. Ein schwarzes VMConnect-Fenster
-allein ist kein Grund zum Ausschalten. Bei FileVault/Anmeldung Passwort direkt
-in der VM eingeben; das wird durch Serial-Logging nicht automatisiert.
+| Einstellung | Sollwert |
+| --- | --- |
+| SCSI 0:0 | Neue EFI.setup.vhdx |
+| SCSI 0:1 | Neue System.blank.vhdx,512 GiB |
+| Firmware / Boot order | EFI-Festplatte zuerst |
+| Network Adapter | Vorgesehener vorhandener Switch |
+| COM1 | Eigene Pipe aus obigem Befehl |
+| Fremde/originale/Backup-Platten | Nicht angeschlossen |
 
-## 11. Ersten Desktop pruefen
+## 7. Logging starten und Tahoe auf die leere Platte installieren
 
-Terminal oeffnen und einzeln eingeben:
+1. In einem zweiten PowerShell-Fenster den seriellen Empfaenger starten:
+
+   ```powershell
+   py -3 PFAD_ZUM_PAKET/maintainer/tools/capture-hyperv-serial.py --pipe '\\.\pipe\TahoeNewInstall' --output PFAD_ZUM_ARBEITSORDNER/Logs/boot-01
+   ```
+
+2. Fenster offen lassen. Pro Pipe nur einen Empfaenger verwenden. Er verbindet
+   sich nach Neustarts wieder. Erst jetzt im Hyper-V Manager **Start > Connect**.
+3. In OpenCore **EFI (dmg)** waehlen. Es muss **Reinstall macOS Tahoe** erscheinen.
+   Bei einem anderen macOS nicht installieren, sondern Recovery pruefen.
+4. **Disk Utility > View > Show All Devices**. Ausschliesslich die neue512-GiB-
+   Systemplatte identifizieren. BSD-Nummern wie disk1 oder disk2 sind nicht fest.
+5. Nur diese leere Platte mit **Erase** initialisieren: Name **Macintosh HD**,
+   Format **APFS**, Scheme **GUID Partition Map**. EFI nicht loeschen.
+6. Disk Utility schliessen, **Reinstall macOS Tahoe > Continue**, Macintosh HD
+   waehlen. Automatische Neustarts abwarten. Im OpenCore-Picker jeweils den
+   begonnenen macOS Installer auf der Zielplatte fortsetzen, spaeter Macintosh HD.
+7. Im ersten Setup ein temporaeres lokales Administratorkonto erstellen, keine
+   Datenmigration und noch keine persoenliche Apple-Anmeldung. Dieses System und
+   Konto werden in Schritt 8 wieder geloescht. Internet muss funktionieren.
+
+Waehrend aktiver Installation nicht ausschalten oder zuruecksetzen. Einzelne
+Prozentwerte koennen lange stehen. Ein schwarzes Bild allein beweist keinen
+Stillstand; VMConnect, serielle Ausgabe und Installationsphase gemeinsam pruefen.
+
+## 8. Vollinstallation mit unserem integrierten Setup-Paket
+
+Dieser Schritt laeuft **nur in der neuen entbehrlichen Tahoe-VM**, niemals auf
+einem wertvollen Mac. Er loescht deren aktuelle APFS-Installation vollstaendig.
+Es ist keine Aktualisierung unter Erhalt des temporaeren Kontos.
+
+1. Im Hyper-V Manager die mitgelieferte `installer/IntegratedSetup.iso` als DVD
+   dieser neuen VM einlegen. Im Gast muss `/Volumes/HVSETUP` erscheinen.
+2. **Applications > Utilities > Terminal** oeffnen:
+
+   ```sh
+   softwareupdate --fetch-full-installer --full-installer-version 26.7.1
+   ```
+
+3. Download vollstaendig abwarten. Wird die Version nicht angeboten, abbrechen;
+   ein anderer Build ist ein neuer, nicht durch diesen Ablauf gepruefter Stand.
+4. Paket und Installationsziel pruefen:
+
+   ```sh
+   shasum -a 256 /Volumes/HVSETUP/MacHyperVSetup.pkg
+   diskutil list
+   diskutil info /System/Volumes/Data
+   "/Applications/Install macOS Tahoe.app/Contents/Resources/startosinstall" --usage
+   ```
+
+   Der Paket-Hash muss sein:
+   `2092d73838908edb86418cc16983052c19b0625bc1d265f33402abf8c5723443`.
+   Data muss zur neuen512-GiB-Systemplatte gehoeren, nicht zur EFI oder einem
+   anderen Datentraeger. Die Host-Zuordnung aus Schritt 6 mitpruefen. Bei Unklarheit
+   nicht fortfahren. Der Installer muss --eraseinstall und --installpackage kennen.
+5. Erst nach dieser Pruefung den exakten Vollinstallationsbefehl ausfuehren:
+
+   ```sh
+   sudo "/Applications/Install macOS Tahoe.app/Contents/Resources/startosinstall" \
+     --eraseinstall --newvolumename "Macintosh HD" \
+     --installpackage /Volumes/HVSETUP/MacHyperVSetup.pkg \
+     --agreetolicense --rebootdelay 15 --user "$USER" --passprompt
+   ```
+
+6. Das temporaere lokale Admin-Passwort nur an den nativen Passwortabfragen eingeben;
+   nicht in Befehle oder Dateien schreiben. Vorbereitung und automatische Neustarts
+   vollstaendig abwarten. Im letzten Test dauerte die Vorbereitung etwa23Minuten.
+   Das ist eine Beobachtung, kein Zeitlimit fuer andere Rechner.
+
+Das Produkt laedt das hashgepruefte Apple-signierte KDK und installiert den
+geprueften Framebuffer ueber die Auxiliary Kernel Collection. Unser Core bleibt
+auf der EFI. Das Paket umgeht keine native Erweiterungsfreigabe und setzt
+keine persoenliche Apple-Anmeldung. Eine normale Erstinstallations-DVD von Apple
+plus in Recovery kopiertes Paket ist nicht als gleichwertiger Ablauf geprueft.
+
+## 9. Endgueltiges macOS einrichten
+
+1. **English**, **Switzerland**, **Swiss German** waehlen. Keine Migration.
+2. Endgueltigen lokalen Benutzer anlegen. Vollstaendigen Namen und Kurzname getrennt
+   kontrollieren. Ein eigenes Passwort waehlen; keine vorgegebenen Testpasswoerter.
+3. Apple-Anmeldung nach Wunsch persoenlich durchfuehren. Keine Zugangsdaten teilen.
+   Im finalen Test hat der Benutzer die erfolgreiche Anmeldung bestaetigt.
+4. FileVault und persoenliche Synchronisation bewusst auswaehlen. Im finalen Test
+   blieb FileVault aktiv; es wird von unserem Setup nicht abgeschaltet.
+5. Wenn macOS eine Erweiterungsfreigabe verlangt: **System Settings > Privacy &
+   Security > Allow**, lokal authentifizieren und den angeforderten normalen
+   Neustart durchfuehren. Keine Sicherheitsdatenbanken oder Keychains loeschen.
+6. **Match Settings** kann haengen. Zuerst Setup-/Serial-Fortschritt pruefen und
+   warten. Im Test war nach mehr als6Minuten ein regulaerer Gast-Shutdown/Start
+   erfolgreich. Keine aktive Installation hart ausschalten. Wenn der Gast nicht
+   regulaer herunterfaehrt, Zustand und Logs sichern statt einen Reset zu erzwingen.
+7. FileVault beim Start persoenlich entsperren. Danach sollte die Setup-App die
+   Aufloesung automatisch auf1920x1080 stellen. Im FileVault-Vorstartbildschirm
+   kann die Aufloesung niedriger sein; das ist nicht der normale Desktop.
+8. In **System Settings > General > About** den Computernamen setzen. Unter
+   **General > Date & Time** Europe/Zurich kontrollieren. Unter **Users & Groups**
+   den ausgeschriebenen Kontonamen pruefen. Diese Profilwerte mussten wir im Test
+   nachkorrigieren; das Setup-Paket setzt sie nicht automatisch.
+
+## 10. Pruefen, ob wirklich alles fertig ist
+
+Im Terminal ausfuehren:
 
 ```sh
 sw_vers
+sysctl kern.hv_vmm_present
 kextstat -b fish.goldfish64.MacHyperVSupport
-```
-
-Bei unserem Referenzbuild zeigt sw_vers **26.7.1 / 25G241**. Der Bundle-Identifier
-des Monterey-Core heisst trotzdem **fish.goldfish64.MacHyperVSupport**, ohne
-Monterey am Ende. Erwartete geladene Release-Core-UUID:
-
-```text
-7CAF03F1-3631-33A9-AAAF-581270B665B0
-```
-
-Netzwerk, Finder und Tastatur ausprobieren. Noch keine anderen Erweiterungen
-oder Optimierungen installieren; erst Grundfunktion nachweisen.
-
-## 12. Release-Framebuffer installieren: Erstinstallation separat behandeln
-
-Die Core-Kext auf der EFI ersetzt **nicht** den Framebuffer im Gast.
-Unser erfolgreicher Release-Framebuffer liegt in
-`/Library/Extensions/MacHyperVFramebuffer.kext` und wird ueber die Auxiliary
-Kernel Collection geladen. Software-Cursor benoetigt `-hvgfxfbswcursor`.
-
-Der mitgelieferte **InstallAux-example.command** ist **kein universeller
-Erstinstaller**. Er verlangt absichtlich den bisherigen Debug-Framebuffer,
-Build25G241 und genau vier bereits vorhandene Aux-Module. Eine frische
-Installation erfuellt diese Voraussetzungen typischerweise nicht. Seine
-Pruefungen nicht entfernen, um ihn zum Laufen zu zwingen.
-
-Fuer unseren frischen Build25G241 gibt es jetzt einen eigenen bewachten Helfer.
-Er akzeptiert nur x86_64, genau AppleMobileDevice4.0, HighPointIOP4.4.5 und
-HighPointRR4.22.1 in der bisherigen Aux und noch keinen installierten Framebuffer.
-Bei abweichendem Bestand bricht er ab; dann den Zustand erfassen und die Anleitung
-technisch anpassen lassen. Seine Pruefungen erhalten.
-
-1. Aktuelle Daten/EFI auf eigenen Rueckfallkopien sichern. Version, geladene Treiber
-   und Aux mit `inspect-fresh-tahoe.command` erfassen.
-2. Das passende [Apple-signierte KDK25G241](https://github.com/dortania/KdkSupportPkg/releases/tag/25G241)
-   herunterladen. Erwarteter DMG-SHA256:
-   `9045a521c8ae362d4cb2cc54701b03462686e0069518a0b66cfe2028f87dfe9b`.
-   In den Gast uebertragen, DMG oeffnen, `KernelDebugKit.pkg` mit
-   `pkgutil --check-signature` pruefen (Apple Root CA), dann das Paket installieren.
-   Der Test ohne KDK wurde mit **Missing Developer Kit** sicher abgebrochen.
-3. Auf Windows das verifizierte Release-ZIP aus Actions40189441511 bereitstellen.
-   Python3.10+ und [pycdlib1.22.0](https://pypi.org/project/pycdlib/1.22.0/) verwenden.
-   Im Repository-Verzeichnis in PowerShell ausfuehren; die ZIP-Pfadangabe anpassen:
-
-   ```powershell
-   py -3 -m pip install --target .\iso-python pycdlib==1.22.0
-   $env:PYTHONPATH = (Join-Path (Get-Location) 'iso-python')
-   py -3 BuildScripts/make-fresh-framebuffer-media.py --release-zip .\MacHyperVSupport-0.9.10-RELEASE.zip --output-directory .\fresh-framebuffer-media
-   ```
-
-   Der Ausgabeordner muss neu sein. Der Helfer prueft Release-ZIP und Binary,
-   erstellt `FreshFramebuffer.iso` und liest alle drei ISO-Dateien zum Vergleich
-   zurueck. `manifest.json` enthaelt ihre Pruefsummen. Keine EFI/KDK/Kennwoerter.
-4. In den Einstellungen **nur der neuen VM** ein leeres DVD-Laufwerk mit dieser
-   ISO verbinden. Bei unserem Hot-Media-Wechsel wurde die neue ISO nicht sofort
-   erkannt; nach Gast-Auswurf und einem neuen temporaeren DVD-Geraet erschien sie.
-   Wenn `/Volumes/HVFRESHFB` fehlt, nicht blind weitertippen.
-5. Im englischen Gast **Terminal** oeffnen und ausfuehren:
-
-   ```sh
-   sudo bash /Volumes/HVFRESHFB/Install.command
-   ```
-
-   Das eigene lokale Admin-Kennwort eingeben. Der Helfer sichert Aux/Preboot in
-   einem neuen Verzeichnis, prueft einen privaten Build, installiert das gepruefte
-   Bundle und baut die finale Aux mit dem richtigen `/Library/Extensions`-Pfad.
-   Alle anderen Modulversionen und Boot/System-Hashes muessen erhalten bleiben.
-6. Nur nach **FRESH_FRAMEBUFFER_INSTALLED** normal neu starten. Bei Fehlern nicht
-   neu starten; den angegebenen Sicherungs-/Logordner erhalten. Die fruehe
-   Meldung **PRIVATE_BUILD_FAILED** bedeutet: aktive Kext/Aux nicht geaendert.
-7. FileVault mit dem lokalen Kennwort entsperren. Anschliessend die geladenen
-   UUIDs pruefen. Eine macOS-Meldung ueber erforderlichen Neustart allein reicht
-   nicht als Erfolg.
-
-Im Praxistest wurden privater Erst-Build und korrigierter finaler Aux-Build als
-getrennte Schritte ausgefuehrt. Danach lud der Framebuffer mit richtiger UUID.
-Der oben zusammengefasste Helfer wurde noch nicht komplett auf einer zweiten
-leeren Installation durchlaufen. Der separate `repair-fresh-framebuffer-path-25G241.command`
-ist nur fuer unseren genau bewachten fruehen Staging-Pfad-Zustand gedacht.
-Keine pauschalen Cache-/Sicherheits-Aenderungen oder manuelles Live-Laden verwenden.
-Details: [Cursor-/Aux-Verfahren](CURSOR_WORKAROUND.md), [Release-Protokoll](RELEASE_RC1.md)
-und [Neuinstallationstest](FRESH_INSTALL_TEST.md).
-
-Nach dem korrekten Installationsschritt und Neustart:
-
-```sh
 kextstat -b fish.goldfish64.MacHyperVFramebuffer
+/Applications/MacHyperVSetup.app/Contents/MacOS/MacHyperVSetup --verify-display
 shasum -a 256 /Library/Extensions/MacHyperVFramebuffer.kext/Contents/MacOS/MacHyperVFramebuffer
+fdesetup status
 ```
 
-Erwartete Release-UUID: `3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6`.
-Erwarteter SHA256:
-
-```text
-d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122
-```
-
-## 13. Unser Werkzeugkasten: was macht welches Tool?
-
-| Werkzeug | Zweck | Veraendert es den Gast? |
-| --- | --- | --- |
-| capture-hyperv-serial.py | Explizit ausgewaehlte COM1-Pipe mitschneiden | Nein |
-| capture-hyperv-thumbnail.ps1 | Direkte Hyper-V-Bildabfrage bei schwarzer/staler automatisierter Konsolenaufnahme | Nein; neue lokale PNG-Datei |
-| snapshot-serial-log.py | Unveraenderlichen Log-Prefix samt Hash/Markerzaehlern sichern | Nein |
-| collect-hyperv-profile.ps1 | VM-Einstellungen gezielt und anonymisiert erfassen | Nein |
-| new-tahoe-test-vm.ps1 | Neuen VM-Aufbau planen; mit -Create ausschliesslich neue VM/Dateien anlegen | Neue VM wird angelegt und bleibt Off |
-| make-fresh-framebuffer-media.py | Geprueftes Release-ZIP in neue, zurueckgelesene Werkzeug-ISO packen | Nur neue lokale Ausgaben |
-| install-fresh-framebuffer-25G241.command | Bewachter Framebuffer-Erstinstaller fuer den gemessenen Drei-Modul-Bestand | Ja; nur Aux/Gast-Bundle, mit Sicherung und ohne automatischen Neustart |
-| inspect-fresh-tahoe.command | Nach Erststart Version, Treiber und Aux-Bestand in neuem lokalen Bericht erfassen | Nur neues Berichtsverzeichnis; keine Treiber-/Sicherheitsaenderung |
-| summarize-efi-profile.py | Gespeicherte EFI-Konfiguration zusammenfassen | Nein; keine Live-VHDX bearbeiten |
-| verify-ci-delivery.py | Download gegen originale CI-Provenance pruefen | Nein |
-| export-hyperv-maintainer.py | Gepruefte Patches/Binaries/Dokumente verpacken | Nein; benoetigt lokale archivierte Build-Eingaben |
-| InstallAux-example.command | Bewachter Gast-spezifischer Framebuffer-/Aux-Austausch | Ja; nur bei exakt passenden Vorbedingungen |
-
-Werkzeughilfe:
-
-```powershell
-py -3 .\BuildScripts\capture-hyperv-serial.py --help
-py -3 .\BuildScripts\snapshot-serial-log.py --help
-py -3 .\BuildScripts\verify-ci-delivery.py --help
-```
-
-Log-Prefix sichern: INPUT.log durch die wirkliche aktuelle Logdatei ersetzen:
-
-```powershell
-py -3 .\BuildScripts\snapshot-serial-log.py --input .\evidence\local-tests\new-install-serial-01\INPUT.log --output .\evidence\local-tests\new-install-check-01
-```
-
-Windows kann fuer offene Logdateien eine veraltete Groesse anzeigen. Unser
-Snapshot-Werkzeug liest die wirkliche Dateigroesse am offenen Handle.
-Im clean Release gibt es keine per-call EOM-CPU-Messzeilen: Null Messzeilen
-bedeuten keine neue CPU-Zuordnungspruefung. Leeres Log ist kein Erfolg.
-
-## 14. Wann ist die Installation wirklich fertig?
-
-Abhaken und Datum/Build/Hashes notieren:
-
-- [ ] sw_vers zeigt die beabsichtigte Tahoe-Version.
-- [ ] Core- und Framebuffer-UUID stimmen mit dem ausgesuchten Release ueberein.
-- [ ] Der normale Desktop erscheint; keine Recovery-/Installer-Schleife.
-- [ ] Tastatur, Maus und Klick-Fokus funktionieren.
-- [ ] Cursor bleibt beim Oeffnen von Finder/Downloads und Safari sichtbar.
-- [ ] Netzwerk und normale Dateioperationen funktionieren.
-- [ ] Normaler macOS-Neustart und erneute lokale Anmeldung funktionieren.
-- [ ] Laengere Sitzung und mehrere Starts sind separat protokolliert.
-- [ ] Serial-Log und Rueckfallkopien sind gesichert.
-
-Nach erfolgreicher Installation das Installer-Medium auswerfen/abhaengen.
-Die **EFI-Festplatte bleibt** notwendig. Erst nach verifiziertem Rueckfallweg
-temporaere Kopien loeschen. Niemals alle VHDX-Dateien als vermeintlichen Muell
-behandeln. Vorhandene Backups nicht ueberschreiben.
-
-## 15. Wenn etwas nicht funktioniert
-
-| Beobachtung | Naechster Schritt |
+| Pruefung | Erwartet |
 | --- | --- |
-| Reinstall macOS Sequoia | Falsche Recovery; nicht installieren, Tahoe-Medium pruefen |
-| PXE / Network Boot | EFI als erstes Firmware-Bootziel pruefen |
-| Schwarzes Fenster | VMConnect neu verbinden, VM-Zustand und wirklichen Serial-Prefix pruefen; kein blinder Reset |
-| FileVault-/Passwortbildschirm | Passwort lokal eingeben; keine Shellbefehle in das Passwortfeld |
-| VM geht nach einigen Minuten vor Kernel-Output aus | Ereignisse und Vorstart-Anmeldung pruefen; bei uns blieb die Timeout-Ursache unbewiesen |
-| Still waiting for root device | Core-Build/Hash, VMBus-/SCSI-Enumeration und Disk-Zuordnung pruefen; Logs erhalten |
-| Cursor verschwindet | Geladenen Release-Framebuffer und -hvgfxfbswcursor pruefen |
-| Neue Erweiterung braucht Neustart | Erfolgsmarker/Hashes pruefen, dann regulaer aus macOS neu starten |
-| kmutil meldet Fehler | Kein Neustart auf halbfertiger Collection; Rollback und exakten Fehler sichern |
-| Host-Shutdown scheitert | Normalen macOS-Menueweg benutzen; Restart-VM ist kein Ersatz fuer einen sauberen Gast-Neustart |
+| macOS | 26.7.1 / 25G241 |
+| kern.hv_vmm_present | 0 bei vorbereitetem Patchpaar |
+| Core-UUID | 7CAF03F1-3631-33A9-AAAF-581270B665B0 |
+| Framebuffer-UUID | 3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6 |
+| Display | width1920, height1080 |
+| Framebuffer-SHA256 | d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122 |
+| FileVault | Entsprechend der persoenlichen Auswahl |
 
-## Quellen und genaue Grenzen
+- [ ] Finder, Downloads und Safari oeffnen; Maus, Klick-Fokus und Tastatur testen.
+- [ ] Cursor bleibt sichtbar; eine HTTPS-Webseite laedt.
+- [ ] Computername, vollstaendiger Kontoname, Uhrzeit und Tastaturlayout stimmen.
+- [ ] ueber **Apple menu > Restart** normal neu starten, FileVault entsperren und
+      die obigen Pruefungen wiederholen.
+- [ ] Setup-DVD auswerfen und im Hyper-V Manager deren ISO-Zuordnung entfernen.
+      **EFI-Festplatte angeschlossen lassen.**
+- [ ] Serial-Logging zunaechst weiterlaufen lassen und spaetere Auffaelligkeiten notieren.
 
-Links geprueft am25.10.2026; Downloads und Apple-Angebot koennen sich aendern.
-Apple dokumentiert Installererstellung fuer Macs, keine Hyper-V-Unterstuetzung.
-Die Uebertragung auf Hyper-V ist Projektarbeit und muss als Ganzes validiert
-werden. QEMU dokumentiert Offline-Konvertierung; Upstream MacHyperVSupport
-beschreibt Hyper-V-OpenCore und DMG/VHDX-Grundlagen. Unsere lokalen Profile und
-Testberichte sind die Quelle fuer die konkreten Referenzwerte und Hashes.
+Zur automatischen Aufloesungspruefung nicht manuell Displays umstellen oder
+--set-display aufrufen: Das wuerde einen Fehler des Setup-Ablaufs verdecken.
 
-Die zwei offenen Lieferteile fuer einen komplett vorbereiteten Neuinstallations-
-Satz sind: eine separat gepruefte, identitaetsbereinigte EFI-Vorlage samt
-personalisierbarer Konfiguration; der kombinierte Erstinstaller braucht ausserdem
-einen weiteren sauberen Wiederholungstest.
-Diese Anleitung behauptet nicht, dass sie schon im Maintainer-Paket liegen.
+Bei Fehlern liegen die Setup-Logs unter
+`/Library/Application Support/MacHyperVSetup/activation.log`, `setup.log` und
+`status.txt`. Version, UUIDs, EFI-Konfigurationshash, Zeit und serielle Ausgabe
+zusammen sichern. Private Namen, IPs, Seriennummern und Authentifizierungsdaten
+vor einer Weitergabe entfernen.
+
+## 11. Was der Maintainer bekommt und was der Test beweist
+
+Die Changed-Files-Liste nennt fuer jede gelieferte Datei deren Quellstand und
+Projektpfad. Treiberquelle:6c3568178ba21136b8c21dd45597476c74ec31d1,
+Actions40189441511. Setup-Quelle:00f70ee358e4d9ddad2fccca39bc19ede1d55365,
+Actions40269870810. Das Release-ZIP hat SHA256
+162f47670ef9f4640bdfdefd8ba9495b1a039ca6828a52f5ec4498e9d3cb5d6c;
+SetupMedia.zip hat SHA256
+81a7b6a4706ecde370351ad1a9d2b739f75b0843efa3cae49237942821630633.
+
+Die Treiber-Patchserie baut auf dem bestehenden GraphicsBridge-Fix von startergo
+c48fc5ccade272ec79f633dcb23e45ba1c40d6cc auf; dessen Attribution und Qonfused-
+Credit bleiben erhalten. SynIC-CPU-Zuordnung, Frame-Refresh und opt-in Software-
+Cursor sind getrennte Aenderungen. Der Software-Cursor ist ein Workaround;
+die Ursache des Hardware-Cursor-Problems ist damit nicht erklaert.
+
+Der finale Vollinstallationstest erreichte den Desktop, beide Release-Treiber,
+automatische1920x1080 und einen weiteren normalen Neustart. Der Benutzer bestaetigte
+Apple-Anmeldung. Match Settings und die Profilkorrekturen bleiben dokumentierte
+Einschraenkungen. Die Freigabehistorie der VM wurde nicht geloescht. Clean Release
+enthaelt keine einzelnen EOM-CPU-Messzeilen; ein erfolgreiches Boot beweist deshalb
+keine neue CPU-Lokalitaetsmessung oder allgemeine Langzeitstabilitaet.
+
+Diese Anleitung benoetigt keine historischen Betriebsversuche zum Nachmachen.
+Die technischen Nachweise bleiben getrennt unter `maintainer/` erhalten.

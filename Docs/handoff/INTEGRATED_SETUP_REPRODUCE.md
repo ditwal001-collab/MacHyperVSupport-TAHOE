@@ -1,4 +1,7 @@
-# Reproduce the integrated Tahoe setup test
+# Technical reference: integrated full-install product
+
+The single end-user how-to is TAHOE_INSTALL_STEP_BY_STEP_DE.md (delivered as
+HOW_TO_TAHOE_DE.md). This file records the exact setup-product transport.
 
 Status: 2026-10-26, qualified clean-install pass with automatic drivers/display
 and persistence after a further normal reboot. The final Apple setup wait still
@@ -102,8 +105,7 @@ that stays constant briefly is not sufficient evidence of a hang.
 ## Fresh setup and acceptance
 
 Select English, Switzerland, the intended Swiss keyboard and Zurich timezone;
-create the requested local account afresh. Skip migration and optional Apple
-sign-in. Preserve the intended encryption/security settings. The setup product
+create the requested local account afresh. Skip migration; personal Apple sign-in is optional and is performed by the user. Preserve the intended encryption/security settings. The setup product
 must be present from the Apple installation phase, not manually added later.
 
 The root job verifies the exact OS/core UUID, obtains the hash-pinned signed
@@ -140,4 +142,4 @@ lines do not establish new CPU-locality validation. An unrelated early AppleRTC
 panic and previous final Setup Assistant stalls remain documented failures;
 they must not be silently omitted from the maintainer report.
 
-Future EFI preparation now includes the paired Apple-services workaround before OS installation: see APPLE_ACCOUNT_EFI.md and prepare-tahoe-efi.ps1. Offline legacy/corrected-copy tests passed at614382e, and the user confirmed login on the corrected existing guest. A full new OS installation with the revised Windows preparation path remains a separate pending acceptance test; earlier full-install records used config35dd..., not the current8a22... correction.
+Future EFI preparation now includes the paired Apple-services workaround before OS installation: see APPLE_ACCOUNT_EFI.md and prepare-tahoe-efi.ps1. Offline legacy/corrected-copy tests passed at614382e, and the user confirmed login on the corrected existing guest. The final fresh erase-install used the automatically prepared8a22... EFI. Desktop, expected Release modules, automatic1920x1080 and another normal reboot passed; the user personally confirmed Apple sign-in. Match Settings needed a regular shutdown/start, and profile metadata/timezone were corrected. See final-setup-acceptance-result-20261026.json. New-VM creation and entirely new approval state remain separately bounded.
