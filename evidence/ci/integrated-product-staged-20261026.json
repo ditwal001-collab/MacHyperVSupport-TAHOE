@@ -1,0 +1,27 @@
+{
+    "utc":  "2026-10-26T03:56:13.3957687Z",
+    "setup_source":  "cdd91023ee63a72195b2f82dc925ed46def8ec02",
+    "setup_run":  40264174718,
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "product_pkg_sha256":  "fceab96820d7f693df6407c4fd925d372c138fa176488a1f98a7cee12f659e78",
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+    "phase":  "startosinstall preparation100percent; automatic restart03:54:19; erase-install stage ongoing",
+    "serial":  {
+                   "utc":  "2026-10-26T03:55:40.953098+00:00",
+                   "source_log_name":  "serial-20261026T035419Z-8a50855e.log",
+                   "snapshot_name":  "serial-prefix-20261026T035540Z-ec5332bf.log",
+                   "prefix_bytes":  265608,
+                   "snapshot_sha256":  "c2b0064f5b4da7c92ba567407d51977cac7d4e0905129ec9474c2ac074ac3574",
+                   "complete_eom_writes":  0,
+                   "mismatched_eom_writes":  0,
+                   "cursor_conversion_failures":  0,
+                   "panic_markers":  0,
+                   "root_wait_markers":  0,
+                   "software_cursor_activation_markers":  0,
+                   "scope":  "bounded captured prefix; absence of a marker is not stability proof"
+               },
+    "manual_reset_during_product_install":  false,
+    "outcome":  "Preparing completed; package application and firstboot validation pending"
+}
