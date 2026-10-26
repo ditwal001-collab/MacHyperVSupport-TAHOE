@@ -1,0 +1,10 @@
+﻿{
+    "utc":  "2026-10-26T14:11:41.7328962Z",
+    "documentation_source":  "d397b3a9bb396b7cfc5d52eabe6033e0a9a51f22",
+    "archive":  "hyperv-maintainer-20261026T141117Z-6e2086c2.zip",
+    "sha256":  "8239126f022394f4a81a50fdcadf1c3c36cd3d1536f51808237a3e7063b84641",
+    "manifest_entries":  123,
+    "verification":  "PASS: patch reconstruction, CI hashes, privacy and archive readback",
+    "result":  "qualified fresh-install and normal-reboot PASS; see final-setup-acceptance-result-20261026.json",
+    "scope":  "Hyper-V drivers and installation tooling only; excludes development applications, Apple payloads, private EFI, disks and raw personal evidence"
+}
