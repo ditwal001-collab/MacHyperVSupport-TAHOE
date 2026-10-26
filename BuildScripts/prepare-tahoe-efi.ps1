@@ -3,6 +3,7 @@ param(
     [Parameter(Mandatory = $true)][string]$ExpectedSHA256,
     [Parameter(Mandatory = $true)][string]$OutputEFI,
     [Parameter(Mandatory = $true)][string]$OCValidatePath,
+    [string]$HelperDirectory,
     [switch]$Prepare
 )
 # Offline preparation of a NEW EFI copy, before attaching it to a VM.
@@ -11,8 +12,9 @@ $ErrorActionPreference = 'Stop'
 $source = [IO.Path]::GetFullPath($SourceEFI)
 $output = [IO.Path]::GetFullPath($OutputEFI)
 $validator = [IO.Path]::GetFullPath($OCValidatePath)
-$scriptDirectory = if ($PSScriptRoot) { $PSScriptRoot } else { Join-Path (Get-Location) 'BuildScripts' }
+$scriptDirectory = if ($HelperDirectory) { [IO.Path]::GetFullPath($HelperDirectory) } elseif ($PSScriptRoot) { $PSScriptRoot } else { Join-Path (Get-Location) 'BuildScripts' }
 $helper = Join-Path $scriptDirectory 'enable-tahoe-iservices-patch.py'
+if (-not (Test-Path -LiteralPath $helper -PathType Leaf)) { throw 'EFI validation helper missing' }
 if (-not (Test-Path -LiteralPath $source -PathType Leaf)) { throw 'Source EFI missing' }
 if ((Get-Item -LiteralPath $source).Attributes -band [IO.FileAttributes]::ReparsePoint) { throw 'Source is a reparse point' }
 if ([IO.Path]::GetExtension($output) -ne '.vhdx') { throw 'Output must be a new VHDX' }

@@ -58,7 +58,7 @@ if (-not $Create) {
 if (-not $OCValidatePath) { throw '-Create requires -OCValidatePath (matching OpenCore version)' }
 $scriptDirectory = if ($PSScriptRoot) { $PSScriptRoot } else { Join-Path (Get-Location) 'BuildScripts' }
 $prepare = [ScriptBlock]::Create((Get-Content -LiteralPath (Join-Path $scriptDirectory 'prepare-tahoe-efi.ps1') -Raw))
-& $prepare -SourceEFI $efi -ExpectedSHA256 $efiHash -OutputEFI $readyEFI -OCValidatePath $OCValidatePath -Prepare
+& $prepare -SourceEFI $efi -ExpectedSHA256 $efiHash -OutputEFI $readyEFI -OCValidatePath $OCValidatePath -HelperDirectory $scriptDirectory -Prepare
 if (-not (Test-Path -LiteralPath $readyEFI) -or (Get-VHD -Path $readyEFI).Attached) { throw 'EFI preparation did not finish safely' }
 $readyHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $readyEFI).Hash.ToLowerInvariant()
 $plan['prepared_efi_sha256'] = $readyHash
