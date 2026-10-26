@@ -4,6 +4,14 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: Build the driver suite or the integrated setup package
+        type: choice
+        default: full
+        options:
+          - full
+          - setup
   release:
     types: [published]
 
@@ -14,6 +22,7 @@ env:
 jobs:
   build:
     name: Build
+    if: inputs.mode != 'setup'
     runs-on: macos-15-intel
     env:
       JOB_TYPE: BUILD
@@ -67,6 +76,7 @@ jobs:
 
   analyze-clang:
     name: Analyze Clang
+    if: inputs.mode != 'setup'
     runs-on: macos-15-intel
     env:
       JOB_TYPE: ANALYZE
@@ -101,7 +111,7 @@ jobs:
     runs-on: macos-15-intel
     env:
       JOB_TYPE: COVERITY
-    if: github.repository_owner == 'acidanthera' && github.event_name != 'pull_request'
+    if: github.repository_owner == 'acidanthera' && github.event_name != 'pull_request' && inputs.mode != 'setup'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/checkout@v4
@@ -131,3 +141,32 @@ jobs:
           COVERITY_SCAN_TOKEN: ${{ secrets.COVERITY_SCAN_TOKEN }}
           COVERITY_SCAN_EMAIL: ${{ secrets.COVERITY_SCAN_EMAIL }}
           COVERITY_BUILD_COMMAND: xcodebuild -configuration Release
+
+
+  integrated-setup:
+    name: Integrated setup
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'setup'
+    runs-on: macos-15-intel
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify pinned driver build and download unchanged Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          test "$(gh api repos/ditwal001-collab/MacHyperVSupport-TAHOE/actions/runs/40189441511 --jq .head_sha)" = 6c3568178ba21136b8c21dd45597476c74ec31d1
+          test "$(gh api repos/ditwal001-collab/MacHyperVSupport-TAHOE/actions/runs/40189441511 --jq .conclusion)" = success
+          gh run download 40189441511 --repo ditwal001-collab/MacHyperVSupport-TAHOE --name Artifacts --dir pinned-driver
+      - name: Build and verify integrated setup
+        run: |
+          python3 BuildScripts/build-integrated-setup.py --release-zip pinned-driver/Release/MacHyperVSupport-0.9.10-RELEASE.zip --output-directory setup-build
+          bash -n Tools/Setup/bootstrap.command
+          bash -n Tools/Setup/Seed.command
+      - uses: actions/upload-artifact@v4
+        with:
+          name: IntegratedSetup
+          path: |
+            setup-build/SetupMedia.zip
+            setup-build/provenance.json
