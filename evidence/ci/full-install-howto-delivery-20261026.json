@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-26T14:50:00Z",
+  "source": "36941bec39128a0d24247fed9eb3f8ca754d3463",
+  "archive": "Tahoe-FullInstall-Handoff-20261026T144926Z-39dfcbb3.zip",
+  "sha256": "9d6c731914fc0ccf372a560a7c13b3c7f1cd23f781b6e820906d3077dcb8759e",
+  "archive_size_mib_rounded": 26.0,
+  "entry_point": "HOW_TO_TAHOE_DE.md",
+  "map": "WO_IST_WAS.md",
+  "changed_source_files": 44,
+  "manifest_entries": 184,
+  "installer": "installer/MacHyperVSetup.pkg",
+  "media": "installer/IntegratedSetup.iso",
+  "driver_release": "drivers/MacHyperVSupport-0.9.10-RELEASE.zip",
+  "verification": "PASS: 44 source files compared to their exact Git commits after known-token redaction and line-ending normalization; 184 manifest payload hashes; ZIP readback; all ISO files against CI ZIP; original product hash; reconstructed maintainer patches; privacy and scope",
+  "howto_scope": "Hyper-V already installed and working. Fresh empty 512 GiB system disk. No historical upgrade procedure in the how-to. Recovery bootstrap and full erase-install are explicitly distinguished; the setup product transport requires the disposable Tahoe stage.",
+  "limitations": "Own bootable personalized EFI is required and not supplied. Final Match Settings required a normal shutdown/start. Profile metadata and timezone corrections remain manual. New VM approval state is not proven by reused-firmware acceptance.",
+  "vm_changes_in_this_documentation_task": false,
+  "original_test_evidence": "retained separately in maintainer documentation and evidence"
+}
