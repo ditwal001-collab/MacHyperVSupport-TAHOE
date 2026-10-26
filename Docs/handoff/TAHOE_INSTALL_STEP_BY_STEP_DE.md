@@ -1,6 +1,6 @@
 # Tahoe auf Hyper-V: Schritt fuer Schritt
 
-Stand: 25.10.2026. Erklaerungen auf Deutsch; Menuebezeichnungen auf Englisch.
+Stand: 26.10.2026. Erklaerungen auf Deutsch; Menuebezeichnungen auf Englisch.
 Diese Datei ist eine Vorbereitung und Installations-Checkliste, kein bereits
 vollstaendig validierter Ein-Klick-Installer. Alle folgenden Befehle sind zum
 Nachlesen; beim Schreiben dieser Anleitung wurde keine VM angelegt oder geaendert.
@@ -24,8 +24,11 @@ Eine direkte Neuinstallation ist jetzt einmal bis zum vollstaendigen Release-
 Desktop getestet. Du musst dafuer nicht zuerst Sequoia installieren. Die getestete
 EFI stammt allerdings aus einer Kopie unserer bewaehrten EFI mit neuer Identitaet;
 eine allgemein verteilbare, startfertige EFI-Vorlage fehlt weiterhin. Der neue
-Framebuffer-Erstinstaller bildet die einzeln getesteten Schritte ab; sein kompletter
-kombinierter Ablauf wurde noch nicht auf einer zweiten leeren Platte wiederholt.
+Framebuffer-Erstinstaller wurde inzwischen auch als kompletter kombinierter Ablauf
+auf der zweiten frischen512-GiB-Installation ausgefuehrt. Danach wurde die native
+macOS-Freigabe samt Neustart ausgefuehrt; der erwartete Framebuffer und1920x1080
+sind nachgewiesen. Die neue Integration direkt in den Setup-Ablauf ist ein
+separater laufender Test: siehe [Integrated setup](INTEGRATED_SETUP.md).
 
 Begriffe:
 
@@ -47,8 +50,8 @@ Fuer einen moeglichst nahen Vergleich mit unserem Aufbau:
 1. Intel-x64-Windows-Rechner mit aktivierter Hardwarevirtualisierung und Hyper-V.
 2. Genug Arbeitsspeicher fuer Windows plus 24 GiB festen VM-Speicher.
 3. Acht virtuelle Prozessoren fuer die VM.
-4. Eine neue dynamische 400-GiB-Systemplatte. Die Datei waechst mit der Belegung;
-   400 GiB sind die virtuelle Obergrenze, keine sofortige Reservierung.
+4. Eine neue dynamische512-GiB-Systemplatte. Die Datei waechst mit der Belegung;
+   512 GiB sind die virtuelle Obergrenze, keine sofortige Reservierung.
 5. Zusaetzlichen Platz fuer Installer, EFI und eine vollstaendige Rueckfallkopie.
 6. Internet und einen vorhandenen passenden virtuellen Netzwerk-Switch.
 7. Nur fuer den alternativen Apple-Vollinstaller-Weg in Schritt6: Zugriff auf einen Mac.
@@ -363,7 +366,7 @@ abschalten; die oben beschriebenen Manager-Schritte bleiben verfuegbar.
 4. **Startup memory: 24576 MB**; **Use Dynamic Memory** abwaehlen.
 5. Vorhandenen vorgesehenen External-Switch auswaehlen. Bestehende Host-Switches
    nicht fuer diesen Versuch umbauen.
-6. Neue System-VHDX mit **400 GB** erzeugen. Noch kein Betriebssystem starten.
+6. Neue System-VHDX mit **512 GiB** erzeugen. Noch kein Betriebssystem starten.
 7. **Settings > Processor: 8**.
 8. **Settings > Security**: Unser bestehender Aufbau hat **Enable Secure Boot**
    nicht aktiviert. Bei einer neuen VM ist das eine bewusste VM-spezifische
@@ -374,7 +377,7 @@ abschalten; die oben beschriebenen Manager-Schritte bleiben verfuegbar.
     | Position | Datei |
     | --- | --- |
     | 0 | Eigene vorbereitete EFI.vhdx |
-    | 1 | Neue leere System.vhdx, 400 GiB |
+    | 1 | Neue leere System.vhdx,512 GiB |
     | 2 | TahoeInstaller.vhdx |
 
 11. **Firmware > Boot order**: EFI-Festplatte zuerst. Network Boot nicht davor.
@@ -427,7 +430,7 @@ erneut. Ctrl+C beendet nur den Empfaenger, nicht die VM.
 2. OpenCore erscheint. Falls noetig Leertaste fuer ausgeblendete Eintraege.
 3. **Install macOS Tahoe** vom vorbereiteten Installer waehlen.
 4. Im Installer Sprache waehlen, dann **Disk Utility**.
-5. **View > Show All Devices**. Ausschliesslich die neue 400-GiB-Systemplatte
+5. **View > Show All Devices**. Ausschliesslich die neue512-GiB-Systemplatte
    aus Schritt 8 identifizieren. EFI-/Installer-Disk nicht anfassen.
 6. Nur diese **neue, leere Zielplatte** initialisieren: Name **Macintosh HD**,
    Format **APFS**, Scheme **GUID Partition Map**. Wenn Zuordnung oder Inhalt

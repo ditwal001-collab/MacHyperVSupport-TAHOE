@@ -96,3 +96,7 @@ At00:31 UTC26Oct the user confirmed Update Mac Automatically. A newly permitted 
 
 
 Resolution follow-up 2026-10-26T01:24:19.176355+00:00: user requested1920x1080. Hyper-V currently advertises Maximum1920x1080; guest is1024x768. Attempting Single1920x1080 while Running failed InvalidState: Hyper-V requires Off. No display setting or lifecycle change occurred. Target-only Off/configure/start authorization is pending; prior automatic review rejected non-forced shutdown without specific lifecycle authorization.
+
+## Completed second fresh installation and subsequent replacement
+
+2026-10-26: normal26.7.1/25G241 desktop confirmed. The combined guarded first framebuffer installer118411a... completed as a single script, preserving stock module versions and Boot/System hashes. After native macOS Allow and normal restart, expected framebuffer UUID3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6 and actual1920x1080 were verified; the user confirmed working display. This supersedes earlier pending notes. User then required integration directly into setup and explicitly authorized replacing this current installation. It was gracefully shut down, detached and its two current images deleted only after path checks; all original rollback backups remain preserved. A new blank512GiB installation is now testing automatic setup staging. See INTEGRATED_SETUP.md; this later full integration has not yet passed end-to-end.
