@@ -17,7 +17,17 @@ trap 'rm -f "$info"' EXIT
 diskutil info -plist "$target" > "$info"
 test "$(/usr/libexec/PlistBuddy -c 'Print :FilesystemType' "$info")" = apfs
 here=$(cd "$(dirname "$0")" && pwd)
-(cd "$here"; shasum -a 256 -c payload.sha256)
+# Recovery has /sbin/sha256 but omits Perl and its shasum wrapper.
+(cd "$here"
+  while IFS= read -r line; do
+    expected=${line%% *}
+    relative=${line#*  }
+    [[ "$expected" =~ ^[0-9a-f]{64}$ ]]
+    case "$relative" in ''|/*|../*|*/../*|*/..) exit 1;; esac
+    test "$(/sbin/sha256 -q "$relative")" = "$expected"
+    printf '%s: OK\n' "$relative"
+  done < payload.sha256
+)
 support="$target/Library/Application Support/MacHyperVSetup"
 mkdir -p "$support" "$target/Library/LaunchDaemons" "$target/Library/LaunchAgents" "$target/Applications"
 ditto "$here/MacHyperVSetup.app" "$target/Applications/MacHyperVSetup.app"
