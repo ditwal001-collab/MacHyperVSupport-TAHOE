@@ -1,0 +1,21 @@
+{
+    "utc":  "2026-10-26T02:34:05.4235886Z",
+    "setup_source":  "54e0a985d1c1d67cc735674dc56331dd7be6dbc0",
+    "setup_run":  40259471597,
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+    "iso":  {
+                "iso_sha256":  "cc6f9623e6831b2f9e70a087f719a7e0c28c571bd4e04de96e50d02d2b6ce360",
+                "setup_source":  "54e0a985d1c1d67cc735674dc56331dd7be6dbc0",
+                "files_verified":  13,
+                "verification":  "PASS: all ISO files match CI payload exactly",
+                "runtime":  "Recovery seed persistence and clean installation still require runtime validation"
+            },
+    "recovery_seed":  "PASS after native sha256 repair; full OS persistence pending",
+    "disk_bytes":  549755813888,
+    "protected_backups_unchanged":  true,
+    "serial_receiver":  25588,
+    "outcome":  "Apple installer opened; end-to-end result pending"
+}

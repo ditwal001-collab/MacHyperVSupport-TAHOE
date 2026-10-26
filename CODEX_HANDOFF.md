@@ -1,3 +1,62 @@
+LATEST 2026-10-26T02:31Z: integrated reinstall IN PROGRESS. Main srv-maos-devs11 now boots Recovery from new EFI.integrated.vhdx and blank System.integrated-512g.vhdx in srv-integrated-install-20261026-01. Previous CURRENT srv-clean-install EFI.clean/System.clean512 explicitly authorized, detached and DELETED; all original rollback/Sequoia backups preserved. New EFI config35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806, ocvalidate passed, identity/security retained. Host Single1920x1080, EFI GOP1920x1080. Firmware newEFI first corrected. Receiver25588 mainpipe remains. Recovery actual1024x768 (1080 expected after FB only). disk2 read-only verified blank549755813888 bytes, SCSI Target1/LUN0 matches ONLY new512GiB VHDX, formatted APFS Macintosh HD. ABC selected Recovery. HVSETUP at DVD0:12. Seed test FAILED before any target files: Recovery lacks shasum; /sbin/sha256 -q verified available+exacthash. Fix54e0a98 pushed feature/integrated-tahoe-setup; CI40259471597 pending. Prior efd3cb3 CI40258077483 success, ISOd6bd2f... CI payload13matches; native frontend tested working1920 on priorOS. Need download NEW fixed artifact into NEWdir, make NEWISO, diskutil eject disk3 oldHVSETUP then swap DVD12, remount. Reinitialize same NEWdisk2 to blank (AppleOS neverstarted) before retrySeed. Then normal Appleinstall, prove Seed files persist into Data/firstboot, complete EN/Switzerland/localaccount same DPAPI stored srv-clean-install/account-private.clixml. No credentials public. Auto-review denied liveRootSeedguard and TurnOff; neither executed/no bypass. Firmware naturallycontinuedRecovery. CurrentTerminalrootidle, no installer active. See Docs/handoff/INTEGRATED_SETUP.md. New functions store integratedCapture and existing mainKeyboardPrefix/mainClick/freshType usable.
+LATEST 2026-10-26T02:15:54.443226+00:00: NEW USER REQUIREMENT: all support
+must be IN SETUP, no manual post-processing. User explicitly authorizes replacing/
+deleting CURRENT NEW installation and doing another CLEAN install, SAME params,
+without further approval prompts whenever setup changes. This scope is ONLY
+srv-maos-devs11 current EFI.clean/System.clean-512g pair. Original rollback pair,
+Sequoia backups and other VMs remain protected. Do not delete original backups.
+Current main desktop already works1920x1080 after combined first framebuffer
+installer and native per-extension Allow/restart. User confirmed it works. Host
+Maximum1920x1080 unchanged. No global security reduction; FileVaultOff observed,
+not changed by agent. ABC input temporarilyadded; originalSwiss keyboard restore.
+Branch feature/integrated-tahoe-setup. New Tools/Setup implements:
+- Recovery Seed.command pre-stages app, root bootstrap and original hvshutdownd
+  ONLY into empty APFS volume (reject existing System/Users/Library/Applications).
+- first-boot root daemon validates build/core, automatically installs pinned
+  Apple-signed KDK and invokes SAME guarded first framebuffer installer;
+- first-login app waits out Apple SetupAssistant, guides standard macOS Allow/
+  Restart, auto-applies1920x1080 via CoreGraphics after expectedFB UUID is loaded.
+No password/Apple auth in media, no kernel security policy bypass or live load.
+Seed persistence across Apple's fresh install is UNVERIFIED until required rerun.
+CI setup-only mode in existing main.yml; firstrun40257883867 failed CFMachPortRef
+standalone daemoninclude (app itself compiled). Fixefd3cb3 adds CoreFoundation.
+Second CI40258077483 pending/check status. Driver binaries remain pinned Release
+6c35681/run40189441511, unchanged. SDK/native app provenance separate from driver.
+New local root srv-integrated-install-20261026-01. BEFORE deleting functional
+current installation, obtain successful CI artifact, validate ISO, test seed
+rejection/native display helper on current baseline; then fresh512GiB + newEFI
+with same original SMBIOS,8CPU/24GiB/network/serial/mainlocalaccount/EN/Swiss.
+Set host Single1920x1080 and OC GOP1920x1080 while Off for installer resolution.
+After newblankAPFS format, run HVSETUP/Seed.command BEFORE Apple online installer.
+Then complete entire fresh cycle, verify automatic backend/app/1080p/no manual
+Framebuffer/Display fix. If code changes after test, repeat fresh as user asked.
+Keep serial25588 on existing mainpipe (ready before start); never tap samepipe twice.
+Account/privateDPAPI remain previousroot/account-private.clixml +profileprivateJSON.
+Do not print password. No other VM operations; user deleted t_full_test earlier.
+LATEST 2026-10-26T01:42:13.108682+00:00: main fresh512GiB desktop
+confirmed, sw_vers26.7.1/25G241 and core loaded UUID7CAF03F1-3631-33A9-AAAF-
+581270B665B0 verified. Read-only inventory3original Aux modules matches guarded
+first installer. Framebuffer absent, actual1024x768. FileVault reports Off;
+agent did NOT disable it. Setup already finished after externally observed boot
+20261026T012602Z; do not treat old setup/auth/lifecycle block as current state.
+KDK25G241 package signature checked to Apple Root CA; sudo installer running.
+Local input ABC temporarily added/selected for command accuracy; restore Swiss
+German after completion (only original source Swiss German before changes).
+ToolsISO SCSI0:2 HVFRESHFB, KDKISO0:11 HVCURSORKDK, oldRC1ISO0:10 untouched.
+After KDK success run sudo bash /Volumes/HVFRESHFB/Install.command; wait for
+FRESH_FRAMEBUFFER_INSTALLED marker before normal guest reboot. No live kmutil
+load. Then verify bothUUIDs, select1920x1080 in Displays, smoke test, clean media.
+LATEST 2026-10-26T01:37:23.437761+00:00: actual state CHANGED externally:
+main VM uptime~6min, serial newboot20261026T012602Z-fe708da5; normal DESKTOP now
+visible, Setup Assistant finished. No agent shutdown/reset was executed. Host
+attachments reverified correct EFI.clean + System.clean-512g, not rollback.
+Display Unknown1024x768; host Maximum1920x1080. Separate framebuffer not yet
+installed/checked. Proceed normal desktop driver installation; former active
+setup/auth blockers no longer apply. Do not attempt live kmutil load (old reject).
+New tools ISO attached SCSI0:2 (HVFRESHFB), matchingKDK ISO SCSI0:11(HVCURSORKDK).
+Guest currently Swiss keyboard (sw_vers typed as sw?vers harmless command error);
+use explicit U.S. input for automation then restore Swiss. Local credentials
+DPAPIaccount-private.clixml, profileprivateJSON; never print. Serial25588 active.
 LATEST 2026-10-26T01:24:19.176355+00:00: user confirms desired1920x1080 resolution. Current host video
 Maximum1920x1080, actual guest1024x768. Set-VMVideo Single1920x1080 while running
 failed InvalidState: VM must be Off. NO setting changed and NO lifecycle action
