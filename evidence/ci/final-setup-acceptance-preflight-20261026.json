@@ -1,0 +1,36 @@
+﻿{
+    "utc":  "2026-10-26T13:04:49.6978679Z",
+    "phase":  "Official Apple eraseinstall accepted; Preparing0.2percent13:02:18UTC",
+    "source":  "fd0fe475df45b53187b7e20b4c747542cf772cb3",
+    "windows_setup_source":  "5d7ada8",
+    "macos_setup_source":  "00f70ee358e4d9ddad2fccca39bc19ede1d55365",
+    "macos_setup_run":  40269870810,
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "core_sha256":  "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "setup_iso_sha256":  "8bb5cc7198c53aa134e52802f61b7e5c9a849c7a1b776ef065da5dc094b97c2f",
+    "setup_product_sha256":  "2092d73838908edb86418cc16983052c19b0625bc1d265f33402abf8c5723443",
+    "apple_installer_cli_sha256":  "80adc529d3e7794507f16e33fc53edf6d982c59729c6b49753cfec6b2ec8323d",
+    "offline_efi_preparation":  {
+                                    "source_sha256":  "3bbae89db9528cfaed26e6cdd4b9033dca663cb51c3cc6a9ce704c7a69bfa7a2",
+                                    "prepared_efi_sha256":  "f5f9edc2687918e8ea4b84e74fcad2037ad4d6ecb7feab30bcdd2980694dec56",
+                                    "config_before_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+                                    "config_after_sha256":  "8a22e7e5e6af34bcf0dfb0ea95044d0383b058a33e7287e70bbef27b7bf7f3ca",
+                                    "apple_services_pair_enabled":  true,
+                                    "changed_existing_flag":  true,
+                                    "ocvalidate":  "PASS",
+                                    "starts_vm":  false
+                                },
+    "pre_erase_guest":  {
+                            "hv_vmm_present":  0,
+                            "filevault":  "Off",
+                            "physical_store":  "disk1s2",
+                            "whole_disk_bytes":  549755813888
+                        },
+    "no_new_rollback_copy_created":  true,
+    "protected_existing_backups_preserved":  true,
+    "serial_receiver_retained":  true,
+    "complete_install":  false,
+    "scope":  "Only authorized main guest. New automatic working EFI, current512GiB APFS erase installation. No system copy/checkpoint/rollback created. Personal Apple login reserved for user."
+}
