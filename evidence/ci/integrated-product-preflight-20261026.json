@@ -1,0 +1,29 @@
+{
+    "utc":  "2026-10-26T03:38:31.5173189Z",
+    "setup_source":  "cdd91023ee63a72195b2f82dc925ed46def8ec02",
+    "setup_run":  40264174718,
+    "setup_zip_sha256":  "27e2ec34cb084f112a23c268c65961d75972b6ef3096d6df1c5a79e36db0a662",
+    "product_pkg_sha256":  "fceab96820d7f693df6407c4fd925d372c138fa176488a1f98a7cee12f659e78",
+    "iso_sha256":  "6e7aeefc01948a9e009647fba42f994f7e4ed96ee9e6f0937da6168595b84e9b",
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+    "apple_download":  "softwareupdate --fetch-full-installer --full-installer-version26.7.1 completed",
+    "apple_asset_version":  "26.7.1",
+    "apple_asset_build":  "25G241",
+    "installer_app_version":  "21.7.02",
+    "startosinstall_sha256":  "80adc529d3e7794507f16e33fc53edf6d982c59729c6b49753cfec6b2ec8323d",
+    "actual_usage_verified":  [
+                                  "--eraseinstall",
+                                  "--installpackage",
+                                  "--newvolumename",
+                                  "--passprompt",
+                                  "--user"
+                              ],
+    "target":  "Current normal root APFScontainer disk2, physicalstore disk1s2 on only549755813888byte system disk; separate5.4GBEFI FATdisk0",
+    "runtime":  "Actual Tahoe startosinstall accepted guarded --eraseinstall --newvolumename Macintosh HD --installpackage verifiedDVDpkg --agreetolicense --rebootdelay15 --user currentAdmin --passprompt; Preparing0percent03:41:57UTC; final install/backend unverified",
+    "ownership":  "pkgbuild recommended root ownership; app relocation disabled",
+    "ci_validation":  "PASS native compilation/codesign/architecture/productbuild/expand-full/exact payload bytes and13 ISO files",
+    "apple_sharedsupport_sha256":  "ca854f49dfdedbe78492c26d0e4172ee4d37573e2d375ca90c083d7615b6f48a"
+}
