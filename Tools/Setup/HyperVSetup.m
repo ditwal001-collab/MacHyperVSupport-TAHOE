@@ -32,7 +32,12 @@ static BOOL ApplyDisplay(void) {
     CGDisplayModeRef mode = (CGDisplayModeRef)CFArrayGetValueAtIndex(modes, i);
     if (CGDisplayModeGetWidth(mode) == 1920 && CGDisplayModeGetHeight(mode) == 1080 &&
         CGDisplayModeGetPixelWidth(mode) == 1920 && CGDisplayModeGetPixelHeight(mode) == 1080) {
-      applied = CGDisplaySetDisplayMode(display, mode, NULL) == kCGErrorSuccess;
+      CGDisplayConfigRef configuration = NULL;
+      if (CGBeginDisplayConfiguration(&configuration) == kCGErrorSuccess) {
+        if (CGConfigureDisplayWithDisplayMode(configuration, display, mode, NULL) == kCGErrorSuccess)
+          applied = CGCompleteDisplayConfiguration(configuration, kCGConfigurePermanently) == kCGErrorSuccess;
+        else CGCancelDisplayConfiguration(configuration);
+      }
       break;
     }
   }
@@ -134,7 +139,11 @@ int main(int argc, const char **argv) {
       return CGDisplayPixelsWide(d) == 1920 && CGDisplayPixelsHigh(d) == 1080 ? 0 : 1;
     }
     if (argc == 2 && !strcmp(argv[1], "--set-display")) return FramebufferLoaded() && ApplyDisplay() ? 0 : 1;
-    if (getuid() < 501 || [[NSUserDefaults standardUserDefaults] boolForKey:@"SetupComplete"]) return 0;
+    if (getuid() < 501) return 0;
+    // A saved completion flag cannot prove the current display configuration.
+    // Revalidate after every login, including a restart requested by macOS.
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"SetupComplete"] &&
+        FramebufferLoaded() && ApplyDisplay()) return 0;
     NSApplication *application = NSApplication.sharedApplication;
     static SetupDelegate *delegate;
     delegate = [[SetupDelegate alloc] init];

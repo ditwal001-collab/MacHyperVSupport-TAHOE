@@ -1,0 +1,20 @@
+#!/bin/bash
+# Register jobs on a live normal installation, without waiting for their work.
+# No package installation, reboot, policy edits, or GUI-user impersonation here.
+set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+test "$(id -u)" = 0
+if [ "${3:-}" != / ] || [ "$(sw_vers -buildVersion)" != 25G241 ]; then
+  echo 'SETUP_ACTIVATION_DEFERRED: offline target; jobs will load at normal boot'
+  exit 0
+fi
+support='/Library/Application Support/MacHyperVSetup'
+exec >> "$support/activation.log" 2>&1
+echo "SETUP_ACTIVATION_BEGIN $(date -u +%FT%TZ)"
+for label in fish.goldfish64.hvshutdownd fish.goldfish64.hyperv-setup; do
+  if ! launchctl print "system/$label" >/dev/null 2>&1; then
+    launchctl bootstrap system "/Library/LaunchDaemons/$label.plist"
+  fi
+  echo "REGISTERED $label"
+done
+echo 'SETUP_SERVICES_REGISTERED: asynchronous work; no installer/reboot in postinstall'

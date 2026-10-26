@@ -121,8 +121,15 @@ def main():
     for entry in component_info:
         entry['BundleIsRelocatable'] = False
     components.write_bytes(plistlib.dumps(component_info))
+    scripts = output / 'package-scripts'
+    scripts.mkdir()
+    postinstall = scripts / 'postinstall'
+    postinstall.write_bytes((repo / 'Tools/Setup/postinstall').read_bytes().replace(b'\r\n', b'\n'))
+    postinstall.chmod(0o755)
+    subprocess.run(['bash', '-n', str(postinstall)], check=True)
     component = output / 'MacHyperVSetup.component.pkg'
     subprocess.run(['pkgbuild', '--root', str(pkgroot), '--component-plist', str(components),
+                    '--scripts', str(scripts),
                     '--identifier', 'fish.goldfish64.hyperv-setup', '--version', '1.0',
                     '--install-location', '/', '--ownership', 'recommended', str(component)], check=True)
     product = stage / 'MacHyperVSetup.pkg'
@@ -132,6 +139,7 @@ def main():
     expanded_roots = [p for p in expanded.rglob('Payload') if (p / 'Applications/MacHyperVSetup.app').is_dir()]
     assert len(expanded_roots) == 1, 'Expected exactly one setup package payload'
     recovered = expanded_roots[0]
+    assert (recovered.parent / 'Scripts/postinstall').read_bytes() == postinstall.read_bytes()
     source_files = {p.relative_to(pkgroot) for p in pkgroot.rglob('*') if p.is_file()}
     assert {p.relative_to(recovered) for p in recovered.rglob('*') if p.is_file()} == source_files
     for name in source_files:
