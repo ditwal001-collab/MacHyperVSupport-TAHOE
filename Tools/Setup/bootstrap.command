@@ -1,6 +1,8 @@
 #!/bin/bash
 # Root first-boot stage; no credentials, security-policy changes or automatic reboot.
 set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
+umask 022
 test "$(id -u)" = 0
 support='/Library/Application Support/MacHyperVSetup'
 state="$support/state"

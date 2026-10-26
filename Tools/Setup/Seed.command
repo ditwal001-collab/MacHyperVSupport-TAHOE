@@ -2,6 +2,7 @@
 # Recovery-only seed into a NEW empty APFS volume, before Apple's OS installer.
 # Does not erase/partition, modify EFI, change security, or create user accounts.
 set -euo pipefail
+export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 test "$(id -u)" = 0
 test "$#" = 1 || { echo 'Usage: bash Seed.command /Volumes/NEW_EMPTY_VOLUME'; exit 1; }
 target=$1
@@ -32,4 +33,5 @@ find "$support" "$target/Applications/MacHyperVSetup.app" -type d -exec chmod 75
 find "$support" "$target/Applications/MacHyperVSetup.app" -type f -exec chmod 644 {} +
 chmod 755 "$support/bootstrap.command" "$target/Applications/MacHyperVSetup.app/Contents/MacOS/MacHyperVSetup" "$target/Library/Application Support/MacHyperVSupport/hvshutdownd"
 chmod 644 "$target/Library/LaunchDaemons/fish.goldfish64.hyperv-setup.plist" "$target/Library/LaunchDaemons/fish.goldfish64.hvshutdownd.plist" "$target/Library/LaunchAgents/fish.goldfish64.hyperv-setup-ui.plist"
+chown root:wheel "$target/Library/LaunchDaemons/fish.goldfish64.hyperv-setup.plist" "$target/Library/LaunchDaemons/fish.goldfish64.hvshutdownd.plist" "$target/Library/LaunchAgents/fish.goldfish64.hyperv-setup-ui.plist"
 echo 'INTEGRATED_SETUP_SEEDED: proceed with the normal Apple installation on this volume.'

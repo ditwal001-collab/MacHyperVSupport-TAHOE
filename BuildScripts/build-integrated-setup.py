@@ -70,6 +70,7 @@ def main():
     daemon = stage / 'hvshutdownd'
     subprocess.run(['clang', '-arch', 'x86_64', '-std=gnu11', '-mmacosx-version-min=12.0',
                     '-include', 'stdarg.h', '-include', 'unistd.h',
+                    '-include', 'CoreFoundation/CoreFoundation.h',
                     '-I' + str(repo / 'Tools/Daemons'),
                     '-I' + str(repo / 'MacHyperVSupport/IntegrationComponents/Shutdown'),
                     str(repo / 'Tools/Daemons/hvshutdownd/hvshutdownd.c'),
