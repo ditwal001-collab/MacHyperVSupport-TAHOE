@@ -49,7 +49,9 @@ def main():
     with zipfile.ZipFile(payload / 'Framebuffer.zip') as bundle:
         assert digest(bundle.read('MacHyperVFramebuffer.kext/Contents/MacOS/MacHyperVFramebuffer')) == FB_SHA
     (payload / 'Install.command').write_bytes((repo / 'BuildScripts/install-fresh-framebuffer-25G241.command').read_bytes().replace(b'\r\n', b'\n'))
-    for name in ('bootstrap.command', 'Seed.command'):
+    # Seed.command is retained in source only as a failed experiment; it is not
+    # shipped after the clean-install test proved the files do not persist.
+    for name in ('bootstrap.command',):
         (stage / name).write_bytes((repo / 'Tools/Setup' / name).read_bytes().replace(b'\r\n', b'\n'))
         (stage / name).chmod(0o755)
     app = stage / 'MacHyperVSetup.app/Contents'
@@ -103,15 +105,12 @@ def main():
     shutdown = pkgroot / 'Library/Application Support/MacHyperVSupport/hvshutdownd'
     shutdown.parent.mkdir(parents=True)
     shutil.copyfile(daemon, shutdown)
-    mappings = {'bootstrap.command': support / 'bootstrap.command',
-                'hvshutdownd': shutdown}
     for name, folder in (('fish.goldfish64.hvshutdownd.plist', 'LaunchDaemons'),
                          ('fish.goldfish64.hyperv-setup.plist', 'LaunchDaemons'),
                          ('fish.goldfish64.hyperv-setup-ui.plist', 'LaunchAgents')):
         destination = pkgroot / 'Library' / folder / name
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(stage / name, destination)
-        mappings[name] = destination
     executables = {support / 'bootstrap.command', shutdown,
                    pkgroot / 'Applications/MacHyperVSetup.app/Contents/MacOS/MacHyperVSetup'}
     for path in pkgroot.rglob('*'):
