@@ -1,0 +1,52 @@
+﻿{
+    "utc":  "2026-10-26T11:20:03.5617104Z",
+    "source":  "58a29dc1728654d1c9b7a9871cb3e62188b65dd9",
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "core_sha256":  "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "config_before":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+    "config_after":  "8a22e7e5e6af34bcf0dfb0ea95044d0383b058a33e7287e70bbef27b7bf7f3ca",
+    "efi_before_sha256":  "3BBAE89DB9528CFAED26E6CDD4B9033DCA663CB51C3CC6A9CE704C7A69BFA7A2",
+    "new_efi_sha256_before_boot":  "24d5a9da151f5f1a327a603cf10de1b228a5bc753475ec958be2407ad099b8d9",
+    "only_changed_key":  "Kernel.Patch.1.Enabled",
+    "guard_tests":  "PASS: single flag/input preserved, missing companion/duplicate/already enabled/bounds/bytes rejected",
+    "ocvalidate":  "1.0.6 PASS",
+    "before":  {
+                   "guest_and_apple_utc_match":  true,
+                   "tls_verification":  0,
+                   "network":  "en0 built-in Yes",
+                   "hv_vmm_present":  1,
+                   "anisette_errors":  [
+                                           -8001,
+                                           -8008,
+                                           -8025
+                                       ],
+                   "adi_error":  -45061,
+                   "devicecheck_baa_error":  -10000,
+                   "failed_stage":  "Before native password field"
+               },
+    "after":  {
+                  "hv_vmm_present":  0,
+                  "core_loaded_uuid":  "7CAF03F1-3631-33A9-AAAF-581270B665B0",
+                  "display":  "1920x1080",
+                  "native_password_field_reached":  true,
+                  "apple_password_or_2fa_entered_by_agent":  false,
+                  "full_account_login_confirmed":  false
+              },
+    "serial_prefix":  {
+                          "utc":  "2026-10-26T11:18:19.552363+00:00",
+                          "source_log_name":  "serial-20261026T111306Z-57c1ec5f.log",
+                          "snapshot_name":  "serial-prefix-20261026T111819Z-188cd697.log",
+                          "prefix_bytes":  303373,
+                          "snapshot_sha256":  "3ba4d9b6888302b6318f8db84c601f4a34540a7bfc30b7541d53a96513d36286",
+                          "complete_eom_writes":  0,
+                          "mismatched_eom_writes":  0,
+                          "cursor_conversion_failures":  0,
+                          "panic_markers":  0,
+                          "root_wait_markers":  0,
+                          "software_cursor_activation_markers":  0,
+                          "scope":  "bounded captured prefix; absence of a marker is not stability proof"
+                      },
+    "scope":  "Separate existing EFI workaround activation on verified new detached copy, original EFI preserved. No system reinstall/identity/security-policy/driver change. Personal authentication and repeat stability pending."
+}
