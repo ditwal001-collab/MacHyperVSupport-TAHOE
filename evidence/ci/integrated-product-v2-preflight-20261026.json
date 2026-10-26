@@ -1,0 +1,47 @@
+﻿{
+    "utc":  "2026-10-26T04:58:06Z",
+    "setup_source":  "00f70ee358e4d9ddad2fccca39bc19ede1d55365",
+    "setup_actions_run":  40269870810,
+    "setup_actions_conclusion":  "success",
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_actions_run":  40189441511,
+    "core_sha256":  "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+    "setup_iso_sha256":  "8bb5cc7198c53aa134e52802f61b7e5c9a849c7a1b776ef065da5dc094b97c2f",
+    "setup_product_sha256":  "2092d73838908edb86418cc16983052c19b0625bc1d265f33402abf8c5723443",
+    "target_virtual_bytes":  549755813888,
+    "pre_erase_physical_store":  "disk1s2",
+    "direct_display_diagnostic":  {
+                                      "before":  "1152x864",
+                                      "after":  "1920x1080",
+                                      "exit_status":  0,
+                                      "scope":  "NEW DVD app on OLD disposable OS; not full integrated validation"
+                                  },
+    "clean_install":  {
+                          "accepted_utc":  "2026-10-26T04:57:05Z",
+                          "mechanism":  "Official Apple startosinstall --eraseinstall --installpackage",
+                          "observed":  "Preparing 0.6 percent",
+                          "complete":  false
+                      },
+    "serial_prefix":  {
+                          "utc":  "2026-10-26T04:58:06.174737+00:00",
+                          "source_log_name":  "serial-20261026T044752Z-98ef1735.log",
+                          "snapshot_name":  "serial-prefix-20261026T045806Z-3509df70.log",
+                          "prefix_bytes":  407769,
+                          "snapshot_sha256":  "b3b2b79da88c2d1b67629b915fb5bc9fae117d051ab2bab0e8aa511358941bf4",
+                          "complete_eom_writes":  0,
+                          "mismatched_eom_writes":  0,
+                          "cursor_conversion_failures":  0,
+                          "panic_markers":  0,
+                          "root_wait_markers":  0,
+                          "software_cursor_activation_markers":  1,
+                          "scope":  "bounded captured prefix; absence of a marker is not stability proof"
+                      },
+    "unverified":  [
+                       "Immediate root-job activation in new product",
+                       "Full clean integrated driver/native approval/automatic display/persistence",
+                       "New per-call SynIC locality: Release does not emit diagnostic traces"
+                   ],
+    "scope":  "Only disposable current installation; protected rollback and Sequoia backups unchanged. Raw screenshots and identities excluded."
+}
