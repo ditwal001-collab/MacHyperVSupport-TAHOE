@@ -1,0 +1,14 @@
+﻿{
+    "utc":  "2026-10-26T05:45:54.9938003Z",
+    "archive":  "hyperv-maintainer-20261026T054455Z-7b2d5a24.zip",
+    "sha256":  "71e212fde1afd831328ba13cb1704b6d5a813a0dfd40b4c49a378e44f4f286b6",
+    "documentation_head":  "2ba25f12b590cb45c131be02f15c50b2fe5f0294",
+    "setup_source":  "00f70ee358e4d9ddad2fccca39bc19ede1d55365",
+    "setup_run":  40269870810,
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "manifest_entries":  112,
+    "verification":  "PASS: five driver patches plus separate optional setup patch reconstruction, original CI hashes, nested privacy/scope checks, archive readback",
+    "runtime_evidence":  "integrated-product-v2-result-20261026.json",
+    "runtime_scope":  "Qualified fresh-APFS automatic setup/display plus further normal reboot; final Apple Setup wait required regular guest shutdown/start, no forced off; no new approval-state or EOM-locality claim"
+}
