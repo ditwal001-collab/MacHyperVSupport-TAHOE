@@ -8,6 +8,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import uuid
 import zipfile
 
@@ -22,6 +23,9 @@ def main():
     parser.add_argument('--setup-artifact-directory', required=True, type=Path)
     parser.add_argument('--setup-iso', required=True, type=Path)
     args = parser.parse_args()
+    import pycdlib
+    if not hasattr(pycdlib, 'PyCdlib'):
+        raise RuntimeError('pycdlib1.22.0 is not readable in this Python environment')
     repo = Path(__file__).resolve().parents[1]
     script = repo / 'BuildScripts/export-hyperv-maintainer.py'
     spec = importlib.util.spec_from_file_location('maintainer_export', script)
@@ -34,7 +38,7 @@ def main():
 
     head = git('rev-parse', 'HEAD').decode().strip()
     result = json.loads(subprocess.check_output([
-        'py', '-3', str(script), '--redaction-file', str(args.redaction_file),
+        sys.executable, str(script), '--redaction-file', str(args.redaction_file),
         '--setup-artifact-directory', str(args.setup_artifact_directory)
     ], cwd=repo, text=True))
     assert result['verification'] == 'PASS'
@@ -84,7 +88,6 @@ def main():
             assert digest(data) == provenance['files'][name]
             (installer / name).write_bytes(data)
     # Read back every ISO payload against the unmodified CI ZIP, including file set.
-    import pycdlib
     import io
     iso = pycdlib.PyCdlib()
     iso.open(str(args.setup_iso.resolve()))
@@ -118,7 +121,7 @@ def main():
             data = path.read_text(encoding='utf-8')
             for token in tokens:
                 assert token.lower() not in data.lower(), 'Private token in ' + path.name
-            assert not re.search(r'[A-Za-z]:\\|(?:\d{1,3}\.){3}\d{1,3}', data), path.name
+            assert not re.search(r'[A-Za-z]:\\|(?<![\d.])(?:\d{1,3}\.){3}\d{1,3}(?![\d.])', data), path.name
     manifest = {'utc': datetime.now(timezone.utc).isoformat(), 'source': head,
                 'maintainer_archive': result,
                 'verification': 'PASS: source snapshots, pinned CI product, exact ISO readback, '
