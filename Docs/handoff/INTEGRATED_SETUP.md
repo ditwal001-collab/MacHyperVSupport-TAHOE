@@ -1,5 +1,28 @@
 # Integrated clean setup validation
 
+Current status, 2026-10-26 04:57 UTC: a new **full erase installation is in
+progress**, using product source `00f70ee358e4d9ddad2fccca39bc19ede1d55365`,
+successful Actions run `40269870810`. End-to-end acceptance is **pending**.
+The current transport is Apple's `startosinstall --eraseinstall --installpackage`
+with a verified productbuild archive, not the failed Recovery seed described in
+the historical entries below. Driver binaries remain pinned to `6c356817` /
+run `40189441511`. Neither driver was rebuilt for these setup changes.
+
+The previous product cycle proved automatic KDK/framebuffer installation and the
+native approval link, but failed persistent automatic 1920x1080 after restart.
+The current app's permanent CoreGraphics transaction actually changed the old
+disposable installation from 1152x864 to 1920x1080 before erasure. This direct
+diagnostic does not prove the new fresh-install flow. The new postinstall job
+registration and the complete native-approval/restart/login flow still require
+validation. See `evidence/ci/integrated-product-v2-preflight-20261026.json`.
+
+Native macOS extension approval and its requested restart remain part of setup;
+there is no approval bypass. A result is accepted only if the installed app,
+automatic backend, expected loaded driver UUIDs and automatic 1920x1080 work
+on the freshly erased system and after a further normal restart. No manual
+framebuffer install or Displays selection may be used to turn a failure into a
+passing integrated test.
+
 The user requires framebuffer support and1920x1080 as part of the installation,
 without a separate manual driver/display repair. The current installation was
 explicitly authorized for deletion and another blank512GiB installation with
