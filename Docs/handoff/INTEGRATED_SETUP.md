@@ -1,8 +1,13 @@
 # Integrated clean setup validation
 
-Current status, 2026-10-26 04:57 UTC: a new **full erase installation is in
-progress**, using product source `00f70ee358e4d9ddad2fccca39bc19ede1d55365`,
-successful Actions run `40269870810`. End-to-end acceptance is **pending**.
+Current status, 2026-10-26 05:39 UTC: the new **full erase installation reached
+the desktop with automatic framebuffer and persistent 1920x1080**, using product
+source `00f70ee358e4d9ddad2fccca39bc19ede1d55365`, successful Actions run
+`40269870810`. This is a **qualified pass**, not a fully unattended installer.
+The final Apple UpdateMacAutomatically page still waited; a regular guest
+shutdown/start succeeded through the now available daemon. No forced power-off
+was used in this cycle. Automatic display configuration then passed both the
+first login and an additional normal reboot, including its login screen.
 The current transport is Apple's `startosinstall --eraseinstall --installpackage`
 with a verified productbuild archive, not the failed Recovery seed described in
 the historical entries below. Driver binaries remain pinned to `6c356817` /
@@ -12,16 +17,25 @@ The previous product cycle proved automatic KDK/framebuffer installation and the
 native approval link, but failed persistent automatic 1920x1080 after restart.
 The current app's permanent CoreGraphics transaction actually changed the old
 disposable installation from 1152x864 to 1920x1080 before erasure. This direct
-diagnostic does not prove the new fresh-install flow. The new postinstall job
-registration and the complete native-approval/restart/login flow still require
-validation. See `evidence/ci/integrated-product-v2-preflight-20261026.json`.
+diagnostic is separate from the new clean test. In the new system, activation
+began at 05:12:50 UTC and the automatic backend ran 05:12:55 to 05:15:26, before
+the fresh account completed. Installed app hash, both loaded kext UUIDs and
+framebuffer executable hash match their pinned CI products. No manual driver
+installation, Displays selection or `--set-display` was used in the new system.
+See `evidence/ci/integrated-product-v2-result-20261026.json` and
+[the reproduction guide](INTEGRATED_SETUP_REPRODUCE.md).
 
-Native macOS extension approval and its requested restart remain part of setup;
-there is no approval bypass. A result is accepted only if the installed app,
+Native macOS extension approval and its requested restart remain part of setup
+when requested; there is no approval bypass. This run showed the native update
+notification but no new Allow prompt. The same VM firmware/identity was retained,
+so previous native approval remains a possible influence. It does not prove a
+new approval state on a wholly new VM. The native Allow/link/restart interaction
+was tested in the preceding product cycle. A result is accepted only if the installed app,
 automatic backend, expected loaded driver UUIDs and automatic 1920x1080 work
 on the freshly erased system and after a further normal restart. No manual
 framebuffer install or Displays selection may be used to turn a failure into a
-passing integrated test.
+passing integrated test. Final Apple Setup waiting, the earlier AppleRTC panic
+and long-term Release stability remain separate unresolved validation limits.
 
 The user requires framebuffer support and1920x1080 as part of the installation,
 without a separate manual driver/display repair. The current installation was
@@ -105,3 +119,9 @@ Two issues remain in cdd9102: rootjobs were available only after extra boot, con
 Newtestroot srv-integrated-install-20261026-02 contains originalCIartifact/media: ISO8bb5cc7198c53aa134e52802f61b7e5c9a849c7a1b776ef065da5dc094b97c2f, SetupZIP81a7b6a4706ecde370351ad1a9d2b739f75b0843efa3cae49237942821630633, package2092d73838908edb86418cc16983052c19b0625bc1d265f33402abf8c5723443, frontend a0a1a6a55404259482e86cc00390335b94b054ca958a0e30e7c9ca68b789d978. Driverbinaryunchanged. A repeated fullInstaller download was initially rejected asoutofscope, then accepted after read-onlyabsence+literaluserfullcleanrerunrequirement+newcommit evidence; download finished successfully. GuestDVD eject/insertion showed delayed HyperVpropertyrefresh/oneObjectNotFound. Nativehelper diagnostic attempts failed BEFOREexecution because mediawasnotmounted, not a GraphicsAPI failure. HostDVD12 nowpointsnewISO. Currentdesktop gracefulStopVM succeeded04:48 and was followedbyStartVM; this proves runninghvsdaemonworks. NewcoldbootshouldexposereadonlyDVD. Nexttestnewhelper actualpersistentmodechange ondiscardableoldOS, then fullcleaneraseinstallwithnewpackage asuserrequires; neverlabelmanualdiagnostic asintegratedpass.
 
 2026-10-26 04:57UTC integrated product v2 preflight/direct API test PASS; full clean test IN PROGRESS. Setup00f70ee358e4d9ddad2fccca39bc19ede1d55365/CI40269870810success, driver6c35681/CI40189441511 unchanged, EFI config35dd9dd3... . New ISO8bb5cc7198c53aa134e52802f61b7e5c9a849c7a1b776ef065da5dc094b97c2f, product2092d73838908edb86418cc16983052c19b0625bc1d265f33402abf8c5723443; guest product hash matches. NEW DVD app actually switched OLD disposable OS1152x864->1920x1080, DISPLAY_RESULT=0 and verify-display JSON match. This diagnostic is not complete integrated success. Previous cdd product automatically installed KDK/FB after recovery04:18, but native approval/restart left1152x864 despite completionflag1, so integrated acceptance FAILED. Root daemon now running; gracefulStopVM04:48 PASSED. New source fixes immediate live-target root-job registration and permanent CG display configuration/revalidation. User requires another clean installation after changes: verified Data physicalstore disk1s2, wholeDisk549755813888bytes, only disposable current pair attached, original backups detached. Official Apple eraseinstall with NEW product accepted and Preparing0.6percent04:57:05. Serial25588 retained. Do not reset active installer; native approval/automatic1080/persistence remain unverified. Exact payload hashes in local root02 ci-artifact/provenance.json; raw screenshots local only. No new EOM locality claim; no security policy change.
+
+2026-10-26 05:17UTC new clean product00f70ee/CI40269870810 reached fresh Setup Assistant after automatic installer starts05:09:59,05:11:22,05:12:15; no host reset. Serial normal root disk2s4 and ad-hoc hvshutdownd startup observed; no captured panic/rootwait in bounded161972byte prefix SHA3767893485a5469fb52aa71b8152a84fed0f5ae2b30ab0d48c7cd09db7ccaba4. Source/driver/core/FB/config hashes unchanged from evidence/ci/integrated-product-v2-preflight-20261026.json. Fresh empty account form proves account not migrated; same requested local profile is being recreated privately. English/Switzerland/no migration selected. Product backend timestamps, native approval and automatic1080p/persistence still pending. Main serial receiver25588 retained; no other VM/backups touched.
+
+2026-10-26 05:29UTC v2 runtime: automatic framebuffer-extension notification appeared during final Setup; native OK dismissed. Final UpdateMacAutomatically remained waiting, native Apple menu/diagnosticTerminal did not open. Before lifecycle saved576281byte serial prefix SHA1c56ec1321c00e177bb497d5d5a2193b31ef0394ca348bdf601c0b37ccbb42af (zero capturedpanic/rootwait). Exact2disposable disk attachments rechecked. REGULAR Stop-VM WITHOUT Force/TurnOff PASSED and reachedOff; then Start-VM onlymain. This validates shutdown availability in this first fresh cycle, unlike previous product. It does not explain/fix Apple's final setup wait. No forced reset used. Newapp/nativeAllow/automatic1920persistence pending after login; source00f/CI40269870810, driver6c/CI40189441511 and config35dd9dd3... unchanged.
+
+2026-10-26 05:39UTC integrated product v2 QUALIFIED PASS: freshly erased APFS, product installed during Apple phase, activation05:12:50/backend05:12:55->05:15:26, receipt05:12:53. Installed NEWappSHAa0a1a6a55404259482e86cc00390335b94b054ca958a0e30e7c9ca68b789d978; sameexpected core/FB UUIDs. No manual FB install/Displays/--set-display in new system. Native extension notification appeared; final AppleUpdate wait required REGULAR Stop-VM/start05:29, which PASSED without Force/TurnOff. First login changed small login geometry to1920desktop automatically; defaultsSetupComplete1. Additional guest shutdown-r-now boot05:35:44 retained1920 already at login and confirmedJSON/WMI1920x1080 on desktop. ActualFB SHA matches originalCI; HTTPS200+Safari/Finder/Downloads short mouse smoke PASS. SwissGerman restored, requested hostname restored, temporaryDVD ejected, logger25588continues. Exact sources/runs/core/FB/config/product/ISO and bothserialprefixes in ci/integrated-product-v2-result-20261026.json. Prefix237900bytes SHA cbdef227ce55d8d72f6437db0e4534e99c0e46bf9c6512f6e36fd2bf0bc8721f: softwarecursor1, zero capturedpanic/rootwait/conversionfailure; cleanRelease no newEOMCPUmeasurement. Limits: same VM firmware/identity/possibleprior nativeAllow retained; no newAllowprompt this cycle, no approvalbypass/policyedit. FinalSetupwait stillunresolved; not fully interaction-free onepassblankVM route or longtermstabilityproof. All protectedbackups untouched.

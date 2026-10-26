@@ -1,6 +1,9 @@
 # Reproduce the integrated Tahoe setup test
 
-Status: 2026-10-26, validation in progress. This is the exact test route, not a
+Status: 2026-10-26, qualified clean-install pass with automatic drivers/display
+and persistence after a further normal reboot. The final Apple setup wait still
+required a regular guest shutdown/start; no forced power-off was used in this
+cycle. This is the exact test route, not a
 claim of a universal one-pass blank-VM installer. The Recovery seed experiment
 failed persistence and must not be used. A working Tahoe guest downloads Apple's
 full installer, then Apple's erase-install phase installs the setup product on
@@ -109,6 +112,14 @@ for Apple Setup Assistant to finish. Its approval button opens Privacy & Securit
 use Apple's per-extension Allow, normal admin authentication and requested
 Restart. No approval database or global security setting is changed by this
 product. After login, display selection should happen automatically.
+
+In this test the updated product activated both root jobs before fresh account
+completion; the backend completed at 05:15:26 UTC. The native extension-update
+notification appeared, but a new Allow prompt was not required after the regular
+restart. Firmware and identity were retained from the same VM, so this is not a
+test of a completely new approval state. Do not reset approval databases to make
+a prompt appear. A previous product cycle verified the standard native approval
+button/link/authentication/restart flow separately.
 
 Record `/Library/Application Support/MacHyperVSetup/activation.log`, `setup.log`,
 `status.txt`, package receipt time, launchd job state, OS build, both loaded kext

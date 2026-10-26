@@ -12,8 +12,13 @@ short Finder/input smoke test. It required recovery from a final Setup Assistant
 stall and a canonical Aux bundle-path correction. Read FRESH_INSTALL_TEST.md and
 TAHOE_INSTALL_STEP_BY_STEP_DE.md; this does not establish unattended installation,
 repeat-boot reliability or a generic EFI template. The combined revised first
-installer was assembled from stages exercised separately on that fresh guest;
-it has not been rerun end to end on a second blank installation.
+installer was subsequently exercised on the second fresh 512-GiB installation.
+The newer integrated product was also tested through Apple's full erase-install
+phase: automatic KDK/framebuffer and 1920x1080 passed, including a further normal
+reboot. Its final Apple setup page still needed a regular guest shutdown/start;
+no forced power-off was used in that latest cycle. Previous extension approval
+may persist with the retained VM firmware/identity. See INTEGRATED_SETUP.md and
+INTEGRATED_SETUP_REPRODUCE.md for exact qualified results and all failed attempts.
 
 ## Project structure and changed files
 
@@ -29,6 +34,8 @@ MacHyperVFramebuffer/
   HyperVGraphicsFramebuffer.hpp               per-instance comparison flag
 .github/workflows/main.yml                    pinned build/provenance workflow
 BuildScripts/record-provenance.sh             build inputs, ZIPs and binary hashes
+Tools/Setup/                                  optional native first-login setup
+BuildScripts/build-integrated-setup.py         separate pinned setup product build
 BuildScripts/snapshot-serial-log.py           read-only live-log prefix snapshots
 Docs/handoff/                                reports and operating handoff
 evidence/ci/                                 curated anonymized test evidence
@@ -40,6 +47,15 @@ provided separately. Original base is
 `c48fc5ccade272ec79f633dcb23e45ba1c40d6cc`, the startergo GraphicsBridge fix;
 preserve its original attribution and Qonfused credit. The refresh backport
 also retains startergo attribution from3454a80 and source commit3d31e11.
+
+The exporter can additionally include the exact setup CI artifact with
+`--setup-artifact-directory PATH`. This produces a separate integrated-setup/
+folder and optional patch0006 against the clean driver candidate. The five
+driver patches and their original binary hashes remain unchanged. The optional
+patch reconstructs six setup/build files, not an entire replacement project;
+upstream shutdown daemon sources already exist in the baseline. The original
+setup-only GitHub workflow remains available at its pinned source commit.
+Failed Recovery Seed is excluded from this optional source subset and media.
 
 ## Reproduce source and builds
 

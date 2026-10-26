@@ -80,3 +80,5 @@ Do not deliberately reproduce a known graphics panic on the upgrade VM.
 Inspect existing panic evidence instead. Release without diagnostics must be
 built from a separately reviewed source state: merely choosing Release disables
 HVDBGLOG output but does not remove every diagnostic code change.
+
+The separately pinned optional setup product and its qualified full erase-install test are documented in [Integrated setup reproduction](Docs/handoff/INTEGRATED_SETUP_REPRODUCE.md). It does not replace the five driver patches or prove an unattended one-pass blank-VM route.

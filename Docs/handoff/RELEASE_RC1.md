@@ -144,3 +144,5 @@ The preceding restart had no kernel output and guest-requested shutdown18508 at
 13:29:32 UTC; preboot timeout remains a hypothesis. A subsequent start at13:32
 reached this desktop. Ten-start and sustained Release validation remain open.
 Raw console/prefix evidence stays local under the Release test directory.
+
+Latest clean-install evidence, 2026-10-26: the unchanged original clean driver binaries were installed automatically by the separate00f70ee setup product during a full APFS erase installation. Correct loaded UUIDs, actualFBhash,1920desktop and persistence after another normal reboot passed. FinalAppleSetupwait still required a regular guest shutdown/start; previous native approval may persist with sameVMfirmware. This is not a new kernel build, ten-start acceptance, fresh per-call EOM CPU measurement or long-term Release soak. See INTEGRATED_SETUP.md and curated integrated-product-v2-result-20261026.json.

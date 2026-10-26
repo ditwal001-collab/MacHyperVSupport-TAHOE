@@ -13,6 +13,12 @@ import zipfile
 
 BASE = 'c48fc5ccade272ec79f633dcb23e45ba1c40d6cc'
 RC = '6c3568178ba21136b8c21dd45597476c74ec31d1'
+SETUP = '00f70ee358e4d9ddad2fccca39bc19ede1d55365'
+SETUP_RUN = 40269870810
+SETUP_PATHS = ('Tools/Setup/HyperVSetup.m', 'Tools/Setup/bootstrap.command',
+               'Tools/Setup/postinstall', 'BuildScripts/build-integrated-setup.py',
+               'BuildScripts/make-integrated-setup-media.py',
+               'BuildScripts/install-fresh-framebuffer-25G241.command')
 CPU = ('MacHyperVSupport/Controller/HyperVController.hpp',
        'MacHyperVSupport/Controller/HyperVControllerInterrupts.cpp')
 GRAPHICS = ('MacHyperVSupport/Graphics/HyperVGraphicsPrivate.cpp',
@@ -24,7 +30,8 @@ DOCS = ('Docs/handoff/MAINTAINER_DELIVERY.md', 'Docs/handoff/HYPERV_SETUP.md',
         'Docs/handoff/RELEASE_RC1.md', 'Docs/handoff/CURSOR_WORKAROUND.md',
         'Docs/handoff/SYNIC_EOM_REPORT.md', 'Docs/handoff/GRAPHICS_REFRESH_REPORT.md',
         'Docs/handoff/TAHOE_BOOT_RESULT.md', 'Docs/handoff/TAHOE_INSTALL_STEP_BY_STEP_DE.md',
-        'Docs/handoff/FRESH_INSTALL_TEST.md',
+        'Docs/handoff/FRESH_INSTALL_TEST.md', 'Docs/handoff/SRV_CLEAN_INSTALL_512G.md',
+        'Docs/handoff/INTEGRATED_SETUP.md', 'Docs/handoff/INTEGRATED_SETUP_REPRODUCE.md',
         'REPRODUCE.md', 'evidence/RESULTS_LOG.md')
 TOOLS = ('BuildScripts/export-hyperv-maintainer.py', 'BuildScripts/verify-ci-delivery.py',
          'BuildScripts/collect-hyperv-profile.ps1', 'BuildScripts/summarize-efi-profile.py',
@@ -44,6 +51,8 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--redaction-file', required=True, type=Path,
                         help='Local-only JSON array of identifying strings')
+    parser.add_argument('--setup-artifact-directory', type=Path,
+                        help='Optional verified IntegratedSetup CI artifact (ZIP and provenance)')
     args = parser.parse_args()
     tokens = json.loads(args.redaction_file.read_text(encoding='utf-8-sig'))
     assert isinstance(tokens, list) and all(isinstance(v, str) and v for v in tokens)
@@ -155,12 +164,70 @@ def main():
             records[config] = sha(archive.read_bytes())
         shutil.copytree(prov, destination / 'Provenance')
         builds.append({'variant': label, 'source': source, 'run': run, 'packages_sha256': records})
+    integrated = None
+    if args.setup_artifact_directory:
+        source_artifact = args.setup_artifact_directory
+        provenance_bytes = (source_artifact / 'provenance.json').read_bytes()
+        provenance = json.loads(provenance_bytes)
+        assert provenance['setup_source'] == SETUP
+        assert provenance['driver_source'] == RC and provenance['driver_run'] == 40189441511
+        assert str(provenance['run']) == str(SETUP_RUN)
+        setup_zip = (source_artifact / 'SetupMedia.zip').read_bytes()
+        assert sha(setup_zip) == provenance['setup_media_sha256']
+        with zipfile.ZipFile(io.BytesIO(setup_zip)) as media:
+            names = media.namelist()
+            assert len(names) == len(set(names))
+            assert set(names) == set(provenance['files']) | {'payload.sha256'}
+            for name, expected in provenance['files'].items():
+                assert sha(media.read(name)) == expected, name
+            assert 'Seed.command' not in names
+        setup = output / 'integrated-setup'
+        setup.mkdir()
+        (setup / 'SetupMedia.zip').write_bytes(setup_zip)
+        (setup / 'provenance.json').write_bytes(provenance_bytes)
+        patch = setup / '0006-integrated-setup-optional.patch'
+        patch.write_bytes(git('diff', '--binary', RC, SETUP, '--', *SETUP_PATHS))
+        # Verify this separate add-on AFTER the unchanged five driver patches.
+        rc_paths = set(git('ls-tree', '-r', '--name-only', RC).decode().splitlines())
+        for name in SETUP_PATHS:
+            if name in rc_paths and not (verify / name).exists():
+                target = verify / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(git('show', RC + ':' + name))
+        git('apply', '--check', directory, str(patch))
+        git('apply', directory, str(patch))
+        for name in SETUP_PATHS:
+            assert (verify / name).read_bytes().replace(b'\r\n', b'\n') == git(
+                'show', SETUP + ':' + name).replace(b'\r\n', b'\n'), name
+        (setup / 'CHANGED_FILES.txt').write_bytes(git('diff', '--name-status', RC, SETUP, '--', *SETUP_PATHS))
+        (setup / 'README.txt').write_text(
+            'OPTIONAL guest installation tooling; not part of the five driver patches.\n'
+            'Apply 0006 only after 0001-0005, or to clean candidate ' + RC + '.\n'
+            'Six setup/build files reconstruct the tested source subset at ' + SETUP + '.\n'
+            'The GitHub setup-only workflow is available in that original commit;\n'
+            'it is deliberately not mixed into the driver CI patch.\n'
+            'For a local macOS build run: python3 BuildScripts/build-integrated-setup.py\n'
+            '  --release-zip ORIGINAL_CI_RELEASE_ZIP --output-directory NEW_DIRECTORY\n'
+            'Requires existing upstream Tools/Daemons and Shutdown user-client header,\n'
+            'both already present at the driver baseline. Record any new build identity.\n'
+            'Original CI SetupMedia.zip and provenance are unmodified. Read current\n'
+            'INTEGRATED_SETUP and INTEGRATED_SETUP_REPRODUCE before use.\n'
+            'Qualified fresh-APFS pass: automatic drivers/display plus reboot persistence;\n'
+            'final Apple Setup wait still required regular shutdown/start. Previous\n'
+            'native extension approval may persist with the retained VM firmware.\n'
+            'No failed Recovery Seed, Apple payload, private EFI or credentials shipped.\n', encoding='utf-8')
+        integrated = {'source': SETUP, 'run': SETUP_RUN,
+                      'setup_media_sha256': sha(setup_zip),
+                      'product_sha256': provenance['files']['MacHyperVSetup.pkg'],
+                      'source_subset': list(SETUP_PATHS),
+                      'verification': 'Exact CI payload hashes and optional patch reconstruction PASS'}
     (output / 'README.txt').write_text(
         'Read documentation/MAINTAINER_DELIVERY.md, HYPERV_SETUP.md and RELEASE_RC1.md.\n'
         'Numbered clean source series applies to ' + BASE + '.\n'
         'Historical instrumented binaries are references; runtime scope is in the reports.\n'
         'Original CI archives are unmodified. Verify hashes before choosing a candidate.\n'
         'InstallAux-example is a guarded guest-specific example, not a universal installer.\n'
+        'Optional integrated-setup/ contains separately pinned setup tooling when requested.\n'
         'No VM disks, full EFI configs, raw logs, personal screenshots or Apple KDK payload.\n', encoding='utf-8')
     forbidden = (b'DEV_ENVIRONMENT', b'IOSDevSmoke', b'csdevkit', b'10.0.402',
                  b'1.143.1', b'setup-dev-environment.command', b'verify-ios-simulator.command')
@@ -187,6 +254,7 @@ def main():
                 check(data)
     manifest = {'created_utc': datetime.now(timezone.utc).isoformat(),
                 'base': BASE, 'clean_candidate': RC, 'builds': builds,
+                'integrated_setup': integrated,
                 'documentation_head': git('rev-parse', 'HEAD').decode().strip(),
                 'verification': 'Patch application/reconstruction, CI hashes, privacy and scope checks PASS',
                 'files_sha256': {p.relative_to(output).as_posix(): sha(p.read_bytes())

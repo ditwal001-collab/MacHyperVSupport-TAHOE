@@ -27,8 +27,16 @@ eine allgemein verteilbare, startfertige EFI-Vorlage fehlt weiterhin. Der neue
 Framebuffer-Erstinstaller wurde inzwischen auch als kompletter kombinierter Ablauf
 auf der zweiten frischen512-GiB-Installation ausgefuehrt. Danach wurde die native
 macOS-Freigabe samt Neustart ausgefuehrt; der erwartete Framebuffer und1920x1080
-sind nachgewiesen. Die neue Integration direkt in den Setup-Ablauf ist ein
-separater laufender Test: siehe [Integrated setup](INTEGRATED_SETUP.md).
+sind nachgewiesen. Die neue Integration direkt in den Setup-Ablauf wurde nun
+ebenfalls auf frisch geloeschtem APFS getestet: Treiber und1920x1080 kommen
+automatisch; auch nach einem weiteren normalen Neustart bleibt1920x1080 erhalten.
+Der letzte Apple-Setup-Dialog wartete weiterhin und erforderte einen regulaeren
+Gast-Shutdown/Start; hartes Ausschalten war diesmal nicht noetig. Deshalb ist dies
+ein qualifizierter Erfolg, kein vollautomatisch fehlerfreier Ein-Klick-Installer.
+Der exakte Weg mit Apples Vollinstaller und Produktpaket steht unter
+[Setup reproduzieren](INTEGRATED_SETUP_REPRODUCE.md), alle Grenzen und Fehlversuche
+unter [Integrated setup](INTEGRATED_SETUP.md). Der alte Recovery-Seed-Weg ist
+fehlgeschlagen und darf nicht verwendet werden.
 
 Begriffe:
 
