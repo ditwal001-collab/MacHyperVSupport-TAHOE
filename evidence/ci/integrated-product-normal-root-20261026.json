@@ -1,0 +1,48 @@
+{
+    "utc":  "2026-10-26T04:04:27.0800023Z",
+    "setup_source":  "cdd91023ee63a72195b2f82dc925ed46def8ec02",
+    "setup_run":  40264174718,
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+    "automatic_boots":  [
+                            "03:54:19",
+                            "03:56:00",
+                            "03:56:56"
+                        ],
+    "normal_root":  "disk2s8",
+    "channels":  [
+                     1,
+                     2,
+                     3,
+                     4,
+                     5,
+                     6,
+                     7,
+                     8,
+                     9,
+                     10,
+                     11,
+                     12,
+                     13,
+                     14
+                 ],
+    "serial":  {
+                   "utc":  "2026-10-26T04:02:46.089706+00:00",
+                   "source_log_name":  "serial-20261026T035656Z-436f9d09.log",
+                   "snapshot_name":  "serial-prefix-20261026T040246Z-f250a531.log",
+                   "prefix_bytes":  324612,
+                   "snapshot_sha256":  "02f0365e9df6d4cbcbcac2f3b5499552ca7c89aa3f5bf60474067d1eae2086dd",
+                   "complete_eom_writes":  0,
+                   "mismatched_eom_writes":  0,
+                   "cursor_conversion_failures":  0,
+                   "panic_markers":  0,
+                   "root_wait_markers":  0,
+                   "software_cursor_activation_markers":  0,
+                   "scope":  "bounded captured prefix; absence of a marker is not stability proof"
+               },
+    "new_account":  "Fresh empty account form; requested local account recreated, optional Apple sign-in to skip",
+    "manual_reset_during_product_cycle":  false,
+    "outcome":  "Normal APFS/English fresh Setup confirmed; installed product/backend/display not yet validated"
+}
