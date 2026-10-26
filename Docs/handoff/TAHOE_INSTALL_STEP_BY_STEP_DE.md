@@ -335,6 +335,15 @@ Ohne eine solche EFI muss dieser Teil zuerst fertiggestellt werden:
 7. Image nur bei ausgeschalteter VM und abgehaengt bearbeiten. Danach auf dem
    Host auswerfen, Hash notieren und erst dann in Hyper-V anhaengen.
 
+**Apple-Anmeldung schon vor der Installation vorbereiten:** Unser bisheriges
+EFI hatte nur eine Haelfte des vorhandenen VM-Erkennungs-Workarounds aktiviert.
+Beide zusammengehoerigen Kernel-Patches muessen aktiv sein. Nach der Korrektur
+hat der Benutzer die erfolgreiche Apple-Anmeldung bestaetigt. Der neue Helfer
+`BuildScripts/prepare-tahoe-efi.ps1` prueft/korrigiert dies auf einer **neuen
+offline EFI-Kopie**, validiert sie mit ocvalidate und bewahrt die Quelle.
+Anleitung und genaue Grenzen: [Apple-Account-EFI](APPLE_ACCOUNT_EFI.md).
+Keine Seriennummern anderer Macs uebernehmen und keine NVRAM-/Keychain-Loeschung.
+
 Wichtige Orientierung aus unserem getesteten Profil:
 
 | Einstellung | Beobachtung / Anwendung |
@@ -362,9 +371,13 @@ Zum Wiederholen gibt es inzwischen auch `BuildScripts/new-tahoe-test-vm.ps1`.
 Es bildet die im Praxistest manuell benutzten Hardwarebefehle ab, startet die VM
 aber nicht. Standardmaessig zeigt es nur einen Plan; `-Create` erstellt explizit
 eine neue VM. Existiert der Zielname oder eine Ausgabedatei bereits, bricht es ab.
-Es ersetzt weder die EFI-Vorbereitung noch die Installation. Der Helfer ist
-syntaktisch geprueft und hat die bereits laufende Test-VM vor jeder Aenderung
-korrekt abgewiesen; der laufende Praxistest verwendete die Einzelbefehle.
+Mit `-Create` ist jetzt `-OCValidatePath` erforderlich; vor dem VM-Anlegen wird
+automatisch eine neue `EFI.setup.vhdx` mit geprueftem Apple-Anmelde-Patchpaar
+vorbereitet. Die uebergebene private EFI-Quelle bleibt erhalten. Standardwerte
+sind512GiB Systemdisk und Single1920x1080. Es ersetzt keine vollstaendige eigene
+EFI-Vorlage oder die Apple-Installation. Die Offline-Vorbereitung und Schutz-
+pruefungen sind getestet; der komplette neue Erstellungs-/Installationsablauf
+ist noch nicht erneut als Gesamttest ausgefuehrt.
 Falls lokale Skriptrichtlinien die Ausfuehrung blockieren, diese nicht global
 abschalten; die oben beschriebenen Manager-Schritte bleiben verfuegbar.
 

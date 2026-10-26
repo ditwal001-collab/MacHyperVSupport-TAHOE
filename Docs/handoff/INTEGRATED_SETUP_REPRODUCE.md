@@ -139,3 +139,5 @@ prefix. Clean Release contains no per-call EOM CPU trace: zero captured EOM
 lines do not establish new CPU-locality validation. An unrelated early AppleRTC
 panic and previous final Setup Assistant stalls remain documented failures;
 they must not be silently omitted from the maintainer report.
+
+Future EFI preparation now includes the paired Apple-services workaround before OS installation: see APPLE_ACCOUNT_EFI.md and prepare-tahoe-efi.ps1. Offline legacy/corrected-copy tests passed at614382e, and the user confirmed login on the corrected existing guest. A full new OS installation with the revised Windows preparation path remains a separate pending acceptance test; earlier full-install records used config35dd..., not the current8a22... correction.

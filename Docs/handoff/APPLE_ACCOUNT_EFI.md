@@ -78,8 +78,10 @@ Release core UUID7CAF03F1-3631-33A9-AAAF-581270B665B0 was loaded, and the instal
 display verifier returned1920x1080. At11:17, one retry with the same account
 identifier advanced to the native **password field**, instead of the former
 pre-password Verification Failed dialog. No Apple password or2FA code was used
-by the agent. Personal authentication is left to the user; full iCloud/account
-enrollment remains pending and must not be reported as a confirmed login.
+by the agent. The user then reported successful login ("es geht"). This is a
+user-confirmed login, separate from the agent's direct verification of the
+kernel value and transition to the password field. No account tokens or personal
+authentication screens were collected to independently verify enrollment.
 
 Latest bounded serial303373bytes SHA256
 `3ba4d9b6888302b6318f8db84c601f4a34540a7bfc30b7541d53a96513d36286`
@@ -94,3 +96,32 @@ of this new EFI revision.
 The05:45 maintainer package predates this separate EFI correction; its original
 five driver patches and pinned binaries remain unchanged. This additional
 script/report should be delivered as an explicitly separate environment addendum.
+
+## Integrated preparation for future installs
+
+Source `614382e` integrates this check before new VM creation. The new
+`BuildScripts/prepare-tahoe-efi.ps1` accepts an unmounted independent source EFI,
+its expected SHA256, a new output VHDX and matching ocvalidate. With no `-Prepare`
+it reports a plan. With `-Prepare` it creates a new copy exclusively, verifies
+the byte copy, mounts only the new image, checks both exact patch entries,
+enables the target only if needed, runs ocvalidate and unmounts in finally.
+Private config backups and a hashed receipt remain beside the new output.
+An already correct pair is accepted without changing the config again. Source
+hash mismatch, unsupported/missing/masked patches or validation failure stop
+preparation; an incomplete output must never be attached to a VM.
+
+`new-tahoe-test-vm.ps1 -Create` invokes that preparation before creating the VM
+or blank system disk, requires `-OCValidatePath`, then attaches `EFI.setup.vhdx`.
+It now defaults to512GiB and Single1920x1080, matching the tested profile. It
+still refuses existing VM names/output files and leaves the new VM Off for its
+serial receiver to be started first. In this workspace it must not be used to
+create another VM; only the explicitly authorized main VM may be operated on.
+
+The actual offline preparation was tested on a new copy of the old EFI: resulting
+config hash is exactly `8a22e7e...bf7f3ca`, matching the working corrected VM.
+A second copy of already corrected EFI retained that config hash and reported
+no flag change. Both passed ocvalidate. Bad-hash and existing-target-VM guards
+were exercised successfully; Python/PowerShell syntax and focused guard tests
+also passed. These are offline/preflight results. The entire updated new-VM
+creation plus OS installation has not yet been rerun end to end. Do not turn
+these checks into a claim of a new full clean-install acceptance run.

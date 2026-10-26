@@ -32,7 +32,8 @@
                   "display":  "1920x1080",
                   "native_password_field_reached":  true,
                   "apple_password_or_2fa_entered_by_agent":  false,
-                  "full_account_login_confirmed":  false
+                  "full_account_login_confirmed":  true,
+                  "full_account_login_confirmation":  "User reported es geht after personally completing authentication; no independent token/enrollment inspection"
               },
     "serial_prefix":  {
                           "utc":  "2026-10-26T11:18:19.552363+00:00",

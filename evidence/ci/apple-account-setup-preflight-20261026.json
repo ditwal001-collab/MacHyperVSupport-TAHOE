@@ -1,0 +1,57 @@
+﻿{
+    "utc":  "2026-10-26T11:40:15.9540820Z",
+    "setup_source":  "614382ec9656867f9dbc375d078f2c5487b4ca1c",
+    "existing_driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "existing_driver_run":  40189441511,
+    "existing_macos_product_source":  "00f70ee358e4d9ddad2fccca39bc19ede1d55365",
+    "existing_macos_product_run":  40269870810,
+    "guard_tests":  {
+                        "verification":  "PASS",
+                        "checks":  [
+                                       "actual source pair disabled/enabled accepted read-only",
+                                       "single flag/input preserved",
+                                       "missing companion rejected",
+                                       "duplicate target rejected",
+                                       "target bounds rejected",
+                                       "companion bounds rejected",
+                                       "wrong bytes rejected",
+                                       "non-boolean rejected",
+                                       "unexpected mask rejected"
+                                   ]
+                    },
+    "powershell_parse":  "PASS",
+    "offline_preparation_receipts":  [
+                                         {
+                                             "source_sha256":  "c338bfd6d5ad641cf45e79f313820a151fa9c5bc06b4b9b256b9c41e4d71b450",
+                                             "prepared_efi_sha256":  "0017f9a8a4866e6fff6b322e90a2a3548148d92537d931d88e405f9d212a0ac8",
+                                             "config_before_sha256":  "8a22e7e5e6af34bcf0dfb0ea95044d0383b058a33e7287e70bbef27b7bf7f3ca",
+                                             "config_after_sha256":  "8a22e7e5e6af34bcf0dfb0ea95044d0383b058a33e7287e70bbef27b7bf7f3ca",
+                                             "apple_services_pair_enabled":  true,
+                                             "changed_existing_flag":  false,
+                                             "ocvalidate":  "PASS",
+                                             "starts_vm":  false
+                                         },
+                                         {
+                                             "source_sha256":  "3bbae89db9528cfaed26e6cdd4b9033dca663cb51c3cc6a9ce704c7a69bfa7a2",
+                                             "prepared_efi_sha256":  "c338bfd6d5ad641cf45e79f313820a151fa9c5bc06b4b9b256b9c41e4d71b450",
+                                             "config_before_sha256":  "35dd9dd356dfc9c10466d3f5a9d84d6d9ec98b7d1df8a720b2a2a891b8943806",
+                                             "config_after_sha256":  "8a22e7e5e6af34bcf0dfb0ea95044d0383b058a33e7287e70bbef27b7bf7f3ca",
+                                             "apple_services_pair_enabled":  true,
+                                             "changed_existing_flag":  true,
+                                             "ocvalidate":  "PASS",
+                                             "starts_vm":  false
+                                         }
+                                     ],
+    "bad_source_hash":  "PASS: rejected before output creation",
+    "existing_vm":  "PASS: authorized main target rejected before mutation",
+    "defaults":  {
+                     "system_disk_gib":  512,
+                     "video":  "Single1920x1080",
+                     "starts_vm":  false
+                 },
+    "user_confirmed_apple_login":  true,
+    "user_confirmation_scope":  "User reported successful login on corrected active EFI; no agent token/enrollment inspection",
+    "complete_new_vm_creation_and_os_install_retest":  false,
+    "live_vm_changed_by_setup_update":  false,
+    "scope":  "Offline new-copy preparation only. Source/current EFI and system/Apple session unchanged. Full updated setup acceptance pending."
+}
