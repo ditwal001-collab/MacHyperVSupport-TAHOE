@@ -4,12 +4,15 @@ param(
     [Parameter(Mandatory = $true)][string]$PreparedEFI,
     [Parameter(Mandatory = $true)][string]$SwitchName,
     [Parameter(Mandatory = $true)][string]$SerialPipe,
+    [string]$OCValidatePath,
+    [ValidateRange(64,4096)][int]$SystemDiskGiB = 512,
     [switch]$Create
 )
 # Reproduce the fresh-test hardware profile using NEW paths only.
 # Default: print a plan. -Create explicitly creates ONE new VM; never starts it.
 # No existing VM, switch, disk, backup or host security setting is modified.
-# The prepared private EFI must already be a separate unmounted working copy.
+# Input EFI is a separate unmounted source copy. Prepare another NEW EFI before
+# VM creation, validating/enabling the existing paired Apple-services workaround.
 $ErrorActionPreference = 'Stop'
 if ($VMName -notmatch '^[A-Za-z0-9_-]+$') { throw 'Use a simple explicit VM name' }
 if (-not $SerialPipe.StartsWith('\\.\pipe\')) { throw 'A local named pipe is required' }
@@ -29,7 +32,8 @@ $null = Get-VMSwitch -Name $SwitchName -ErrorAction Stop
 $system = Join-Path $root 'System.blank.vhdx'
 $configuration = Join-Path $root 'vm'
 $receipt = Join-Path $root 'vm-created-private.json'
-foreach ($path in @($system, $configuration, $receipt)) {
+$readyEFI = Join-Path $root 'EFI.setup.vhdx'
+foreach ($path in @($system, $configuration, $receipt, $readyEFI)) {
     if (Test-Path -LiteralPath $path) { throw ('Output already exists: ' + $path) }
 }
 $efiHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $efi).Hash.ToLowerInvariant()
@@ -38,9 +42,11 @@ $plan = [ordered]@{
     generation = 2
     processors = 8
     fixed_memory_gib = 24
-    new_system_gib = 400
+    new_system_gib = $SystemDiskGiB
     secure_boot = 'Off on the NEW VM only, matching the tested OpenCore profile'
-    prepared_efi_sha256 = $efiHash
+    source_efi_sha256 = $efiHash
+    prepared_efi_sha256 = $null
+    apple_services_preflight = 'Prepare and validate NEW offline EFI copy before VM creation'
     starts_vm = $false
     modifies_existing_vm_or_switch = $false
 }
@@ -49,19 +55,30 @@ if (-not $Create) {
     Write-Output 'Plan only. Review inputs; -Create explicitly creates this new VM.'
     return
 }
-New-VHD -Path $system -SizeBytes 400GB -Dynamic -LogicalSectorSizeBytes 512 -PhysicalSectorSizeBytes 4096 | Out-Null
+if (-not $OCValidatePath) { throw '-Create requires -OCValidatePath (matching OpenCore version)' }
+$scriptDirectory = if ($PSScriptRoot) { $PSScriptRoot } else { Join-Path (Get-Location) 'BuildScripts' }
+$prepare = [ScriptBlock]::Create((Get-Content -LiteralPath (Join-Path $scriptDirectory 'prepare-tahoe-efi.ps1') -Raw))
+& $prepare -SourceEFI $efi -ExpectedSHA256 $efiHash -OutputEFI $readyEFI -OCValidatePath $OCValidatePath -Prepare
+if (-not (Test-Path -LiteralPath $readyEFI) -or (Get-VHD -Path $readyEFI).Attached) { throw 'EFI preparation did not finish safely' }
+$readyHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $readyEFI).Hash.ToLowerInvariant()
+$plan['prepared_efi_sha256'] = $readyHash
+$plan['apple_services_preflight'] = 'PASS: existing paired workaround enabled, ocvalidate passed'
+New-VHD -Path $system -SizeBytes ([int64]$SystemDiskGiB * 1GB) -Dynamic -LogicalSectorSizeBytes 512 -PhysicalSectorSizeBytes 4096 | Out-Null
 New-VM -Name $VMName -Generation 2 -MemoryStartupBytes 24GB -NoVHD -Path $configuration -SwitchName $SwitchName | Out-Null
 Set-VMProcessor -VMName $VMName -Count 8
 Set-VMMemory -VMName $VMName -DynamicMemoryEnabled $false
 Set-VM -Name $VMName -AutomaticCheckpointsEnabled $false -AutomaticStartAction Nothing -AutomaticStopAction Save
 Set-VMFirmware -VMName $VMName -EnableSecureBoot Off
-Set-VMVideo -VMName $VMName -ResolutionType Maximum -HorizontalResolution 1920 -VerticalResolution 1080
-Add-VMHardDiskDrive -VMName $VMName -ControllerType SCSI -ControllerNumber 0 -ControllerLocation 0 -Path $efi
+Set-VMVideo -VMName $VMName -ResolutionType Single -HorizontalResolution 1920 -VerticalResolution 1080
+Add-VMHardDiskDrive -VMName $VMName -ControllerType SCSI -ControllerNumber 0 -ControllerLocation 0 -Path $readyEFI
 Add-VMHardDiskDrive -VMName $VMName -ControllerType SCSI -ControllerNumber 0 -ControllerLocation 1 -Path $system
 $boot = Get-VMHardDiskDrive -VMName $VMName | Where-Object ControllerLocation -eq 0
 Set-VMFirmware -VMName $VMName -FirstBootDevice $boot
 Set-VMComPort -VMName $VMName -Number 1 -Path $SerialPipe
 if ((Get-FileHash -Algorithm SHA256 -LiteralPath $efi).Hash.ToLowerInvariant() -ne $efiHash) {
+    throw 'Source EFI changed during creation; leave VM Off and investigate'
+}
+if ((Get-FileHash -Algorithm SHA256 -LiteralPath $readyEFI).Hash.ToLowerInvariant() -ne $readyHash) {
     throw 'Prepared EFI changed during creation; leave VM Off and investigate'
 }
 $plan['created_utc'] = [DateTime]::UtcNow.ToString('o')
