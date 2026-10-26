@@ -1,0 +1,7 @@
+{
+  "archive": "apple-account-efi-addendum-20261026T112206Z-45f70e50.zip",
+  "sha256": "2ec82f86b412e3254cd4ad4daf419afbd1aae34943651f6855858bb7d1e9dc44",
+  "source": "a0ed4632f548fd28853947e1ae751892f7cb7f32",
+  "verification": "PASS",
+  "scope": "Separate EFI tool/report only; full Apple login pending"
+}
