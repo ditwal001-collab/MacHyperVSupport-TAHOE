@@ -125,3 +125,39 @@ were exercised successfully; Python/PowerShell syntax and focused guard tests
 also passed. These are offline/preflight results. The entire updated new-VM
 creation plus OS installation has not yet been rerun end to end. Do not turn
 these checks into a claim of a new full clean-install acceptance run.
+
+## Final clean-install test, 2026-10-26
+
+The updated preparation was subsequently exercised on a new working EFI copy,
+followed by Apple's `startosinstall --eraseinstall` on the authorized 512 GiB
+system disk, with the pinned setup product supplied through `--installpackage`.
+No migration, new rollback copy or checkpoint was created. Existing protected
+backups were retained. The resulting config remains `8a22e7e...bf7f3ca`.
+
+The installer completed preparation and three automatic boots, reaching fresh
+Setup Assistant. The user personally completed Apple authentication and reported
+successful sign-in. The final Match Settings page then waited for more than six
+minutes; a regular guest-integrated shutdown and start was needed to reach the
+desktop. This is a qualified installation result, not unattended acceptance.
+
+Read-only checks on the new desktop confirmed macOS26.7.1/build25G241,
+`kern.hv_vmm_present=0`, automatic1920x1080, both expected clean Release module
+UUIDs and exact framebuffer/setup-app hashes. SetupComplete was1 and the setup
+status was driver-ready. FileVault was On following personal setup choices and
+was preserved. Local account RealName, computer name and Europe/Zurich time zone
+required correction after Setup Assistant; these remain manual profile steps.
+Personal synced appearance/location settings were preserved.
+
+Safari loaded the developer site over HTTPS. The shutdown daemon's actual
+`fish.goldfish64.hvshutdownd` launchd service was running. The bounded692622-byte
+serial prefix SHA256 `4170a66bb3ee9ec656a213831f940f881c0388cf48d644e929e1b48088d057c4`
+contained one software-cursor activation marker and no captured panic, root-wait
+or cursor-conversion failure markers. Release has no per-call EOM traces; this
+does not add a SynIC CPU-locality measurement or establish long-term stability.
+An additional normal guest reboot passed: after FileVault unlock, the desktop
+returned at1920x1080 with the expected module UUIDs, kernel value0, corrected
+computer name and CET time. Its245051-byte serial prefix SHA256
+`4dcb8bac25d7c95344e19d7c111fd1ca9d1dec5b972fda591fe03f58c9ccd91a`
+again contained one software-cursor activation marker and zero captured panic,
+root-wait or cursor-conversion failure markers. The temporary setup DVD was
+ejected, Swiss German input restored, and serial capture left running.
