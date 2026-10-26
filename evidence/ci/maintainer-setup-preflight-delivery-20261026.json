@@ -1,0 +1,9 @@
+﻿{
+    "utc":  "2026-10-26T11:43:47.7158695Z",
+    "archive":  "hyperv-maintainer-20261026T114242Z-01d0a137.zip",
+    "sha256":  "121606a8d12375ef7c4e67d1dc94870c3d5aee93f03864faf4893b30baaee2d0",
+    "documentation_head":  "5d7ada8d3971c535877bd02c3cff7401a8be2fa9",
+    "manifest_entries":  119,
+    "verification":  "PASS: patch reconstruction, original CI payloads, privacy/scope checks, archive readback",
+    "scope":  "Includes offline EFI preparation/helpers and user-confirmed Apple login. Original driver/macOS setup binaries unchanged. Full revised clean-install cycle pending."
+}
