@@ -1,0 +1,42 @@
+﻿{
+    "utc":  "2026-10-26T13:42:31.1797159Z",
+    "source":  "243d48f325a0db447da6aa2585500a6fd12c3ab4",
+    "setup_source":  "5d7ada8",
+    "macos_product_source":  "00f70ee358e4d9ddad2fccca39bc19ede1d55365",
+    "macos_product_run":  40269870810,
+    "driver_source":  "6c3568178ba21136b8c21dd45597476c74ec31d1",
+    "driver_run":  40189441511,
+    "core_sha256":  "c97e29193de9bedf9e2f39b7da38a589347874f7f8ef8c0c8e24f92d7f76ca16",
+    "framebuffer_sha256":  "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+    "efi_config_sha256":  "8a22e7e5e6af34bcf0dfb0ea95044d0383b058a33e7287e70bbef27b7bf7f3ca",
+    "preparation_completed_utc":  "2026-10-26T13:25:35Z",
+    "automatic_boots_utc":  [
+                                "2026-10-26T13:27:19Z",
+                                "2026-10-26T13:29:25Z",
+                                "2026-10-26T13:30:42Z"
+                            ],
+    "fresh_setup_visible_utc":  "2026-10-26T13:33:10Z",
+    "migration":  "Set up as new",
+    "language":  "English US primary",
+    "region":  "Switzerland",
+    "local_account":  "fresh empty form reached; same requested account being recreated",
+    "new_os_uuid_and_actual_display_check_complete":  false,
+    "awaiting_personal_apple_authentication":  true,
+    "gui_inputs_and_captures_paused":  true,
+    "rollback_copy_created":  false,
+    "serial_prefix":  {
+                          "utc":  "2026-10-26T13:41:33.444975+00:00",
+                          "source_log_name":  "serial-20261026T133042Z-eb0a8d33.log",
+                          "snapshot_name":  "serial-prefix-20261026T134133Z-bb33853f.log",
+                          "prefix_bytes":  486112,
+                          "snapshot_sha256":  "9040a571fae8df60cb6bc44c4c9153ace7943f54e169b49e4a0ff75112de050d",
+                          "complete_eom_writes":  0,
+                          "mismatched_eom_writes":  0,
+                          "cursor_conversion_failures":  0,
+                          "panic_markers":  0,
+                          "root_wait_markers":  0,
+                          "software_cursor_activation_markers":  0,
+                          "scope":  "bounded captured prefix; absence of a marker is not stability proof"
+                      },
+    "scope":  "Fresh normal setup reached after automatic installer boots. No full setup/display/Apple-login acceptance yet. Expected binary provenance is unchanged; loaded-state confirmation pending. Only authorized guest."
+}
