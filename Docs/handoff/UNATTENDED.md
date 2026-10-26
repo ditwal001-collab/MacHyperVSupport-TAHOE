@@ -1,3 +1,11 @@
+LATEST 2026-10-26T01:24:19.176355+00:00: user confirms desired1920x1080 resolution. Current host video
+Maximum1920x1080, actual guest1024x768. Set-VMVideo Single1920x1080 while running
+failed InvalidState: VM must be Off. NO setting changed and NO lifecycle action
+executed. Earlier automatic review rejected even non-forced shutdown; explicit
+main-VM Off/configure/start authorization remains required. Prepare to perform
+only srv-maos-devs11 Off -> Single1920x1080 -> Start after explicit approval,
+then finish setup and framebuffer validation. Serial25588 active; rollback kept.
+Apple authentication ambiguity resolved by confirmed Update Mac Automatically.
 LATEST 2026-10-26 00:33 UTC: user explicitly confirms page Update Mac
 Automatically. Earlier Apple-auth ambiguity RESOLVED; authorized capture succeeded
 and confirms final setup spinner/disabled Continue. Pre-action2416158-byte serial

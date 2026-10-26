@@ -93,3 +93,6 @@ At23:57 UTC (26Oct local), the user reported stalled setup/update. VM Running, r
 
 
 At00:31 UTC26Oct the user confirmed Update Mac Automatically. A newly permitted direct capture confirmed the final setup spinner/disabled Continue. Authentication ambiguity was thereby resolved. A non-forced guest shutdown request was rejected by automatic review for missing specific lifecycle authorization and potential setup/encryption interruption; it was not executed. No restart/reset was attempted as a workaround. Explicit target-only restart authorization is pending. Pre-action2416158-byte prefix SHA8ad00367a0eb6736ac05feed100dc424f82d870a726a56087e39f796c8a788cf has no captured panic/root-wait/cursor-conversion markers.
+
+
+Resolution follow-up 2026-10-26T01:24:19.176355+00:00: user requested1920x1080. Hyper-V currently advertises Maximum1920x1080; guest is1024x768. Attempting Single1920x1080 while Running failed InvalidState: Hyper-V requires Off. No display setting or lifecycle change occurred. Target-only Off/configure/start authorization is pending; prior automatic review rejected non-forced shutdown without specific lifecycle authorization.
