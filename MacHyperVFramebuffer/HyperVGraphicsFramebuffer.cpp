@@ -27,6 +27,13 @@ bool HyperVGraphicsFramebuffer::start(IOService *provider) {
     return false;
   }
 
+  // Opt-in comparison: let IOFramebuffer render cursors into the framebuffer.
+  // Keep the default hardware cursor path unchanged.
+  _forceSoftwareCursor = checkKernelArgument("-hvgfxfbswcursor");
+  if (_forceSoftwareCursor) {
+    HVSYSLOG("Software cursor comparison enabled by boot arg");
+  }
+
   //
   // Get parent PCI device.
   //
@@ -293,9 +300,9 @@ IOReturn HyperVGraphicsFramebuffer::getAttribute(IOSelect attribute, uintptr_t *
   //
   if (attribute == kIOHardwareCursorAttribute) {
     if (value != nullptr) {
-      *value = 1;
+      *value = _forceSoftwareCursor ? 0 : 1;
     }
-    HVDBGLOG("Hardware cursor supported");
+    HVDBGLOG("Hardware cursor supported: %u", !_forceSoftwareCursor);
     return kIOReturnSuccess;
   }
 
