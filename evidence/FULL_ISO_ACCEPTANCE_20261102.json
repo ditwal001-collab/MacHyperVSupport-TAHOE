@@ -1,0 +1,42 @@
+{
+  "date_utc": "2026-11-02T03:22:46.235574+00:00",
+  "scope": "new isolated test VM only; production unchanged",
+  "installation": "Single direct fresh startosinstall --volume with --installpackage; no intermediate installed OS",
+  "os": "26.7.1",
+  "build": "25G241",
+  "system_disk_gib": 512,
+  "setup_status": "driver-ready",
+  "display": [
+    1920,
+    1080
+  ],
+  "display_configuration": "Automatic by installed setup agent; no manual display repair",
+  "driver_source": "6c3568178ba21136b8c21dd45597476c74ec31d1",
+  "driver_run": 40189441511,
+  "setup_source": "00f70ee358e4d9ddad2fccca39bc19ede1d55365",
+  "setup_run": 40269870810,
+  "core_uuid": "7CAF03F1-3631-33A9-AAAF-581270B665B0",
+  "framebuffer_uuid": "3C6D0CDD-D9E7-39C8-94FB-D97A47BE3CF6",
+  "framebuffer_sha256": "d8a079d47d61988aabe40cb788b015979c27384135b57339e854d5c017792122",
+  "native_validation_sha256": "6d56b4b99790eaed9b41b0cfb07e3f14732f8f08a88ce792c604bffbfc0d7376",
+  "normal_boot_without_apple_dvd": "PASS: clean guest shutdown, empty Apple DVD, unchanged EFI ISO, login and same loaded UUIDs / 1920x1080",
+  "serial_prefix_sha256": "62d15de89874f8d0acf604621755d16a507574a4f674f59d011c190ac36c50c7",
+  "serial_prefix_bytes": 237697,
+  "serial_panic_markers": 0,
+  "serial_root_wait_markers": 0,
+  "eom_boundary": "Release has no per-write tracing. This boot does not remeasure EOM CPU affinity.",
+  "caveats": [
+    "Initial installer boot AppleRTC::start+0x2c6 panic; unchanged retry succeeded; no RTC fix claimed",
+    "Final SetupAssistant update page stalled; clean non-forced Hyper-V shutdown and next boot completed setup",
+    "No Apple account test on this synthetic account; FileVault initial activation deferred",
+    "No long-duration stress or ten-boot qualification",
+    "Own two drivers Release; existing OpenCore/Lilu/VirtualSMC components DEBUG"
+  ],
+  "source_ci": {
+    "sha": "5f266b8943732ae823d1d6651a013a062d77347a",
+    "run": 41377525111,
+    "build_and_clang_debug_release": "PASS",
+    "runtime_replacement": false,
+    "note": "Both full driver source trees equal tested6c; new CI core executable differs and is not substituted. Framebuffer executable bit-identical."
+  }
+}

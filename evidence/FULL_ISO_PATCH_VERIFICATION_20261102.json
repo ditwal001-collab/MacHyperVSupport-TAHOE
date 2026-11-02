@@ -1,0 +1,15 @@
+{
+  "base": "c48fc5ccade272ec79f633dcb23e45ba1c40d6cc",
+  "patches_applied": [
+    "patches/0001-synic-owning-cpu.patch",
+    "patches/0002-startergo-refresh.patch",
+    "patches/0003-refresh-pacing.patch",
+    "patches/0004-opt-in-software-cursor.patch",
+    "patches/0005-build-provenance.patch",
+    "patches/0006-integrated-setup-optional.patch",
+    "patches/0007-full-install-iso-tools.patch",
+    "patches/0008-delivery-helper-and-workflow-followups.patch"
+  ],
+  "changed_files_verified": 32,
+  "result": "PASS: clean isolated checkout, sequential git apply --check/apply and all exported source content matches (LF normalized)"
+}
