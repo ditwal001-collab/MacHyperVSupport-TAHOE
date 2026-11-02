@@ -315,14 +315,6 @@ void HyperVController::sendSynICEOM(UInt32 cpu) {
     HVSYSLOG("Invalid SynIC CPU %u", cpu);
     return;
   }
-  UInt32 currentCpu = cpu_number();
-  bool pending = _cpuData[cpu].messages[kVMBusInterruptMessage].flags.messagePending;
-
-  HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
-           cpu, currentCpu, pending ? 1U : 0U);
-
-  HVDBGLOG("TAHOE-SYNIC: targetCPU=%u currentCPU=%u pending=%u",
-           cpu, currentCpu, pending ? 1U : 0U);
 #if __MAC_OS_X_VERSION_MIN_REQUIRED >= __MAC_10_6
   // Called only by the VMBus workloop, with interrupts/preemption enabled.
   // ThreadBind changes affinity; thread_block is required to migrate.
@@ -366,12 +358,9 @@ void HyperVController::sendSynICEOM(UInt32 cpu) {
   //
   // The slot and EOM register belong to this CPU.
   //
-  UInt32 actualCpu = cpu_number();
   wrmsr64(kHyperVMsrEom, 0);
   ml_set_interrupts_enabled(intsEnabled);
   _pmCallbacks.ThreadBind(previousProcessor);
-  HVDBGLOG("TAHOE-SYNIC: Writing EOM targetCPU=%u actualCPU=%u",
-           cpu, actualCpu);
 #else
   //
   // PM kext API does not exist on 10.4, call function on all CPUs.

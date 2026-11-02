@@ -53,7 +53,9 @@
 //
 #define kHyperVGraphicsRequestTransactionBaseID 0x46495348
 
-#define kHyperVGraphicsImageUpdateRefreshRateMS      10
+// Bound the full-frame fallback to approximately 30 updates per second.
+// This pacing experiment is separate from cursor conversion and SynIC ownership.
+#define kHyperVGraphicsImageUpdateRefreshRateMS      33
 
 //
 // Graphics messages.
